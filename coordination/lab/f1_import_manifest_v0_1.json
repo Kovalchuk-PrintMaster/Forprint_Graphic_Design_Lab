@@ -1,0 +1,92 @@
+{
+  "created_utc": "2026-10-25T11:50:19.989148+00:00",
+  "f1_original_files_untracked": true,
+  "files": [
+    {
+      "bytes": 542,
+      "path": "coordination/graphic_design_lab/functional_pilot/gdl_f1_design_spec_v0_1.json",
+      "sha256": "660c6af3fcc6680fbf1b899e62492ce11520b84a1e0b9589dfae86bb0b8e27a8",
+      "source": "F1_LOCAL_UNTRACKED_HASH_PINNED"
+    },
+    {
+      "bytes": 4638,
+      "path": "scripts/graphic_design_lab/worker_runtime/gdl_f1_functional_design_template_v0_1.jsx",
+      "sha256": "03d5f31e1c63b2355ef8c45a469459a402e497a41c6d31d20d667dea8b25e481",
+      "source": "F1_LOCAL_UNTRACKED_HASH_PINNED"
+    },
+    {
+      "bytes": 14886,
+      "path": "scripts/graphic_design_lab/worker_runtime/gdl_f1_functional_pilot_v0_1.py",
+      "sha256": "59a137795b2337167894faf36482318132e3f3cbc2ed6a63e826118bb258b27f",
+      "source": "F1_LOCAL_UNTRACKED_HASH_PINNED"
+    },
+    {
+      "bytes": 7601,
+      "path": "tests/graphic_design_lab/test_gdl_f1_functional_pilot_v0_1.py",
+      "sha256": "340d0d3af19fbc16f97bec0a4d0b2af058dbea43c8b6475fd460be9b0ae80410",
+      "source": "F1_LOCAL_UNTRACKED_HASH_PINNED"
+    },
+    {
+      "bytes": 4573,
+      "path": "coordination/graphic_design_lab/worker_runtime/windows_worker_w1_pilot_contract_v0_1.yaml",
+      "sha256": "a278770a343e7dd5651465c3148c8c69b2118858c183c79ed23838db6fd86cab",
+      "source": "LEGACY_SUPPORT_MATCHES_HEAD"
+    },
+    {
+      "bytes": 8602,
+      "path": "scripts/graphic_design_lab/worker_runtime/windows_worker_w2_host_inspector_v0_1.py",
+      "sha256": "a7504b90c0fe1fa772688ace02afc741d57e2bcf09db8ca86eb836a914b9efba",
+      "source": "LEGACY_SUPPORT_MATCHES_HEAD"
+    },
+    {
+      "bytes": 2746,
+      "path": "scripts/graphic_design_lab/worker_runtime/windows_worker_w2_host_probe_v0_1.ps1",
+      "sha256": "9a691937066f0148e797ab05c7a7fa384610e522c7c7b628abd7cc944db61389",
+      "source": "LEGACY_SUPPORT_MATCHES_HEAD"
+    },
+    {
+      "bytes": 9254,
+      "path": "scripts/graphic_design_lab/worker_runtime/windows_worker_w2_3_workspace_initializer_v0_1.py",
+      "sha256": "998df8415e78b92764fe59a8bf0530bd824bd53bdc0e34d54b4aba85a3041de9",
+      "source": "LEGACY_SUPPORT_MATCHES_HEAD"
+    },
+    {
+      "bytes": 7064,
+      "path": "scripts/graphic_design_lab/worker_runtime/windows_worker_w2_3_workspace_initializer_v0_1.ps1",
+      "sha256": "3dda9696a198eeb58cfae713d8d8deacb279bf7246b2a4f93266410d2ea5da7e",
+      "source": "LEGACY_SUPPORT_MATCHES_HEAD"
+    },
+    {
+      "bytes": 12858,
+      "path": "scripts/graphic_design_lab/worker_runtime/windows_worker_w2_5_3_limited_native_illustrator_probe_v0_1.py",
+      "sha256": "c1008dc482fc7b07d8dc9b51a3e60a4a8e204e7e9a4d542bcb8f2198fb217a61",
+      "source": "LEGACY_SUPPORT_MATCHES_HEAD"
+    },
+    {
+      "bytes": 11929,
+      "path": "scripts/graphic_design_lab/worker_runtime/windows_worker_w2_5_3_limited_native_illustrator_controller_v0_1.ps1",
+      "sha256": "ac0d5f6af2cf2d0af7ed2d1f86500f286306e8626d4a806f587a780ee2167439",
+      "source": "LEGACY_SUPPORT_MATCHES_HEAD"
+    },
+    {
+      "bytes": 5929,
+      "path": "scripts/graphic_design_lab/worker_runtime/windows_worker_w2_5_3_limited_native_illustrator_runner_v0_1.ps1",
+      "sha256": "c2d790d5895283f7adc5e4cf341840f44b43d5fe139178002553e334273f44e5",
+      "source": "LEGACY_SUPPORT_MATCHES_HEAD"
+    },
+    {
+      "bytes": 3367,
+      "path": "scripts/graphic_design_lab/worker_runtime/windows_worker_w2_5_3_limited_native_illustrator_proof_v0_1.jsx",
+      "sha256": "2f586907039e0b9ae1562df361aeb02db8dc88262b9cce3bf9a25c181a7982bb",
+      "source": "LEGACY_SUPPORT_MATCHES_HEAD"
+    }
+  ],
+  "legacy_support_compatibility_only": true,
+  "migration_kind": "NON_DESTRUCTIVE_COPY",
+  "production_ready": false,
+  "schema_version": "gdl_f1_independent_bootstrap_manifest_v0_1",
+  "source_head": "bbb2ed74a8ff5a1cbab9d722e8402fa635e988ba",
+  "source_repository": "Forprint_Prepress_Hub",
+  "state": "SOURCE_COPIED_NOT_FUNCTIONALLY_ACCEPTED",
+  "windows_execution_performed": false
+}

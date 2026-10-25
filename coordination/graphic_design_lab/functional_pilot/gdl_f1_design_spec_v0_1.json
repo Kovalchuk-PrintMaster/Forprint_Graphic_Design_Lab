@@ -1,0 +1,19 @@
+{
+  "schema_version": "gdl_f1_functional_design_spec_v0_1",
+  "kind": "SYNTHETIC_ONLY",
+  "task_id": "gdl-f1-functional-design-001",
+  "attempt_id": "a0001",
+  "format_mm": [
+    210,
+    297
+  ],
+  "headline": "РЕДАГОВАНИЙ МАКЕТ",
+  "subtitle": "ForPrint · Тест автоматизації дизайну",
+  "body": "Векторні елементи · Окремі шари · Живий текст",
+  "footer": "ПІЛОТ F1 / БЕЗ ДАНИХ ЗАМОВНИКА",
+  "accent_rgb": [
+    16,
+    141,
+    133
+  ]
+}
