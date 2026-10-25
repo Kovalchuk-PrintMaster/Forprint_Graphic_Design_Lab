@@ -19,3 +19,13 @@ gc19-watermark-inspect:
 gc19-watermark-export:
 	@test -n "$(RESOURCE_MANIFEST)" -a -n "$(OUTPUT_NAME)" || (echo "Set RESOURCE_MANIFEST=... OUTPUT_NAME=gc19_..."; exit 2)
 	$(PYTHON) -B $(GC19_NATIVE_WATERMARK_CLI) --mode export --resource-manifest "$(RESOURCE_MANIFEST)" --output-name "$(OUTPUT_NAME)" --confirm-export
+
+.PHONY: gc20-p02-test gc20-p02-check gc20-p02-export
+gc20-p02-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc20_p02_native_background_v0_1.py
+gc20-p02-check:
+	@test -n "$(RESOURCE_MANIFEST)" -a -n "$(GC19_ASSETS_DIR)" || (echo "RESOURCE_MANIFEST and GC19_ASSETS_DIR required"; exit 2)
+	$(PYTHON) -B scripts/graphic_design_lab/greeting_cards/gc20_p02_native_background_v0_1.py --mode check --resource-manifest "$(RESOURCE_MANIFEST)" --gc19-assets-dir "$(GC19_ASSETS_DIR)"
+gc20-p02-export:
+	@test -n "$(RESOURCE_MANIFEST)" -a -n "$(GC19_ASSETS_DIR)" -a -n "$(OUTPUT_NAME)" || (echo "RESOURCE_MANIFEST, GC19_ASSETS_DIR and OUTPUT_NAME required"; exit 2)
+	$(PYTHON) -B scripts/graphic_design_lab/greeting_cards/gc20_p02_native_background_v0_1.py --mode export --resource-manifest "$(RESOURCE_MANIFEST)" --gc19-assets-dir "$(GC19_ASSETS_DIR)" --output-name "$(OUTPUT_NAME)" --confirm-export
