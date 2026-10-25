@@ -168,14 +168,45 @@ def validate_p03_layer_bbox(bbox: Any, role: str) -> list[float]:
     return [float(v) for v in bbox]
 
 
-def compose_p03(reference: Path, flowers: Path, gc21: Any) -> tuple[dict[str, Any], dict[str, bytes]]:
-    """Source template mask and bbox; normalized flower artwork is embedded, not linked.
+def normalize_accepted_flowers(source_path: Path, target_size: tuple[int, int]) -> bytes:
+    """Reproduce PDF Builder normalize_portrait_bytes for SHA-pinned flowers.
 
-    This matches GC21's reference-mask composition approach, but is NOT yet
-    claimed pixel parity with the PDF Builder's normalized PNG procedure.
+    Preserve RGBA supplied by accepted resource. Do NOT import legacy portrait
+    PDF smask; a replaced image must not inherit an unrelated silhouette.
+    """
+    from PIL import Image
+    width, height = target_size
+    require(width > 0 and height > 0, 'P03_NORMALIZE_TARGET_INVALID')
+    with Image.open(source_path) as source:
+        require(source.width > 50 and source.height > 50,
+                'P03_FLOWERS_IMAGE_TOO_SMALL')
+        require(source.width * source.height <= MAX_DEFAULT_FLOWERS_PIXELS,
+                'P03_FLOWERS_IMAGE_PIXEL_LIMIT')
+        image = source.convert('RGBA')
+    source_ratio = image.width / image.height
+    target_ratio = width / height
+    if source_ratio > target_ratio:
+        crop_width = round(image.height * target_ratio)
+        left = (image.width - crop_width) // 2
+        box = (left, 0, left + crop_width, image.height)
+    else:
+        crop_height = round(image.width / target_ratio)
+        top = (image.height - crop_height) // 2
+        box = (0, top, image.width, top + crop_height)
+    image = image.crop(box).resize((width, height), Image.Resampling.LANCZOS)
+    output = io.BytesIO()
+    image.save(output, format='PNG', optimize=False)
+    return output.getvalue()
+
+
+def compose_p03(reference: Path, flowers: Path, gc21: Any) -> tuple[dict[str, Any], dict[str, bytes]]:
+    """Use source-pinned P03 bbox and normalized accepted-asset alpha only.
+
+    The legacy portrait source mask is verified but NOT composited with flowers.
+    Full visual/pixel parity remains subject to independent Illustrator review.
     """
     import pymupdf
-    from PIL import Image, ImageChops
+    from PIL import Image
 
     require(file_sha(reference) == gc21.REFERENCE_SHA, 'GC21_REFERENCE_SHA_MISMATCH')
     require(reference != flowers, 'FLOWERS_REFERENCE_IDENTITY_CONFLICT')
@@ -193,31 +224,17 @@ def compose_p03(reference: Path, flowers: Path, gc21: Any) -> tuple[dict[str, An
         mask_xref = next((int(entry[1] or 0) for entry in page.get_images(full=True)
                           if int(entry[0]) == int(chosen['xref'])), 0)
         require(mask_xref > 0, 'P03_REFERENCE_SOFT_MASK_MISSING')
+        # Reference portrait smask is provenance only. The Prepress PDF Builder
+        # REPLACES that portrait with normalized accepted flowers. Re-applying
+        # the OLD portrait's silhouette to flowers breaks approved P03 parity.
+        # Keep the source mask identity/dimension audit but never multiply it.
         with Image.open(io.BytesIO(doc.extract_image(mask_xref)['image'])) as img:
-            mask = img.convert('L')
+            reference_portrait_mask = img.convert('L')
         target_size = (int(chosen['width']), int(chosen['height']))
-        require(mask.size == target_size and min(target_size) > 100,
+        require(reference_portrait_mask.size == target_size and min(target_size) > 100,
                 'P03_REFERENCE_MASK_PIXEL_SIZE_CHANGED')
-        require(mask.getextrema() != (0, 0), 'P03_REFERENCE_MASK_EMPTY')
-        with Image.open(flowers) as original:
-            require(original.width > 50 and original.height > 50,
-                    'P03_FLOWERS_IMAGE_TOO_SMALL')
-            require(original.width * original.height <= MAX_DEFAULT_FLOWERS_PIXELS,
-                    'P03_FLOWERS_IMAGE_PIXEL_LIMIT')
-            src = original.convert('RGBA')
-        ratio = target_size[0] / target_size[1]
-        if src.width / src.height > ratio:
-            crop_width = round(src.height * ratio)
-            left = (src.width - crop_width) // 2
-            src = src.crop((left, 0, left + crop_width, src.height))
-        else:
-            crop_height = round(src.width / ratio)
-            top = (src.height - crop_height) // 2
-            src = src.crop((0, top, src.width, top + crop_height))
-        src = src.resize(target_size, Image.Resampling.LANCZOS)
-        src.putalpha(ImageChops.multiply(src.getchannel('A'), mask))
-        image_io = io.BytesIO()
-        src.save(image_io, 'PNG')
+        require(reference_portrait_mask.getextrema() != (0, 0), 'P03_REFERENCE_MASK_EMPTY')
+        normalized_flowers = normalize_accepted_flowers(flowers, target_size)
         images = {}
         layers = []
         def add(role: str, filename: str, payload: bytes, bbox: list[float], locked: bool = False) -> None:
@@ -233,7 +250,7 @@ def compose_p03(reference: Path, flowers: Path, gc21: Any) -> tuple[dict[str, An
                 add('P03.PAPER', 'p03_source_paper.png', blob, gc21.bbox_mm(item), locked)
             else:
                 frame = (blob, gc21.bbox_mm(item), locked)
-        add('P03.DEFAULT_FLOWERS', 'p03_default_flowers_masked.png', image_io.getvalue(), reference_bbox)
+        add('P03.DEFAULT_FLOWERS', 'p03_default_flowers_normalized.png', normalized_flowers, reference_bbox)
         add('P03.FRAME', 'p03_source_frame.png', *frame)
     scene = {
         'schema_version': 'gdl_gc27_p03_default_flowers_scene_v0_1',
@@ -242,13 +259,15 @@ def compose_p03(reference: Path, flowers: Path, gc21: Any) -> tuple[dict[str, An
         'source_reference_sha256': file_sha(reference),
         'default_flowers_sha256': file_sha(flowers),
         'reference_mask_present': True,
+        'reference_mask_applied_to_flowers': False,
+        'flowers_alpha_origin': 'ACCEPTED_RESOURCE_RGBA_ONLY',
         'source_mask_dimensions': list(target_size),
         'source_placement_bbox_pdf_mm': reference_bbox,
         'layers': layers,
         'illustrator_executed': False, 'native_full_card_supported': False,
         'pdf_builder_pixel_parity_verified': False, 'production_ready': False,
         'visual_approval': 'NOT_RECORDED',
-        'required_manual_checks': ['P03 shape/mask and crop', 'source-vs-native pixel review',
+        'required_manual_checks': ['P03 accepted-asset alpha and crop (not source portrait mask)', 'source-vs-native pixel review',
                                    'layer editability', 'AI reopen proof', 'CMYK deferred'],
     }
     return scene, images
@@ -314,7 +333,7 @@ def run(a: argparse.Namespace, *, deps: tuple[Any, Any, Any, Any] | None = None)
         print('GDL_GC27_P03=SOURCE_CHECK_PASS_NO_FILES_WRITTEN')
     print('GC27_ACCEPTED_JOBS=' + str(check['jobs']))
     print('GC27_NATIVE_LAYERS=3')
-    print('GC27_REFERENCE_MASK=VERIFIED')
+    print('GC27_REFERENCE_MASK=VERIFIED_NOT_APPLIED_TO_FLOWERS')
     print('GC27_CLIENT_CONTENT_LOGGED=false PRODUCTION_READY=false')
     return 0
 

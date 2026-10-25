@@ -30,8 +30,8 @@ def test_three_layers_and_reopen_gate_remain():
 def test_no_print_authority_and_no_asset_transformation():
     s=code()
     assert 'scene.production_ready' in s
-    assert 'production_ready:false' in s
-    assert 'pdf_builder_pixel_parity_verified:false' in s
+    assert re.search(r'production_ready[\"\s]*:\s*false', s)
+    assert re.search(r'pdf_builder_pixel_parity_verified[\"\s]*:\s*false', s)
     assert 'P03_SOURCE_VISIBLE_INTERSECTION_TOO_SMALL' in s
     assert 'placed.embed();' in s
 
@@ -43,6 +43,6 @@ def test_layer_placement_scope_one_reuse_two_additions():
 
 def test_no_unreviewed_publish_added():
     s=code()
-    assert "visual_approved:false" in s
+    assert re.search(r'visual_approved[\"\s]*:\s*false', s)
     assert "NATIVE_FULL_CARD" not in s
     assert "must(!target.exists, 'OUTPUT_EXISTS_NO_OVERWRITE');" in s

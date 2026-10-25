@@ -173,19 +173,21 @@ def test_refuses_mixed_portrait_input(prepared):
         gc27.verify_handoff(mixed,gc23.catalog(),gc25)
 
 
-def test_p03_composition_keeps_mask_and_geometry(prepared):
+def test_p03_composition_preserves_accepted_alpha_and_geometry(prepared):
     gc21,gc23,_,_,ref,flowers,manifest,*_=prepared
     scene,assets=gc27.compose_p03(ref,flowers,gc21)
     assert scene['source_reference_sha256']==gc27.file_sha(ref)
     assert scene['default_flowers_sha256']==gc27.file_sha(flowers)
     assert scene['reference_mask_present'] is True
+    assert scene['reference_mask_applied_to_flowers'] is False
+    assert scene['flowers_alpha_origin'] == 'ACCEPTED_RESOURCE_RGBA_ONLY'
     assert scene['source_placement_bbox_pdf_mm']==[19,32,195,268]
     assert [x['role'] for x in scene['layers']]==['P03.PAPER','P03.DEFAULT_FLOWERS','P03.FRAME']
     assert len(assets)==3
     assert scene['production_ready'] is False and scene['pdf_builder_pixel_parity_verified'] is False
-    with Image.open(io.BytesIO(assets['p03_default_flowers_masked.png'])) as out:
+    with Image.open(io.BytesIO(assets['p03_default_flowers_normalized.png'])) as out:
         assert out.mode=='RGBA' and out.size == tuple(scene['source_mask_dimensions'])
-        assert out.getchannel('A').getextrema()[1] < 255
+        assert out.getchannel('A').getextrema() == (255, 255)  # source flowers opaque; old portrait mask MUST NOT clip them
 
 
 def test_cannot_accept_reference_digest_drift(prepared):
@@ -389,3 +391,46 @@ def test_r002_illustrator_and_python_overscan_gates_mirror():
     assert gc27.P03_MAX_SOURCE_SCALE==4.0
     assert gc27.P03_MIN_VISIBLE_ARTBOARD_FRACTION==0.10
     assert gc27.P03_FIXED_LAYER_BLEED_TOLERANCE_MM==5.0
+
+
+# GC27 r005: customer-approved PDF Builder parity regression.
+def test_r005_opaque_flowers_not_cut_by_legacy_reference_portrait_mask(prepared):
+    gc21, gc23, _, _, ref, flowers, manifest, *_ = prepared
+    scene, images = gc27.compose_p03(ref, flowers, gc21)
+    with Image.open(io.BytesIO(images['p03_default_flowers_normalized.png'])) as result:
+        assert result.getchannel('A').getextrema() == (255, 255)
+    assert scene['reference_mask_present'] is True
+    assert scene['reference_mask_applied_to_flowers'] is False
+    assert scene['source_placement_bbox_pdf_mm'] == [19, 32, 195, 268]
+
+@pytest.mark.parametrize('alpha', [75, 190, 255])
+def test_r005_only_accepted_rgba_controls_alpha(tmp_path, alpha):
+    src=tmp_path/'accepted_flowers.png'
+    src.write_bytes(png((210, 20, 30), size=(300, 220), alpha=alpha))
+    normalized=gc27.normalize_accepted_flowers(src, (1254, 1254))
+    with Image.open(io.BytesIO(normalized)) as result:
+        assert result.mode == 'RGBA'
+        assert result.size == (1254, 1254)
+        assert result.getchannel('A').getextrema() == (alpha,alpha)
+
+def test_r005_normalization_reproduces_pdf_builder_formula(tmp_path):
+    src=tmp_path/'accepted_flowers.png'
+    image=Image.new('RGBA', (340, 260), (0,0,0,255))
+    for x in range(340):
+        for y in range(260):
+            image.putpixel((x,y), (x%256, y%256, (x+y)%256,255))
+    image.save(src)
+    # Independent known PDF Builder center crop; width/height ratio=1
+    left=(340-260)//2
+    expected=image.crop((left,0,left+260,260)).resize((150,150),Image.Resampling.LANCZOS)
+    output=gc27.normalize_accepted_flowers(src,(150,150))
+    with Image.open(io.BytesIO(output)) as result:
+        assert result.tobytes()==expected.tobytes()
+
+def test_r005_no_pdf_portrait_alpha_multiplied_on_accepted_flowers():
+    source=FILE.read_text(encoding='utf8')
+    assert 'src.putalpha' not in source
+    assert 'ImageChops.multiply' not in source
+    assert "'reference_mask_applied_to_flowers': False" in source
+    assert 'normalize_accepted_flowers(flowers, target_size)' in source
+    assert 'GC27_REFERENCE_MASK=VERIFIED_NOT_APPLIED_TO_FLOWERS' in source

@@ -15,16 +15,37 @@
     var code = 'NOT_RUN';
     function must(test, name) { if (!test) { throw new Error(name); } }
     function point(value) { return Number(value) * MM; }
+    // ExtendScript may lack native JSON serialization. Build this fixed-schema
+    // report using an ES3-compatible quoted-string encoder instead.
+    function jsonQuote(value) {
+        return '"' + String(value).replace(/[\x00-\x1f\\"]/g, function (c) {
+            if (c === '\\') { return '\\\\'; }
+            if (c === '"') { return '\\"'; }
+            var hex = c.charCodeAt(0).toString(16);
+            while (hex.length < 4) { hex = '0' + hex; }
+            return '\\u' + hex;
+        }) + '"';
+    }
+    function resultJson() {
+        return '{"schema_version":"gdl_gc27_p03_native_proof_result_v0_1"' +
+          ',"state":' + jsonQuote(outcome) +
+          ',"error":' + jsonQuote(code) +
+          ',"artboards":1,"expected_layers":3' +
+          ',"native_full_card_supported":false,"visual_approved":false' +
+          ',"pdf_builder_pixel_parity_verified":false,"production_ready":false}' + '\n';
+    }
     function putResult() {
         if (!target.exists) { return; }
         var file = new File(target.fsName + '/result.json');
-        if (file.exists || !file.open('w')) { return; }
-        file.encoding='UTF-8';
-        file.write(JSON.stringify({schema_version:'gdl_gc27_p03_native_proof_result_v0_1',
-          state:outcome, error:code, artboards:1, expected_layers:3,
-          native_full_card_supported:false, visual_approved:false,
-          pdf_builder_pixel_parity_verified:false, production_ready:false}));
-        file.close();
+        if (file.exists) { return; } // preserve previous operator evidence
+        var payload = resultJson(); // serialize before creating the report
+        file.encoding = 'UTF-8';
+        must(file.open('w'), 'P03_RESULT_JSON_OPEN_FAILED');
+        var written = false;
+        try { written = file.write(payload); }
+        finally { file.close(); }
+        must(written && file.exists && file.length > 100,
+             'P03_RESULT_JSON_WRITE_FAILED');
     }
     try {
         must(scene.schema_version === 'gdl_gc27_p03_default_flowers_scene_v0_1', 'BAD_SCENE');
