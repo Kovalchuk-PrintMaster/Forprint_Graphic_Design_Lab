@@ -116,3 +116,19 @@ gc26-launcher-check:
 gc26-launcher-install:
 	@test -n "$(CLIENT_NAME)" -a "$(CONFIRM_INSTALL)" = YES || (echo "CLIENT_NAME=... CONFIRM_INSTALL=YES required"; exit 2)
 	$(PYTHON) -B $(GC26_CLIENT_INSTALLER) --mode install --client-name "$(CLIENT_NAME)" --confirm-install
+
+# GC27: independent P03 DEFAULT_ASSET native Illustrator proof; NOT full four-page card.
+GC27_P03_NATIVE := scripts/graphic_design_lab/greeting_cards/gc27_p03_default_flowers_v0_1.py
+GC27_CLIENT_NAME ?=
+GC27_PACKAGE_NAME ?=
+GC27_RESOURCE_MANIFEST ?=
+GC27_RESOURCE_SOURCE_ROOT ?= ../forprint_prepress_hub
+.PHONY: gc27-p03-test gc27-p03-check gc27-p03-prepare
+gc27-p03-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc27_p03_default_flowers_v0_1.py
+gc27-p03-check:
+	@test -n "$(GC27_CLIENT_NAME)" -a -n "$(GC27_PACKAGE_NAME)" -a -n "$(GC27_RESOURCE_MANIFEST)" || (echo "GC27_CLIENT_NAME, GC27_PACKAGE_NAME, GC27_RESOURCE_MANIFEST required"; exit 2)
+	$(PYTHON) -B $(GC27_P03_NATIVE) --mode check --client-name "$(GC27_CLIENT_NAME)" --package-name "$(GC27_PACKAGE_NAME)" --resource-manifest "$(GC27_RESOURCE_MANIFEST)" --source-root "$(GC27_RESOURCE_SOURCE_ROOT)"
+gc27-p03-prepare:
+	@test -n "$(GC27_CLIENT_NAME)" -a -n "$(GC27_PACKAGE_NAME)" -a -n "$(GC27_RESOURCE_MANIFEST)" -a -n "$(OUTPUT_NAME)" -a "$(CONFIRM_PRIVATE_PREPARE)" = YES || (echo "GC27_CLIENT_NAME, GC27_PACKAGE_NAME, GC27_RESOURCE_MANIFEST, OUTPUT_NAME, CONFIRM_PRIVATE_PREPARE=YES required"; exit 2)
+	$(PYTHON) -B $(GC27_P03_NATIVE) --mode prepare --confirm-private-prepare --client-name "$(GC27_CLIENT_NAME)" --package-name "$(GC27_PACKAGE_NAME)" --resource-manifest "$(GC27_RESOURCE_MANIFEST)" --source-root "$(GC27_RESOURCE_SOURCE_ROOT)" --output-name "$(OUTPUT_NAME)"
