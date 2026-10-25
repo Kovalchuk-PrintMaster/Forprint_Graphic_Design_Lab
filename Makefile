@@ -31,19 +31,20 @@ gc20-p02-export:
 	$(PYTHON) -B scripts/graphic_design_lab/greeting_cards/gc20_p02_native_background_v0_1.py --mode export --resource-manifest "$(RESOURCE_MANIFEST)" --gc19-assets-dir "$(GC19_ASSETS_DIR)" --output-name "$(OUTPUT_NAME)" --confirm-export
 
 # GC21: source-verified private 4-artboard Illustrator candidate (not production).
-GC21_NATIVE_CLI ?= scripts/graphic_design_lab/greeting_cards/gc21_native_illustrator_builder_v0_1.py
-GC21_INPUTS_CONFIG ?= ../forprint_prepress_hub/tmp/gdl_gc09b_real_pdf_proof_20261010/private_inputs_local.json
+GC21_NATIVE_CLI ?= scripts/graphic_design_lab/greeting_cards/gc24_guarded_native_builder_v0_1.py
+GC21_INPUTS_CONFIG ?=
 GC21_SOURCE_ROOT ?= ../forprint_prepress_hub
 GC21_GC19_DIR ?= tmp/gc19_native_watermarks_20261025_r001
 GC21_GC20_DIR ?= tmp/gc20_p02_locked_base_20261025_r001
 .PHONY: gc21-native-test gc21-native-check gc21-native-prepare
 gc21-native-test:
-	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc21_native_illustrator_builder_v0_1.py
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc21_native_illustrator_builder_v0_1.py tests/graphic_design_lab/test_gc24_guarded_native_builder_v0_1.py
 gc21-native-check:
+	@test -n "$(GC21_INPUTS_CONFIG)" || (echo "Set GC21_INPUTS_CONFIG=/private/accepted/inputs.json"; exit 2)
 	$(PYTHON) -B $(GC21_NATIVE_CLI) --mode check --inputs-config "$(GC21_INPUTS_CONFIG)" --source-root "$(GC21_SOURCE_ROOT)" --gc19-assets-dir "$(GC21_GC19_DIR)" --gc20-scene-dir "$(GC21_GC20_DIR)"
 gc21-native-prepare:
-	@test -n "$(OUTPUT_NAME)" || (echo "OUTPUT_NAME required"; exit 2)
-	$(PYTHON) -B $(GC21_NATIVE_CLI) --mode prepare --confirm-private-prepare --inputs-config "$(GC21_INPUTS_CONFIG)" --source-root "$(GC21_SOURCE_ROOT)" --gc19-assets-dir "$(GC21_GC19_DIR)" --gc20-scene-dir "$(GC21_GC20_DIR)" --output-name "$(OUTPUT_NAME)"
+	@test -n "$(GC21_INPUTS_CONFIG)" -a -n "$(OUTPUT_NAME)" -a "$(REAL_INPUTS_CONFIRM)" = "YES" || (echo "Set GC21_INPUTS_CONFIG=... OUTPUT_NAME=... REAL_INPUTS_CONFIRM=YES"; exit 2)
+	$(PYTHON) -B $(GC21_NATIVE_CLI) --mode prepare --confirm-private-prepare --confirm-reviewed-real-inputs --inputs-config "$(GC21_INPUTS_CONFIG)" --source-root "$(GC21_SOURCE_ROOT)" --gc19-assets-dir "$(GC21_GC19_DIR)" --gc20-scene-dir "$(GC21_GC20_DIR)" --output-name "$(OUTPUT_NAME)"
 
 # GC21 PREPRESS: single-use remote Illustrator pilot over SSH; no automatic retries.
 GC21_REMOTE := scripts/graphic_design_lab/worker_runtime/gc21_s01_remote_operator_v0_1.py
@@ -87,3 +88,8 @@ gc23-variants-source-check:
 gc23-variants-preflight:
 	@test -n "$(INPUTS_CONFIG)" -a -n "$(SOURCE_ROOT)" || (echo "INPUTS_CONFIG and SOURCE_ROOT required"; exit 2)
 	$(PYTHON) -B $(GC23_VARIANTS) --mode preflight --inputs-config "$(INPUTS_CONFIG)" --source-root "$(SOURCE_ROOT)"
+
+# GC24: safe GC21 real-accepted-input route; no new renderer and no production authority.
+.PHONY: gc24-guard-test
+gc24-guard-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc24_guarded_native_builder_v0_1.py
