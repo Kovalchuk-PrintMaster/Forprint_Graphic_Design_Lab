@@ -102,3 +102,17 @@ gc25-illustrator-queue-test:
 gc25-illustrator-queue-check:
 	@test -n "$(SHARE)" -a -n "$(WORKSPACE_RELATIVE_B64)" || (echo "SHARE and WORKSPACE_RELATIVE_B64 required"; exit 2)
 	$(PYTHON) -B $(GC25_ILLUSTRATOR_QUEUE) --mode check --share "$(SHARE)" --workspace-relative-b64 "$(WORKSPACE_RELATIVE_B64)"
+
+# GC26: rebuildable one-client Illustrator Windows launcher (create missing only).
+GC26_CLIENT_INSTALLER := scripts/graphic_design_lab/greeting_cards/gc26_illustrator_client_launcher_deploy_v0_1.py
+.PHONY: gc26-launcher-test gc26-launcher-discover gc26-launcher-check gc26-launcher-install
+gc26-launcher-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc26_illustrator_client_launcher_deploy_v0_1.py
+gc26-launcher-discover:
+	$(PYTHON) -B $(GC26_CLIENT_INSTALLER) --mode discover
+gc26-launcher-check:
+	@test -n "$(CLIENT_NAME)" || (echo "CLIENT_NAME required"; exit 2)
+	$(PYTHON) -B $(GC26_CLIENT_INSTALLER) --mode check --client-name "$(CLIENT_NAME)"
+gc26-launcher-install:
+	@test -n "$(CLIENT_NAME)" -a "$(CONFIRM_INSTALL)" = YES || (echo "CLIENT_NAME=... CONFIRM_INSTALL=YES required"; exit 2)
+	$(PYTHON) -B $(GC26_CLIENT_INSTALLER) --mode install --client-name "$(CLIENT_NAME)" --confirm-install
