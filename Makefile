@@ -93,3 +93,12 @@ gc23-variants-preflight:
 .PHONY: gc24-guard-test
 gc24-guard-test:
 	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc24_guarded_native_builder_v0_1.py
+
+# GC25: independent GDL Illustrator SMB preflight launcher; read-only, no native render.
+GC25_ILLUSTRATOR_QUEUE := scripts/graphic_design_lab/greeting_cards/gc25_illustrator_smb_preflight_v0_1.py
+.PHONY: gc25-illustrator-queue-test gc25-illustrator-queue-check
+gc25-illustrator-queue-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc25_illustrator_smb_preflight_v0_1.py
+gc25-illustrator-queue-check:
+	@test -n "$(SHARE)" -a -n "$(WORKSPACE_RELATIVE_B64)" || (echo "SHARE and WORKSPACE_RELATIVE_B64 required"; exit 2)
+	$(PYTHON) -B $(GC25_ILLUSTRATOR_QUEUE) --mode check --share "$(SHARE)" --workspace-relative-b64 "$(WORKSPACE_RELATIVE_B64)"
