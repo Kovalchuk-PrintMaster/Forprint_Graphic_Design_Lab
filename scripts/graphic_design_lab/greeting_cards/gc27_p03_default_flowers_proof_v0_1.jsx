@@ -61,9 +61,12 @@
         must(target.create(), 'PRIVATE_RESULT_FOLDER_CREATE_FAILED');
         doc = app.documents.add(DocumentColorSpace.RGB, W, H);
         doc.artboards[0].artboardRect=[0,H,W,0];
+        // Illustrator creates one default layer in each new document.
+        // Reuse it for P03.PAPER; added layers stack ABOVE it.
+        must(doc.layers.length === 1, 'P03_INITIAL_LAYER_COUNT_INVALID');
         for (j=0;j<scene.layers.length;j++) {
             var layerSpec=scene.layers[j];
-            var layer=doc.layers.add();
+            var layer=(j===0)?doc.layers[0]:doc.layers.add();
             layer.name=layerSpec.role;
             var placed=doc.placedItems.add();
             placed.file=new File(folder.fsName + '/' + layerSpec.file);
