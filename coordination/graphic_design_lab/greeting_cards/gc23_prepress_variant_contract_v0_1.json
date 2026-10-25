@@ -1,0 +1,180 @@
+{
+  "authorities": {
+    "bilingual_runtime_general_authorized": false,
+    "dual_runtime_general_authorized": false,
+    "gdl_can_generate_production": false,
+    "gdl_can_review_catalog": true,
+    "illustrator_parity_proven": false,
+    "source_assets_private": true
+  },
+  "bleed_mm": 2,
+  "front_variants": {
+    "BILINGUAL_OCCASION": {
+      "observed_jobs": 1,
+      "occasion_bbox_mm": [
+        21.5,
+        191,
+        194.5,
+        262.5
+      ],
+      "recipient_branding_zone_mm": null,
+      "runtime": "CATALOG_ONLY_OR_SEPARATE_RUNTIME_REVIEW",
+      "sender_logo_bbox_mm": [
+        74,
+        112,
+        140,
+        178
+      ]
+    },
+    "RECIPIENT_BRANDING_OVERLAY": {
+      "observed_jobs": 3,
+      "occasion_bbox_mm": [
+        32,
+        203.5,
+        182,
+        248
+      ],
+      "recipient_branding_zone_mm": [
+        26,
+        134,
+        188,
+        191
+      ],
+      "runtime": "STANDARD_RUNTIME_LIST",
+      "sender_logo_bbox_mm": [
+        69,
+        39,
+        145,
+        115
+      ]
+    },
+    "STANDARD": {
+      "observed_jobs": 6,
+      "occasion_bbox_mm": [
+        32,
+        203.5,
+        182,
+        248
+      ],
+      "recipient_branding_zone_mm": null,
+      "runtime": "STANDARD_RUNTIME_LIST",
+      "sender_logo_bbox_mm": [
+        64.5,
+        59.5,
+        149.5,
+        144.5
+      ]
+    }
+  },
+  "p02_back": "LOCKED_REFERENCE_ONLY",
+  "p04_greeting_bbox_pdf_mm": [
+    32,
+    32,
+    182,
+    212
+  ],
+  "p04_sender_rule": "SOURCE_VERIFIED_SENDER_TEXT_NOT_INTAKE",
+  "photo_variants": {
+    "DEFAULT_ASSET": {
+      "asset_id": "flowers.default.v1",
+      "runtime": "STANDARD_RUNTIME_LIST",
+      "sha256": "d9113f8d6f9627f9b106f5550e6187aaa562139fef6122e4834e7d4f2f3bbd67",
+      "source": "server_resource_manifest"
+    },
+    "PORTRAIT": {
+      "runtime": "STANDARD_RUNTIME_LIST",
+      "source": "accepted_artifact_manifest"
+    }
+  },
+  "physical_order": [
+    "P01_FRONT",
+    "P02_BACK",
+    "P03_INSIDE_IMAGE",
+    "P04_GREETING"
+  ],
+  "physical_size_mm": [
+    214,
+    301
+  ],
+  "pinned_sha256": {
+    "front_font": "a6f6dacb871be365ad93fe1aab09332f768cd2aa35fdfca8e0053a38f5a2662b",
+    "greeting_font": "628f8ed5839ae3e6ab7406d365e275ea82c563912a92d2e57fb548b6149e9025",
+    "reference_pdf": "66ed88de51ce621fcc0067263e6fc740392a1a0e9ee39e88514089451b1f2e85"
+  },
+  "resource_ids": {
+    "flowers": "asset.flowers.default.v1",
+    "front_font": "font.front_occasion.monotype_corsiva.v1",
+    "greeting_font": "font.greeting_sender.zapf_chancery_c.v1",
+    "reference_pdf": "template.greeting_card.dolinska.v1"
+  },
+  "schema_version": "forprint_gdl_gc23_variant_contract_v0_1",
+  "signature_variants": {
+    "DUAL_GRIGO_HERASYMENKO": {
+      "runtime": "CANDIDATE_GATED_IN_BUILDER",
+      "source_id": "source.greeting_card.signature.dual_grigo_herasymenko.v1",
+      "source_sha256": "2cdff2f2c9a243c2189067675a9f093c0807df30ccae0f57eecc4003b271130c",
+      "type": "SOURCE_VERIFIED_VECTOR_AND_MASKED_RASTER"
+    },
+    "GRIGO": {
+      "runtime": "STANDARD_RUNTIME_LIST",
+      "source_id": "template.greeting_card.dolinska.v1",
+      "source_sha256": "66ed88de51ce621fcc0067263e6fc740392a1a0e9ee39e88514089451b1f2e85",
+      "type": "EXACT_SEVEN_SOURCE_VECTORS"
+    },
+    "HERASYMENKO": {
+      "runtime": "STANDARD_RUNTIME_LIST",
+      "signature_bbox_pdf_mm": [
+        82.877,
+        214.875,
+        128.258,
+        274.141
+      ],
+      "source_id": "source.greeting_card.signature.herasymenko.v1",
+      "source_sha256": "a5392be1234c026d1200cad288a3b4989f506f8eb32522dcbe6236bb221722a8",
+      "type": "EXACT_RASTER_SOFT_MASK"
+    }
+  },
+  "source_closed_commit": "b26cce19f4700cadaf34323e4c2e2909bcf5fcd8",
+  "source_file_digests": {
+    "app/graphic_design_lab/greeting_card_builder_input.py": "b687893a099550cea0da028c81b66a1fa16142050618dbdddea4ede41dbfb112",
+    "app/graphic_design_lab/greeting_card_builder_renderer.py": "54fe79f387e04fb4205388a697fcf1744407e0489904a8ea082aa1c5c15f1852",
+    "app/graphic_design_lab/greeting_card_canonical_sender_v0_1.py": "86b764bcff2a8749a7833c11170ab695fc43c27523fd17d2a9f4697bfb3ac10b",
+    "app/graphic_design_lab/greeting_card_dual_component_candidate_v0_1.py": "6e79be3f3c56d62bea4faa8116acf6c31a178fc0c5b6ce8dce31634db6fe3370",
+    "app/graphic_design_lab/greeting_card_dual_page4_candidate_v0_1.py": "8d632069583f1e891f4d41a96d958bf42745cf3520a5a183f950cfdfb97cb8f2",
+    "app/graphic_design_lab/greeting_card_embedded_components.py": "7f7f2b09c5f69c747ee5a82b7e06ed340f71a8ebf35f6279826d14aeb207e962",
+    "app/graphic_design_lab/greeting_card_pdf_primitives.py": "6d5bbe3046c7905650e7fbf572f0f9267d1dc3ac5d10557fce89372d5eba080b",
+    "app/graphic_design_lab/greeting_card_pdf_unicode_v0_1.py": "7c0113844dd161e0c53c099d9890dd161cbd845d149a0adaa8daffd8280dcf5f",
+    "app/graphic_design_lab/greeting_card_private_resources.py": "0f8c6cd276700cb30f2eb0523886f42f08837ecf11862ff09344a71360b12fd1",
+    "app/graphic_design_lab/greeting_card_recipient_overlay_v0_1.py": "f395dc354200798b73f78e1bda006c497b2fbfd310de166c837652905910f139",
+    "app/graphic_design_lab/greeting_card_sender_typography_v0_1.py": "f5aa882169ac064d289e80e904b9abf7d9c1b28aa19771d9c3d4ca1a01191478",
+    "app/graphic_design_lab/greeting_card_sender_zone_planner_v0_1.py": "dc1908bd543127e0ab322fe5482e4cf74fae6cd35cbf248eee0d15427b45c7cc",
+    "app/graphic_design_lab/greeting_card_signature_registry.py": "d2d6a65dc634675bc5caa11d557f4878dcb25aa81e1675a4fe931df5cf8fa02e",
+    "app/graphic_design_lab/greeting_card_signature_variants.py": "08c0941b8e965260025f45bee6ba827cc6b0476c39a1e2ccd05229e91677712c",
+    "coordination/graphic_design_lab/client_workflows/client_workspace_architecture_v0_1.yaml": "47d818646002f639f0292fd94b5538f8ba58a84fbe36db4ec0af62e8d634c99b",
+    "coordination/graphic_design_lab/directions/greeting_cards/canonical_sender_blocks_v0_1.yaml": "1f86062184b28191459d27a29e9d5aa936787649003368b84b898f48f7cbd15a",
+    "coordination/graphic_design_lab/directions/greeting_cards/client_execution_profile_v0_1.yaml": "00d52e4b26f69d178a58ba54863e6ef9e4bca7358efab3f04cbbc237d22e7144",
+    "coordination/graphic_design_lab/directions/greeting_cards/deterministic_builder_v0_1.yaml": "74006ffde51b93bd6796d40a68f990f5120d6f5f07687f3fe721eedfaa5aa319",
+    "coordination/graphic_design_lab/directions/greeting_cards/geometry_zones_v0_1.yaml": "871ac1d91e117dfefd074f4d73b78369165c7899e13db90b21f96aab00ca800f",
+    "coordination/graphic_design_lab/directions/greeting_cards/goal_driven_v0_1/02_PRODUCT/greeting_card_skeleton_v0_1.yaml": "2b6c37d2483037546239ea9f99c0b10d91b3bd42099a9716a1fde9b71efe9beb",
+    "coordination/graphic_design_lab/directions/greeting_cards/page4_canonical_repair_profile_v0_1.yaml": "ded49cc466a152d246851bebf78a6067422c434dfb4e359a828c35058dbfdc02",
+    "coordination/graphic_design_lab/directions/greeting_cards/private_resource_manifest_contract_v0_1.yaml": "ffe4587d2bba65af2a0b9e93217aec1984c1b9d5465d55ecc499b005c4ea4301",
+    "coordination/graphic_design_lab/directions/greeting_cards/product_skeleton_v0_1.yaml": "4bfc937d37b018e9306b348a2c6bc0151f393696106760ef4b2c2dff189f8845",
+    "coordination/graphic_design_lab/directions/greeting_cards/sender_typography_profiles_v0_1.yaml": "ce6cd55190f650369107f229f76439d9ab1e628b032187147033d57c14303e16",
+    "coordination/graphic_design_lab/directions/greeting_cards/signature_variant_catalog_v0_1.yaml": "a95ed2fad8a573e3e1631088a15656fb96f2021e3da9e08fff2414a69c0712be",
+    "coordination/graphic_design_lab/directions/greeting_cards/structural_design_freeze_v0_1.yaml": "54902be508a100267e95cd1b4c42b710e52c1c89007a587bc06cd8c60c48cd1c",
+    "coordination/graphic_design_lab/directions/greeting_cards/v1_resource_bindings_v0_1.yaml": "48754d497ccfeda2b212a3fb5951721a834e4930b3b80af71220f00dd8d90a7a",
+    "scripts/graphic_design_lab/greeting_cards/builder.py": "bc2e4146488d7441a2ae9dd15556c1b51487e3f0e3d7b40b65ed8aed64cd957c",
+    "scripts/graphic_design_lab/greeting_cards/full_review_runner_v0_1.py": "aa95fd60143c542d691b27bc72056454b4e8701b402d071a5dceef9eb6ef7e4a",
+    "scripts/graphic_design_lab/greeting_cards/gc18_native_page4_adapter_v0_1.py": "c9bfeda47470cb5186e2e3ecd778f2f5aa92b151ec924cf0d2e081780f459723",
+    "scripts/graphic_design_lab/greeting_cards/intake_handoff_runner_v0_1.py": "18cf55c34fb34a0854dfeeb9817151f88cdeb29c493a2ba7ad8f31a1391a5684",
+    "scripts/graphic_design_lab/greeting_cards/smb_workspace_queue_v0_1.py": "04f452ba4c398b2398943db85d7f7a0724d6ffa83110743c5a4fa4f1fd7a8341",
+    "scripts/graphic_design_lab/greeting_cards/unified_private_cycle_v0_1.py": "a1c8e08fd558c2ee35d4824493017df532bf0f5b4c5863053f708e59acc2e155",
+    "scripts/graphic_design_lab/greeting_cards/workspace_restore_synthetic_v0_1.py": "0e967537eceb7a1a22f28d576c2f4be1d1d83f33f80ad57853920e5bc91c48fc"
+  },
+  "source_inventory_head_before_closeout": "bbb2ed74a8ff5a1cbab9d722e8402fa635e988ba",
+  "source_repository": "Kovalchuk-PrintMaster/Forprint_Prepress_Hub",
+  "trim_size_mm": [
+    210,
+    297
+  ]
+}

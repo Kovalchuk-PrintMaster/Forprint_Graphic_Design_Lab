@@ -73,3 +73,17 @@ gc22-template-verify:
 	$(PYTHON) -B $(GC22_TOOL) --mode verify --prepress-root "$(abspath $(GC22_SOURCE))" --gc19-manifest "$(abspath $(GC22_GC19))" --gdl-root "$(CURDIR)" --output-dir "$(abspath $(GC22_OUT))"
 gc22-template-prepare:
 	$(PYTHON) -B $(GC22_TOOL) --mode prepare --prepress-root "$(abspath $(GC22_SOURCE))" --gc19-manifest "$(abspath $(GC22_GC19))" --gdl-root "$(CURDIR)" --output-dir "$(abspath $(GC22_OUT))"
+
+# GC23: source-pinned variant contract (read-only, no renderer / publication authority).
+GC23_VARIANTS := scripts/graphic_design_lab/greeting_cards/gc23_prepress_variant_contract_v0_1.py
+GC23_PREPRESS_SOURCE ?= ../forprint_prepress_hub
+.PHONY: gc23-variants-test gc23-variants-catalog gc23-variants-source-check gc23-variants-preflight
+gc23-variants-test:
+	GC23_PREPRESS_ROOT="$(abspath $(GC23_PREPRESS_SOURCE))" $(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc23_prepress_variant_contract_v0_1.py
+gc23-variants-catalog:
+	$(PYTHON) -B $(GC23_VARIANTS) --mode catalog
+gc23-variants-source-check:
+	$(PYTHON) -B $(GC23_VARIANTS) --mode source-check --prepress-root "$(abspath $(GC23_PREPRESS_SOURCE))"
+gc23-variants-preflight:
+	@test -n "$(INPUTS_CONFIG)" -a -n "$(SOURCE_ROOT)" || (echo "INPUTS_CONFIG and SOURCE_ROOT required"; exit 2)
+	$(PYTHON) -B $(GC23_VARIANTS) --mode preflight --inputs-config "$(INPUTS_CONFIG)" --source-root "$(SOURCE_ROOT)"
