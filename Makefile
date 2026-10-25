@@ -29,3 +29,47 @@ gc20-p02-check:
 gc20-p02-export:
 	@test -n "$(RESOURCE_MANIFEST)" -a -n "$(GC19_ASSETS_DIR)" -a -n "$(OUTPUT_NAME)" || (echo "RESOURCE_MANIFEST, GC19_ASSETS_DIR and OUTPUT_NAME required"; exit 2)
 	$(PYTHON) -B scripts/graphic_design_lab/greeting_cards/gc20_p02_native_background_v0_1.py --mode export --resource-manifest "$(RESOURCE_MANIFEST)" --gc19-assets-dir "$(GC19_ASSETS_DIR)" --output-name "$(OUTPUT_NAME)" --confirm-export
+
+# GC21: source-verified private 4-artboard Illustrator candidate (not production).
+GC21_NATIVE_CLI ?= scripts/graphic_design_lab/greeting_cards/gc21_native_illustrator_builder_v0_1.py
+GC21_INPUTS_CONFIG ?= ../forprint_prepress_hub/tmp/gdl_gc09b_real_pdf_proof_20261010/private_inputs_local.json
+GC21_SOURCE_ROOT ?= ../forprint_prepress_hub
+GC21_GC19_DIR ?= tmp/gc19_native_watermarks_20261025_r001
+GC21_GC20_DIR ?= tmp/gc20_p02_locked_base_20261025_r001
+.PHONY: gc21-native-test gc21-native-check gc21-native-prepare
+gc21-native-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc21_native_illustrator_builder_v0_1.py
+gc21-native-check:
+	$(PYTHON) -B $(GC21_NATIVE_CLI) --mode check --inputs-config "$(GC21_INPUTS_CONFIG)" --source-root "$(GC21_SOURCE_ROOT)" --gc19-assets-dir "$(GC21_GC19_DIR)" --gc20-scene-dir "$(GC21_GC20_DIR)"
+gc21-native-prepare:
+	@test -n "$(OUTPUT_NAME)" || (echo "OUTPUT_NAME required"; exit 2)
+	$(PYTHON) -B $(GC21_NATIVE_CLI) --mode prepare --confirm-private-prepare --inputs-config "$(GC21_INPUTS_CONFIG)" --source-root "$(GC21_SOURCE_ROOT)" --gc19-assets-dir "$(GC21_GC19_DIR)" --gc20-scene-dir "$(GC21_GC20_DIR)" --output-name "$(OUTPUT_NAME)"
+
+# GC21 PREPRESS: single-use remote Illustrator pilot over SSH; no automatic retries.
+GC21_REMOTE := scripts/graphic_design_lab/worker_runtime/gc21_s01_remote_operator_v0_1.py
+.PHONY: gc21-remote-test gc21-remote-stage gc21-remote-check gc21-remote-launch gc21-remote-status
+gc21-remote-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc21_s01_remote_operator_v0_1.py
+gc21-remote-stage:
+	$(PYTHON) -B $(GC21_REMOTE) --mode stage
+gc21-remote-check:
+	$(PYTHON) -B $(GC21_REMOTE) --mode check
+gc21-remote-launch:
+	$(PYTHON) -B $(GC21_REMOTE) --mode launch
+gc21-remote-status:
+	$(PYTHON) -B $(GC21_REMOTE) --mode status
+
+# GC22: structural schematic preview. The Prepress Hub owns geometry; GDL reads only.
+GC22_TOOL := scripts/graphic_design_lab/greeting_cards/gc22_template_reference_v0_3.py
+GC22_SOURCE ?= ../forprint_prepress_hub
+GC22_GC19 ?= tmp/gc19_native_watermarks_20261025_r001/manifest.json
+GC22_OUT ?= tmp/template_catalog/greeting_card_a3_single_fold_v0_1/review_r001
+.PHONY: gc22-template-test gc22-template-inspect gc22-template-verify gc22-template-prepare
+gc22-template-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc22_template_reference_v0_3.py
+gc22-template-inspect:
+	$(PYTHON) -B $(GC22_TOOL) --mode inspect --prepress-root "$(abspath $(GC22_SOURCE))" --gc19-manifest "$(abspath $(GC22_GC19))"
+gc22-template-verify:
+	$(PYTHON) -B $(GC22_TOOL) --mode verify --prepress-root "$(abspath $(GC22_SOURCE))" --gc19-manifest "$(abspath $(GC22_GC19))" --gdl-root "$(CURDIR)" --output-dir "$(abspath $(GC22_OUT))"
+gc22-template-prepare:
+	$(PYTHON) -B $(GC22_TOOL) --mode prepare --prepress-root "$(abspath $(GC22_SOURCE))" --gc19-manifest "$(abspath $(GC22_GC19))" --gdl-root "$(CURDIR)" --output-dir "$(abspath $(GC22_OUT))"
