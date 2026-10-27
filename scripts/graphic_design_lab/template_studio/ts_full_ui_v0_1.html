@@ -79,6 +79,28 @@ header{max-width:1580px;margin:0 auto;padding:25px 22px 11px}h1{font-size:27px;m
 .element-proof .source-audit h4{margin:0 0 7px;font-size:12px}
 .element-proof .source-audit .anchor{font-size:11px;overflow-wrap:anywhere;margin:4px 0;color:#53677e}
 .element-proof .proof-label{display:inline-block;font:600 11px/1.45 system-ui,sans-serif;color:#745119;background:#fff0d2;border-radius:6px;padding:3px 7px}
+
+/* GC30 architecture v0.1: two descriptive flows; no browser-side executor. */
+.execution-wide{grid-column:1/-1}.exec-intro{margin:0 0 13px;color:#465b73;line-height:1.6}
+.exec-owners{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:11px 0 15px}
+.exec-owner{border:1px solid #d9e3ec;border-radius:10px;padding:11px;background:#f8fbff}
+.exec-owner strong{display:block;color:#1d3d60}.exec-owner small{color:#586c82}
+.exec-choices{display:flex;flex-wrap:wrap;gap:9px;margin:11px 0}
+.exec-choice{background:#fff;color:#205b91;border:1px solid #acc3da;border-radius:10px;padding:11px 14px;cursor:pointer;font:600 13px system-ui}
+.exec-choice[aria-pressed=true]{color:#fff;background:#205b91;border-color:#205b91}
+.exec-legend{font-size:11px;color:#63748c;margin:0 0 10px}
+.exec-flow{display:flex;gap:7px;flex-wrap:wrap;align-items:stretch;margin:14px 0}
+.exec-node{flex:1 1 165px;max-width:235px;min-width:155px;background:#fff;border:1px solid #d7e3ed;border-radius:12px;padding:11px;box-shadow:0 2px 6px #10274208}
+.exec-node[data-status="EVIDENCED_PILOT"]{border-color:#7bb0a0;background:#f0faf5}
+.exec-node[data-status="NOT_EXECUTED"],.exec-node[data-status="NOT_IMPLEMENTED"]{border-color:#e2bd91;background:#fff9ef}
+.exec-node-title{font-weight:750;margin:5px 0;font-size:13px}.exec-node-detail{font-size:11px;color:#56677b;line-height:1.55}
+.exec-node-meta{font:600 10px/1.5 ui-monospace,Consolas,monospace;color:#4f6481;overflow-wrap:anywhere}
+.exec-arrow{flex:0 0 14px;align-self:center;color:#7d91a4;font-size:19px;text-align:center}
+.exec-verdict{border-left:3px solid #bd8647;background:#fff8ee;border-radius:5px;padding:10px 12px;font-size:12px;margin:12px 0}
+.exec-provenance{background:#eef4fa;border-radius:10px;padding:12px;font-size:12px;line-height:1.65}
+.exec-boundaries{columns:2;column-gap:28px;font-size:11px;color:#4e6078;padding-left:19px}
+.exec-boundaries li{break-inside:avoid;margin:0 0 5px}
+@media(max-width:850px){.exec-owners{grid-template-columns:1fr}.exec-boundaries{columns:1}.exec-node{max-width:none}.exec-arrow{flex-basis:100%;transform:rotate(90deg);font-size:14px}}
 </style></head>
 <body>
 <header><h1>ForPrint Template Studio <span class="muted">· повний паспорт листівки</span></h1>
@@ -92,6 +114,21 @@ header{max-width:1580px;margin:0 auto;padding:25px 22px 11px}h1{font-size:27px;m
 <details><summary>Машинна пропозиція правок</summary><p class="status">Зміни в браузері не впливають на затверджений шаблон, клієнтські замовлення або Illustrator. Можна скопіювати JSON для погодження.</p><div id="proposal" class="readonly" role="textbox" aria-readonly="true"></div><button class="action secondary" id="copy">Копіювати JSON</button><button class="action secondary" id="download">Зберегти JSON</button><p class="status" id="copy-status"></p></details>
 <p class="footer" id="foot"></p></section></div></div>
 <div id="infra-shell" class="shell" hidden><div class="infra-layout">
+<section class="panel execution-wide" id="exec-model" aria-label="Два маршрути виконання">
+<div class="subheading">GC30 · карта виконання · рішення власника</div>
+<h2 id="exec-title">Сервер → папка клієнта → змінний Worker</h2>
+<p class="exec-intro" id="exec-description"></p>
+<div class="exec-owners" id="exec-owners"></div>
+<div class="exec-choices" role="group" aria-label="Вибір варіанта виконання">
+<button id="exec-ready" type="button" class="exec-choice" aria-pressed="true">A · Станція готова</button>
+<button id="exec-bootstrap" type="button" class="exec-choice" aria-pressed="false">B · Потрібна ініціалізація</button></div>
+<p id="exec-legend" class="exec-legend"></p>
+<div id="exec-flow" class="exec-flow" aria-live="polite"></div>
+<div id="exec-verdict" class="exec-verdict"></div>
+<div id="exec-provenance" class="exec-provenance"></div>
+<details><summary>Межі відповідальності та заборони</summary><ol id="exec-boundaries" class="exec-boundaries"></ol></details>
+<p class="footer">Це версійована описова схема, не робоча кнопка запуску. HTML нічого не передає на Windows, не запускає Illustrator і не затверджує друк.</p>
+</section>
 <section class="panel"><div class="subheading">ForPrint · єдине джерело опису інфраструктури</div><h2 id="infra-title">Структура</h2><p class="muted" id="infra-description"></p><pre class="infra-pre" id="infra-tree"></pre></section>
 <section class="panel"><h2>Фактичний стан і правила</h2><div id="infra-flags"></div><div id="infra-steps"></div><p class="footer">Паспорт не дає дозволу на запуск, друк або публікацію. Дані актуальні станом на останнє перевірене оновлення порталу.</p></section>
 </div></div>
@@ -112,6 +149,7 @@ const MODEL = /*__TS_FULL_MODEL__*/;
 const IMAGES = /*__TS_FULL_IMAGES__*/;
 const BUILD = /*__TS_FULL_BUILD__*/;
 let page=0, selected=null, guides=true, proposals=[],infraTab=null, atlasTarget='client',atlasQuery='',atlasSelectedPath=null;
+let executionRoute='ready';
 const choices={}; Object.keys(MODEL.variant_groups).forEach(k=>choices[k]=MODEL.variant_groups[k].default);
 const $=id=>document.getElementById(id); const E=(tag,cl,text)=>{const n=document.createElement(tag);if(cl)n.className=cl;if(text!==undefined)n.textContent=text;return n;};
 const curr=()=>MODEL.pages[page];
@@ -124,6 +162,8 @@ const bbox=el=>{if(!el)return null;
  }
  return el.bbox_mm;};
 function init(){const p=$('pages');MODEL.pages.forEach((x,i)=>{const b=E('button','tab',x.id+' · '+x.title_ua);b.type='button';b.onclick=()=>{page=i;infraTab=null;selected=null;render();};p.appendChild(b)});[['process','Конвеєр і контроль'],['atlas-concept','Еталонне дерево'],['atlas-actual','Фактичне дерево']].forEach(([id,label])=>{const b=E('button','tab',label);b.type='button';b.onclick=()=>{infraTab=id;atlasSelectedPath=null;(id.startsWith('atlas-')?renderAtlas():renderInfrastructure());};p.appendChild(b)});$('guides').onclick=()=>{guides=!guides;render()};$('reset').onclick=()=>{selected=null;proposals=[];Object.keys(MODEL.variant_groups).forEach(k=>choices[k]=MODEL.variant_groups[k].default);render()};$('copy').onclick=copyProposal;$('download').onclick=downloadProposal;
+$('exec-ready').onclick=()=>{executionRoute='ready';renderExecutionModel()};
+$('exec-bootstrap').onclick=()=>{executionRoute='bootstrap';renderExecutionModel()};
 $('atlas-client').onclick=()=>{atlasTarget='client';atlasSelectedPath=null;renderAtlas()};
 $('atlas-prepress').onclick=()=>{atlasTarget='prepress';atlasSelectedPath=null;renderAtlas()};
 $('atlas-search').oninput=v=>{atlasQuery=v.target.value;renderAtlasTree()};
@@ -141,9 +181,37 @@ function render(){document.querySelector('.main').hidden=false;$('infra-shell').
  drawElements();drawMarks();drawDetails();drawProposal();$('foot').textContent='Геометрія: 214 × 301 мм; trim 210 × 297 мм. Джерело SHA256 '+BUILD.source_sha256.slice(0,16)+'… · Друк і затвердження вимкнені.';
 }
 
+function renderExecutionModel(){
+ const cfg=INFRA.execution_model||{}; const paths=cfg.paths||[];
+ const route=paths.find(x=>x.id===executionRoute)||paths[0];
+ if(!route)return;
+ $('exec-title').textContent=cfg.title_ua||'Ланцюжок виконання';
+ $('exec-description').textContent='Джерело істини — серверний GDL; папка клієнта на SMB — основна операторська точка входу. Виконавець замінний: його ініціалізує s01, він не є сховищем канонічного коду.';
+ $('exec-owners').replaceChildren();
+ (cfg.role_ownership||[]).filter(x=>['s01','client_smb','workstation'].includes(x.id)).forEach(x=>{
+  const d=E('div','exec-owner');d.appendChild(E('strong','',x.title));d.appendChild(E('small','',x.detail));$('exec-owners').appendChild(d);
+ });
+ ['ready','bootstrap'].forEach(id=>$('exec-'+id).setAttribute('aria-pressed',String(route.id===id)));
+ $('exec-legend').textContent='Варіант: '+route.title_ua+' · статус: '+route.status+' · зелена межа — доказ пілота, жовта — ще не виконано або лише заплановано.';
+ $('exec-flow').replaceChildren();(route.steps||[]).forEach((x,i)=>{
+  if(i)$('exec-flow').appendChild(E('span','exec-arrow','→'));
+  const node=E('div','exec-node');node.dataset.status=x.status;
+  node.appendChild(E('div','exec-node-meta',x.id+' · '+x.owner));
+  node.appendChild(E('div','exec-node-title',x.title_ua));
+  node.appendChild(E('div','exec-node-detail',x.description_ua));
+  node.appendChild(E('div','exec-node-meta',x.status));
+  $('exec-flow').appendChild(node);
+ });
+ $('exec-verdict').textContent=route.summary+' Важливо: жодна гілка не дає автоматичного права на виробництво або публікацію.';
+ const ev=cfg.pilot_evidence||{};
+ $('exec-provenance').textContent='Знімок стану '+(cfg.as_of||'')+' · останній доказовий пілот: '+(ev.reported_stage||'не надано')+' · файлів '+(ev.files_verified??'—')+', ресурсів '+(ev.assets_verified??'—')+' · Illustrator: '+(ev.illustrator_installed||'невідомо')+'; native out: '+(ev.native_out_at_check||'невідомо')+' · Git '+(ev.git_checkpoint||'—')+'. Інші робочі станції й самовідновлення поки архітектурні наміри, не підтверджений runtime.';
+ $('exec-boundaries').replaceChildren();(cfg.shared_boundaries||[]).forEach(x=>$('exec-boundaries').appendChild(E('li','',x)));
+}
+
 function renderInfrastructure(){
  document.querySelector('.main').hidden=true;$('infra-shell').hidden=false;$('atlas-shell').hidden=true;
  [...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===4)));
+ renderExecutionModel();
  const steps=INFRA.workflow,coverage=INFRA.audit||{warnings:[]};
  $('infra-title').textContent='Маршрут замовлення та контроль';
  $('infra-description').textContent='Маршрут і межі виконання. Структуру PREPRESS та клієнта переглядай в єдиному інтерактивному Atlas.';

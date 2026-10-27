@@ -1,6 +1,6 @@
 {
   "schema_version": "forprint_gdl_gc32_infrastructure_map_v0_1",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "scope": "GREETING_CARDS_DEDICATED_WINDOWS_WORKER",
   "worker": {
     "machine": "PREPRESS",
@@ -167,39 +167,39 @@
   "workflow": [
     {
       "id": "01",
-      "title": "Intake",
-      "detail": "Прийнятий ZIP містить змінні тексти, фото й варіанти; початкові клієнтські файли незмінні",
-      "authority": "ACCEPTED_ONLY"
+      "title": "Клієнтська точка входу (SMB)",
+      "detail": "Папка клієнта / _forprint_automation / Створити_листівку.cmd; прийняті матеріали незмінні.",
+      "authority": "ENTRY_ONLY_NO_DIRECT_AUTHORITY"
     },
     {
       "id": "02",
-      "title": "s01 / GDL",
-      "detail": "GC30 формує ticket з точними SHA256 і закріпленою машиною PREPRESS",
-      "authority": "QUEUE_ONLY"
+      "title": "s01 · GDL authority",
+      "detail": "Код, версії, перевірка intake, SHA256, ticket, призначення робочої станції та project-native coordination.",
+      "authority": "SOURCE_OF_TRUTH_SERVER"
     },
     {
       "id": "03",
-      "title": "PREPRESS / Work",
-      "detail": "GC32 PollOnce використовує існуючі jobs/ та cache/ і приймає лише ticket свого worker_id/машини/користувача",
-      "authority": "STAGE_ONLY_V0_1"
+      "title": "Маршрути A/B",
+      "detail": "A: готовий Worker; B: ініціалізація або перепризначення за серверним governance (B ще не реалізовано).",
+      "authority": "A_PARTIAL_PILOT_B_PLANNED"
     },
     {
       "id": "04",
-      "title": "Локальний кеш",
-      "detail": "Одна копія стандартного SHA-ресурсу; відновити тільки якщо відсутній або пошкоджений",
-      "authority": "HASH_PINNED"
+      "title": "Транспорт і локальний stage",
+      "detail": "Поточний дег-пілот: s01→SFTP→PREPRESS/jobs/<ticket>/stage, 16 файлів/12 assets із SHA256; без Windows→SMB залежності.",
+      "authority": "STAGED_HASH_VERIFIED_NON_AUTHORIZING"
     },
     {
       "id": "05",
-      "title": "Illustrator",
-      "detail": "Виконання JSX локально; повний авто-рендер ще НЕ реалізовано для GC30",
-      "authority": "MANUAL_REVIEW_PENDING"
+      "title": "Adobe Illustrator",
+      "detail": "Встановлено Illustrator 2026. Native out та фактичний AI/PDF/PNG відсутні; перший запуск ще не проведено.",
+      "authority": "NOT_EXECUTED"
     },
     {
       "id": "06",
-      "title": "Повернення",
-      "detail": "Копіювання перевіреного AI/PDF/PNG/JSON у output/illustrator_review без друку",
-      "authority": "NON_PRODUCTION"
+      "title": "Результати і review",
+      "detail": "У майбутньому: перевірка returned AI/PDF/PNG/JSON, незалежний verifier і операторська acceptance, без автоматичного друку.",
+      "authority": "PLANNED_NO_PRODUCTION_AUTHORITY"
     }
   ],
   "boundaries": [
@@ -209,16 +209,20 @@
     "Виконання Illustrator, друк і клієнтська публікація не дозволені поточним GC30 PollOnce",
     "Керувати роботою з існуючого кореня; не створювати паралельні Shared/ та Clients/",
     "Запускати PowerShell локально з process-scoped -ExecutionPolicy Bypass; системні політики не змінювати",
-    "GC32 SSH inventory is not an automatic cleanup authority; potential historic files remain untouched until reviewed"
+    "GC32 SSH inventory is not an automatic cleanup authority; potential historic files remain untouched until reviewed",
+    "Головний операційний старт — _forprint_automation в папці клієнта на серверному SMB; канонічний код та дозвіл залишаються в s01 GDL.",
+    "GC30 r001 Windows direct-SMB PollOnce не є фактичним маршрутом r002 SFTP-пілота; не відновлювати без окремої архітектурної перевірки.",
+    "Windows Worker змінний, відновлюваний: жодного канонічного бізнес-стану, версійного коду або acceptance на робочій станції.",
+    "Динамічний multi-worker routing, ensure-worker-ready, reassign та повний launcher orchestration — не реалізовані, доки не надано окремий execution evidence."
   ],
   "documented_modules": {
     "gc27": "P03 legacy proof (незавершений, не чіпати)",
     "gc28": "Історичний PDF міст, не головний runtime",
     "gc29": "Native four-page scene builder + 13 asset vault",
-    "gc30": "s01 dispatcher + tickets + server worker-binding",
+    "gc30": "GC30 r002A/B/C: server-owned exact DEG ticket, SHA-pinned SFTP payload to PREPRESS D:/jobs/<ticket>, local stage 16 files/12 assets PASS_NON_AUTHORIZING; no Illustrator output; other stations and auto-bootstrap planned only.",
     "gc31": "Живі тексти та PNG-графічний підпис",
     "gc32": "Single PREPRESS root; visual clickable Structure Atlas r003; PREPRESS SSH read-only diagnostics, and review-only lifecycle catalogue",
-    "ts": "4 card pages + Structure Atlas r007 + 20 source-bounded graphical element passports r008; reference-only, no verified Illustrator binding or execution authority; r009 SOURCE_ONLY native role aliases and evidence gaps, runtime AI NOT_ATTESTED"
+    "ts": "Template Studio: 4 page reference, 20 element passports r008, source crosswalk r009, runtime inventory r010; new client-SMB-first execution model and A/B flow diagram reference-only; no native acceptance."
   },
   "coverage": {
     "watched_families": [
@@ -275,7 +279,7 @@
     "gc30_binding": "VERIFIED_PREPRESS_WORK",
     "gc31_regression": "357_PASS_8_SKIPPED",
     "gc32_worker_registration": "VERIFIED_PREPRESS_WORK_OPERATOR_LOG_2026_10_26",
-    "gc30_staging": "PENDING_REAL_POLL_ONCE",
+    "gc30_staging": "R002C_EXACT_DEG_PILOT_STAGED_HASH_VERIFIED_16_FILES_12_ASSETS",
     "illustrator_export": "BLOCKED_UNTIL_REAL_REVIEW",
     "gc32_existing_root": "VERIFIED_PREPRESS_WORK_D_DRIVE",
     "gc32_structure": "RECONCILED_WITH_EXISTING_CACHE_CONFIG_JOBS_LOGS_RUNTIME_WORKER",
@@ -283,9 +287,14 @@
     "gc32_prepress_ssh_scan": "23_ITEMS_CAPTURE_REVIEW_PUBLISH_PASS_2026_10_27_BOUNDED_SCOPE",
     "gc32_sources_checkpoint": "e76a286_NON_RELEASE; b79a659_MAKE_TARGETS_NON_RELEASE",
     "ts_r008_element_passports": "20_OF_20_SOURCE_BOUNDED_REFERENCE_ONLY_NATIVE_BINDING_NOT_ATTESTED",
-    "ts_r009_source_crosswalk": "20_OF_20_SOURCE_AUDIT_ONLY; GC27_GC29_BRANCHES_DISTINCT; NO_RESULT_JSON_NO_NATIVE_AI_ATTESTATION"
+    "ts_r009_source_crosswalk": "20_OF_20_SOURCE_AUDIT_ONLY; GC27_GC29_BRANCHES_DISTINCT; NO_RESULT_JSON_NO_NATIVE_AI_ATTESTATION",
+    "gc30_illustrator": "NOT_LAUNCHED_NATIVE_OUT_ABSENT_AT_2026_10_27_CHECK",
+    "gc30_multi_worker_route": "PLANNED_NOT_IMPLEMENTED",
+    "gc30_on_demand_bootstrap": "PLANNED_NOT_IMPLEMENTED",
+    "gc30_delivery": "R002B_SHA256_VERIFIED_ONE_TICKET_SFTP",
+    "gc30_server_authority": "SOURCE_CODE_AND_ASSIGNMENT_S01; SMB_CLIENT_FOLDER_OPERATOR_ENTRY"
   },
-  "provenance": "2026-10-26 GC32 SSH addon + visual atlas r003; confirmed structure only; observed values via explicit scan",
+  "provenance": "2026-10-27 owner architecture decision: s01 canonical code, client SMB operator ingress, regenerable assigned Windows workers. r002C staged DEG pilot 16 files/12 assets, native out absent at check; planned multi-worker and bootstrap not yet implemented.",
   "atlas_purpose": {
     "concept": "Концептуальна карта — що повинно існувати і навіщо",
     "actual": "Побачені на s01 метадані клієнтської папки + опційний самозвіт Windows",
@@ -297,5 +306,246 @@
     "element_passports": "P01–P04 element cards refer to expected native layers and missing proofs; no renderer, source mutation or design approval",
     "element_source_crosswalk": "TS r009 code-only mapping of TS passport to GC27/29 role; neither AI-output proof nor production approval"
   },
-  "structure_atlas_visual_revision": "r003; one selected-node passport; NO automatic cleanup; restore from server-reviewed source and private backup"
+  "structure_atlas_visual_revision": "r003; one selected-node passport; NO automatic cleanup; restore from server-reviewed source and private backup",
+  "execution_model": {
+    "schema_version": "forprint_gdl_client_entry_worker_lifecycle_v0_1",
+    "version": "v0.1",
+    "as_of": "2026-10-27",
+    "scope": "ARCHITECTURE_AND_OPERATOR_REFERENCE_ONLY",
+    "title_ua": "Виконання замовлення: сервер → папка клієнта → змінний Worker",
+    "normative_order": [
+      "SERVER_GDL_AUTHORITY",
+      "CLIENT_SMB_OPERATIONAL_ENTRY",
+      "SERVER_DISPATCH_AND_ASSIGNMENT",
+      "PREPARED_OR_BOOTSTRAPPED_WORKSTATION",
+      "EVIDENCE_RETURN_AND_OPERATOR_REVIEW"
+    ],
+    "role_ownership": [
+      {
+        "id": "s01",
+        "title": "s01 · ForPrint GDL",
+        "kind": "SOURCE_OF_TRUTH",
+        "detail": "Код, шаблони, версії, контракти, SHA256, registry призначень, governance та дозвіл на виконання належать серверному проєкту."
+      },
+      {
+        "id": "client_smb",
+        "title": "SMB · папка конкретного клієнта",
+        "kind": "OPERATIONAL_ENTRY_POINT",
+        "detail": "_forprint_automation — постійна точка входу: запускач, прийняті матеріали, статуси, огляд та маршрутизація; це не джерело проєктного коду."
+      },
+      {
+        "id": "dispatcher",
+        "title": "s01 · dispatcher/transport",
+        "kind": "COORDINATION_NOT_AUTHORITY",
+        "detail": "Перевіряє контракт, ticket, checksum та призначає дозволену станцію; передавання і реєстрація проходять через project-native Make/CLI."
+      },
+      {
+        "id": "workstation",
+        "title": "Windows Worker · один із призначених вузлів",
+        "kind": "REGENERABLE_EXECUTOR",
+        "detail": "PREPRESS — поточний пілот, не єдине можливе місце роботи; виконавець завантажується, перевіряється і може бути перевизначений."
+      },
+      {
+        "id": "review",
+        "title": "s01 / клієнтський SMB review",
+        "kind": "RETURN_AND_HUMAN_ACCEPTANCE",
+        "detail": "Повернення AI/PDF/PNG/JSON із SHA256, незалежна перевірка й операторське рішення; Worker не затверджує друк."
+      }
+    ],
+    "launcher": {
+      "folder": "<CLIENT_SMB_ROOT>/_forprint_automation/",
+      "existing_operator_entry": "Створити_листівку.cmd → gc30_submit_only_v0_1.ps1",
+      "actual_status": "BOOTSTRAP_FILES_PRESENT_CLIENT_CHECK_CURRENT; FULL_ORCHESTRATION_NOT_IMPLEMENTED",
+      "future_role": "Клієнтський запускач ініціює серверний job/intent, показує стан, за потреби ініціює контрольоване відновлення або перепризначення Worker; не виконує власний deploy/Git/authority.",
+      "network_note": "SMB доступний s01. Windows SSH-сеанс Work не має доступу до SMB; transport має йти із s01 через SFTP/SSH без обходу ACL."
+    },
+    "shared_boundaries": [
+      "SERVER_AUTHORITATIVE_SOURCE_CODE_AND_CONTRACTS",
+      "SMB_CLIENT_WORKSPACE_IS_PRIMARY_OPERATIONAL_ENTRY_NOT_CANONICAL_CODE_REPOSITORY",
+      "WORKSTATION_IS_DISPOSABLE_AND_REGENERABLE_NO_CANONICAL_SOURCE_ON_WINDOWS",
+      "SERVER_OWNS_MACHINE_ASSIGNMENT_EVIDENCE_AND_REASSIGNMENT",
+      "ONE_TICKET_ONE_SELECTED_WORKER_ONE_VERIFIED_ATTEMPT",
+      "NO_SMB_ACCESS_REQUIRED_FROM_WINDOWS_SSH_CONTEXT",
+      "EXISTING_D_ROOT_REUSED_NO_NEW_GLOBAL_CLIENTS_OR_SHARED_DIRECTORIES",
+      "NO_UNVERIFIED_OVERWRITE_OR_DELETE_AND_NO_AUTOMATIC_PROMOTION",
+      "ILLUSTRATOR_NATIVE_RENDER_ONLY_AFTER_EXPLICIT_STAGE_AND_OPERATOR_BOUNDARY",
+      "NO_CROSS_CLIENT_DATA_IN_GLOBAL_PORTAL_REGISTRY"
+    ],
+    "workstation_layout": {
+      "pilot_root": "D:\\ForPrint_Automation\\GraficsDesignLab\\Automation",
+      "existing_dirs": [
+        "Worker/",
+        "config/",
+        "cache/",
+        "jobs/",
+        "logs/",
+        "runtime/"
+      ],
+      "do_not_touch": [
+        "Worker/gc32_*",
+        "config/worker_config.json"
+      ],
+      "no_parallel": [
+        "Clients/",
+        "Shared/",
+        "%LOCALAPPDATA%/ForPrint/Automation"
+      ],
+      "worker_is_not_truth": true
+    },
+    "paths": [
+      {
+        "id": "ready",
+        "title_ua": "Маршрут A · станція вже готова",
+        "status": "PARTIALLY_EVIDENCED_SINGLE_PILOT",
+        "summary": "Точка входу клієнта → серверна перевірка → вибір готового виконавця → контрольована доставка → локальний stage → окремий Illustrator test → приймання доказів.",
+        "steps": [
+          {
+            "id": "A1",
+            "owner": "CLIENT_SMB",
+            "title_ua": "Клієнтський запускач",
+            "description_ua": "Клієнт відкриває _forprint_automation / «Створити листівку». Вхід є, але повний автоматичний ланцюжок ще не доведено.",
+            "status": "IMPLEMENTED_ENTRY_ONLY"
+          },
+          {
+            "id": "A2",
+            "owner": "SERVER_S01",
+            "title_ua": "Контракт і ticket",
+            "description_ua": "GDL перевіряє прийнятий job, frozen resources і SHA256; формує рівно одну заявку.",
+            "status": "EVIDENCED_PILOT"
+          },
+          {
+            "id": "A3",
+            "owner": "SERVER_S01",
+            "title_ua": "Вибір готового Worker",
+            "description_ua": "Поточна жорстка прив’язка PREPRESS/Work перевірена; довільний вибір серед кількох вузлів ще не реалізовано.",
+            "status": "SINGLE_WORKER_ONLY"
+          },
+          {
+            "id": "A4",
+            "owner": "SERVER_S01",
+            "title_ua": "SFTP через s01",
+            "description_ua": "s01 передає один SHA256-закріплений payload у D:/.../jobs/<ticket>/; незалежно перевіряє хеш.",
+            "status": "EVIDENCED_PILOT"
+          },
+          {
+            "id": "A5",
+            "owner": "WORKSTATION",
+            "title_ua": "Локальний staging",
+            "description_ua": "На PREPRESS перевірено 16 файлів, включно з 12 assets, у межах jobs/<ticket>/stage/.",
+            "status": "EVIDENCED_PILOT"
+          },
+          {
+            "id": "A6",
+            "owner": "WORKSTATION",
+            "title_ua": "Illustrator і результат",
+            "description_ua": "Один окремий ручний native тест; AI/PDF/PNG/result.json ще не отримано.",
+            "status": "NOT_EXECUTED"
+          },
+          {
+            "id": "A7",
+            "owner": "SERVER_S01",
+            "title_ua": "Повернення та acceptance",
+            "description_ua": "s01 перевіряє повернені артефакти й публікує лише review; оператор приймає або блокує.",
+            "status": "PLANNED_NOT_ATTESTED"
+          }
+        ]
+      },
+      {
+        "id": "bootstrap",
+        "title_ua": "Маршрут B · станція не підготовлена",
+        "status": "ARCHITECTURE_PROPOSED_NOT_AUTOMATED",
+        "summary": "Той самий клієнтський вхід; якщо призначена станція недоступна або не має робочого середовища, s01 виконує контрольовану ініціалізацію або перепризначення, а далі переходить на маршрут A.",
+        "steps": [
+          {
+            "id": "B1",
+            "owner": "CLIENT_SMB",
+            "title_ua": "Той самий запускач",
+            "description_ua": "Жодного другого клієнтського входу: запит надходить через _forprint_automation і s01.",
+            "status": "DESIGN_AGREED"
+          },
+          {
+            "id": "B2",
+            "owner": "SERVER_S01",
+            "title_ua": "Перевірка призначення",
+            "description_ua": "За server-owned реєстром вибрати дозволеного Worker, з’ясувати готовність і потрібні ресурси.",
+            "status": "MULTI_WORKER_PLANNED"
+          },
+          {
+            "id": "B3",
+            "owner": "SERVER_S01",
+            "title_ua": "Контрольована ініціалізація",
+            "description_ua": "s01 через дозволений transport доставляє version-pinned bootstrap у наявний корінь станції; без самостійного копіювання коду Worker.",
+            "status": "NOT_IMPLEMENTED"
+          },
+          {
+            "id": "B4",
+            "owner": "WORKSTATION",
+            "title_ua": "Локальний capability check",
+            "description_ua": "Перевірити Illustrator, шрифти, D:-каталоги, SHA256, machine/user, без змін системних ACL чи глобального конфіга.",
+            "status": "NOT_IMPLEMENTED"
+          },
+          {
+            "id": "B5",
+            "owner": "SERVER_S01",
+            "title_ua": "Підтвердження або reassignment",
+            "description_ua": "Зберегти audit trail, підтвердити цільову машину або переадресувати на іншу; ніколи не запускати двох Worker для одного ticket.",
+            "status": "NOT_IMPLEMENTED"
+          },
+          {
+            "id": "B6",
+            "owner": "SERVER_S01",
+            "title_ua": "Передача в маршрут A",
+            "description_ua": "Після перевіреної готовності виконати A4–A7; повторний submit замовлення не потрібен.",
+            "status": "PLANNED_REUSE_READY_PATH"
+          }
+        ]
+      }
+    ],
+    "pilot_evidence": {
+      "scope": "ONE_DEG_PILOT_2026_10_27_NO_CLIENT_ID_IN_SHARED_REGISTRY",
+      "reported_stage": "STAGED_HASH_VERIFIED_NON_AUTHORIZING",
+      "files_verified": 16,
+      "assets_verified": 12,
+      "illustrator_installed": "ADOBE_ILLUSTRATOR_2026_FOUND",
+      "illustrator_process_count_at_check": 0,
+      "native_out_at_check": "ABSENT",
+      "git_checkpoint": "c294cb8",
+      "note": "Snapshot only; no live Windows or SMB read inside HTML. No native render or acceptance."
+    },
+    "target_make_cli": [
+      {
+        "id": "launcher-submit",
+        "intent": "submit-client-intent",
+        "status": "PARTIAL_GC30_SUBMIT_EXISTS"
+      },
+      {
+        "id": "worker-route",
+        "intent": "verify-binding-and-choose-worker",
+        "status": "ONE_WORKER_BINDING_ONLY"
+      },
+      {
+        "id": "worker-bootstrap",
+        "intent": "ensure-worker-ready",
+        "status": "FUTURE"
+      },
+      {
+        "id": "stage",
+        "intent": "sftp-payload-and-local-hash-stage",
+        "status": "R002B_R002C_PILOT"
+      },
+      {
+        "id": "native-review",
+        "intent": "collect-evidence-and-operator-review",
+        "status": "FUTURE"
+      }
+    ],
+    "authority": {
+      "interactive_execution": false,
+      "automatic_dispatch_from_html": false,
+      "automatic_bootstrap": false,
+      "automatic_illustrator_launch": false,
+      "automatic_production_approval": false,
+      "automatic_client_publication": false
+    }
+  }
 }
