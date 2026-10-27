@@ -68,6 +68,14 @@ header{max-width:1580px;margin:0 auto;padding:25px 22px 11px}h1{font-size:27px;m
 .atlas-tools{background:#f5f8fc;border:1px solid #e0e9f2;padding:10px;border-radius:11px}
 .atlas-tools button[aria-pressed=true]{background:#205b91;color:#fff;border-color:#205b91}
 @media(max-width:900px){.atlas-layout{grid-template-columns:1fr}.atlas-tree{max-height:56vh}}
+
+/* TS r008: source-bounded passports for each of 20 graphical elements. */
+.element-proof{margin:13px 0;border:1px solid #d6e1ed;border-radius:12px;padding:13px;background:#f7faff}
+.element-proof h3{margin:0 0 6px;font-size:14px}
+.element-proof .review-gate{background:#fff4e6;border-left:3px solid #cd8137;padding:8px 10px;margin:10px 0;border-radius:5px;font-size:12px}
+.element-proof dl{display:grid;grid-template-columns:120px minmax(0,1fr);gap:6px 11px;margin:9px 0;font-size:12px}
+.element-proof dt{color:var(--muted)}.element-proof dd{margin:0;overflow-wrap:anywhere}
+.element-proof .proof-label{display:inline-block;font:600 11px/1.45 system-ui,sans-serif;color:#745119;background:#fff0d2;border-radius:6px;padding:3px 7px}
 </style></head>
 <body>
 <header><h1>ForPrint Template Studio <span class="muted">· повний паспорт листівки</span></h1>
@@ -290,7 +298,18 @@ function renderAtlasSide(){
 function drawElements(){let root=$('elements');root.replaceChildren();items().sort((a,b)=>a.step-b.step).forEach(el=>{const box=bbox(el),btn=E('button','item'+(el.id===selected?' active':''));btn.appendChild(E('div','item-title',el.id+' — '+el.name_ua));btn.appendChild(E('div','metadata',box?('X '+box[0]+' · Y '+box[1]+' · W '+(box[2]-box[0]).toFixed(2)+' · H '+(box[3]-box[1]).toFixed(2)+' мм'):'Геометрія ще не виміряна з джерела'));btn.appendChild(E('div','metadata','Шар: '+el.layer+' · Крок '+el.step));btn.appendChild(E('div','metadata','Статус: '+el.status+(el.locked?' · LOCKED':'')));btn.onclick=()=>{selected=el.id;render()};root.appendChild(btn)})}
 function drawMarks(){const svg=$('marks');svg.replaceChildren();svg.style.display=guides?'block':'none';if(!guides)return;const ns='http://www.w3.org/2000/svg';items().forEach(el=>{let b=bbox(el);if(!b)return;const r=document.createElementNS(ns,'rect');r.setAttribute('x',b[0]);r.setAttribute('y',b[1]);r.setAttribute('width',b[2]-b[0]);r.setAttribute('height',b[3]-b[1]);if(el.id===selected)r.setAttribute('class','selected');svg.appendChild(r);const t=document.createElementNS(ns,'text');t.setAttribute('x',Math.max(2,Math.min(183,b[0])));t.setAttribute('y',Math.max(8,b[1]-2));t.textContent=el.id;svg.appendChild(t)});
  const edit=proposals.findLast?proposals.findLast(x=>x.element_id===selected&&x.page_id===curr().id):[...proposals].reverse().find(x=>x.element_id===selected&&x.page_id===curr().id);if(edit && edit.proposed_bbox_mm){const b=edit.proposed_bbox_mm;const r=document.createElementNS(ns,'rect');r.setAttribute('x',b[0]);r.setAttribute('y',b[1]);r.setAttribute('width',b[2]-b[0]);r.setAttribute('height',b[3]-b[1]);r.setAttribute('stroke','#1c6fe3');r.setAttribute('fill','none');r.setAttribute('stroke-width','2');r.setAttribute('stroke-dasharray','2 2');svg.appendChild(r)}}
-function drawDetails(){const dest=$('details');dest.replaceChildren();const el=items().find(e=>e.id===selected);if(!el)return;const box=bbox(el);const grid=E('div','kv');[['ID',el.id],['Шар',el.layer],['Операція',el.operation],['Крок',String(el.step)],['Джерело геометрії',el.status],['Блокування',el.locked?'Так':'Ні'],['Bbox, мм',box?JSON.stringify(box):'Потрібна інвентаризація']].forEach(([a,b])=>{grid.appendChild(E('span','',a));grid.appendChild(E('span','',b))});dest.appendChild(grid);
+function drawDetails(){const dest=$('details');dest.replaceChildren();const el=items().find(e=>e.id===selected);if(!el)return;const box=bbox(el);const proof=(MODEL.element_passports||{})[el.id];
+ if(proof){
+  const card=E('section','element-proof');card.appendChild(E('h3','','Функціональний паспорт елемента'));
+  card.appendChild(E('span','proof-label','ПЕРЕГЛЯД / НЕ ДОЗВІЛ НА ВИКОНАННЯ'));
+  const facts=E('dl');
+  const fields=[['Доказовий стан',proof.evidence_state],['Джерело опису',proof.source_anchor],['Очікуваний AI-шар',proof.expected_native_layer],['Фактичний native binding',proof.native_binding],['Контроль варіанта',curr().variant_groups.map(k=>k+'='+choices[k]).join(' · ')||'Без варіантів']];
+  fields.forEach(([name,val])=>{facts.appendChild(E('dt','',name));facts.appendChild(E('dd','',String(val)))});
+  card.appendChild(facts);card.appendChild(E('div','review-gate','Наступний доказ: '+proof.next_verification));
+  card.appendChild(E('p','status','Повноваження: '+proof.authority+'. Перемикання варіантів, bbox-пропозиції та цей паспорт не запускають Illustrator і не надають design approval.'));
+  dest.appendChild(card);
+ }else{dest.appendChild(E('p','danger','Немає доказового паспорта елемента — потрібна синхронізація реєстру.'))}
+ const grid=E('div','kv');[['ID',el.id],['Шар',el.layer],['Операція',el.operation],['Крок',String(el.step)],['Джерело геометрії',el.status],['Блокування',el.locked?'Так':'Ні'],['Bbox, мм',box?JSON.stringify(box):'Потрібна інвентаризація']].forEach(([a,b])=>{grid.appendChild(E('span','',a));grid.appendChild(E('span','',b))});dest.appendChild(grid);
  if(!box){dest.appendChild(E('p','status','Редагування геометрії недоступне до підтвердження джерела.'));return}
  dest.appendChild(E('p','status','Пробна зміна координат для пропозиції. Реальне зображення не пересувається.'));
  const edits=E('div','editgrid');const names=['X','Y','W','H'];const initial=[box[0],box[1],box[2]-box[0],box[3]-box[1]];const inputs=names.map((n,i)=>{const l=E('label','',n+' (мм)'),inp=E('input');inp.type='number';inp.step='0.1';inp.value=initial[i];l.appendChild(inp);edits.appendChild(l);return inp});dest.appendChild(edits);

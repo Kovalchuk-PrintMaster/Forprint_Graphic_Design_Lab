@@ -218,7 +218,7 @@
     "gc30": "s01 dispatcher + tickets + server worker-binding",
     "gc31": "Живі тексти та PNG-графічний підпис",
     "gc32": "Single PREPRESS root; visual clickable Structure Atlas r003; PREPRESS SSH read-only diagnostics, and review-only lifecycle catalogue",
-    "ts": "4 card pages + infrastructure tree with selected-node inspector, source/consumer, SHA status, rebuildability"
+    "ts": "4 card pages + Structure Atlas r007 + 20 source-bounded graphical element passports r008; reference-only, no verified Illustrator binding or execution authority"
   },
   "coverage": {
     "watched_families": [
@@ -281,7 +281,8 @@
     "gc32_structure": "RECONCILED_WITH_EXISTING_CACHE_CONFIG_JOBS_LOGS_RUNTIME_WORKER",
     "gc32_portal": "PUBLISHED_R002_WITH_AUDIT_OK",
     "gc32_prepress_ssh_scan": "23_ITEMS_CAPTURE_REVIEW_PUBLISH_PASS_2026_10_27_BOUNDED_SCOPE",
-    "gc32_sources_checkpoint": "e76a286_NON_RELEASE; b79a659_MAKE_TARGETS_NON_RELEASE"
+    "gc32_sources_checkpoint": "e76a286_NON_RELEASE; b79a659_MAKE_TARGETS_NON_RELEASE",
+    "ts_r008_element_passports": "20_OF_20_SOURCE_BOUNDED_REFERENCE_ONLY_NATIVE_BINDING_NOT_ATTESTED"
   },
   "provenance": "2026-10-26 GC32 SSH addon + visual atlas r003; confirmed structure only; observed values via explicit scan",
   "atlas_purpose": {
@@ -291,7 +292,8 @@
     "resources": "SHA256 звіряється лише з підтвердженим vault_manifest.json",
     "policy": "WARNING_ONLY; жодного автоматичного виправлення структури чи видалення історії",
     "ssh": "Authenticated read-only s01 -> PREPRESS over SSH; server writes snapshot; no Windows SMB writes",
-    "retention": "Files receive active/protected/review labels only; no moving, quarantining, deleting"
+    "retention": "Files receive active/protected/review labels only; no moving, quarantining, deleting",
+    "element_passports": "P01–P04 element cards refer to expected native layers and missing proofs; no renderer, source mutation or design approval"
   },
   "structure_atlas_visual_revision": "r003; one selected-node passport; NO automatic cleanup; restore from server-reviewed source and private backup"
 }
