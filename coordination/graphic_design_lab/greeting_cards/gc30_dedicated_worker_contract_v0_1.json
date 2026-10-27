@@ -1,0 +1,75 @@
+{
+  "schema_version": "forprint_gdl_gc30_worker_topology_contract_v0_1",
+  "status": "PILOT_STAGE_ONLY_NOT_PRODUCTION",
+  "human_title_uk": "Листівки: черга на призначений Windows-виконавець",
+  "roles": {
+    "requesting_pc": "SUBMIT_ACCEPTED_JOB_ONLY_NO_ILLUSTRATOR",
+    "server_s01": "VALIDATE_ACCEPTED_JOB_COMPILE_NATIVE_SCENE_QUEUE_ONE_TICKET",
+    "worker_id": "illustrator-primary",
+    "windows_worker": "REGISTER_ON_DESIGNATED_MACHINE_ONLY_SHA_CACHE_STAGE_ONCE",
+    "result_store": "CLIENT_SMB_OUTPUT_ILLUSTRATOR_REVIEW_ONLY",
+    "server_worker_binding": "PRIVATE_S01_SINGLE_MACHINE_AND_WINDOWS_USER"
+  },
+  "trust": {
+    "queue_authentication": "REQUIRES_ACL_OR_SERVER_SIGNATURE_BEFORE_AUTO_EXECUTE",
+    "worker_machine_binding": "LOCAL_COMPUTERNAME_AND_USER_BOUND_AT_REGISTRATION",
+    "artwork_input": "ACCEPTED_ZIP_AND_FROZEN_VAULT_ONLY",
+    "runtime_historical_pdf_read": false,
+    "customer_publication_allowed": false,
+    "production_ready": false,
+    "host_pin": "SERVER_EXCLUSIVE_BINDING_WINS_CHECKED_ON_WINDOWS"
+  },
+  "asset_cache": {
+    "mode": "CONTENT_ADDRESSABLE_SHA256",
+    "standard_scope": "SHARED_ASSET_CACHE",
+    "customer_specific_scope": "CLIENT_ASSET_CACHE",
+    "missing_item": "COPY_AND_SHA256_VERIFY",
+    "corrupted_item": "QUARANTINE_AND_RESTORE",
+    "unchanged_item": "REUSE_NO_NETWORK_COPY",
+    "scene_materialization": "LOCAL_HARDLINK_IF_SUPPORTED_ELSE_LOCAL_COPY"
+  },
+  "ticket": {
+    "schema_version": "forprint_gdl_gc30_dispatch_ticket_v0_1",
+    "state_on_submit": "QUEUED",
+    "state_on_worker_stage": "STAGED_FOR_ILLUSTRATOR",
+    "worker_id": "illustrator-primary",
+    "fields": [
+      "ticket_id",
+      "client_folder",
+      "job_id",
+      "worker_id",
+      "run_relative",
+      "accepted_zip_sha256",
+      "scene_manifest_sha256",
+      "jsx_sha256",
+      "asset_sha256",
+      "worker_machine",
+      "worker_user"
+    ]
+  },
+  "known_blockers": [
+    "GC29_P04_GRIGO_SVG_PLACEDITEM_FILE_REJECTED_BY_ILLUSTRATOR",
+    "NO_AUTOMATIC_ILLUSTRATOR_LAUNCH_ENABLED",
+    "QUEUE_AUTHENTICITY_REQUIRES_HARDENING_BEFORE_AUTO_EXECUTION",
+    "SERVER_GC29_PREPARE_STILL_MATERIALIZES_DUPLICATE_ASSETS"
+  ],
+  "next_acceptance": [
+    "GC30_JOB_QUEUED_FROM_OTHER_PC",
+    "GC30_WORKER_MACHINE_BOUND",
+    "GC30_WORKER_STAGED_LOCAL",
+    "CACHE_REUSE_FOR_SECOND_JOB",
+    "GC29_NATIVE_SIGNATURE_RENDERER_REPAIRED",
+    "AI_PDF_PNG_RETURN_HASH_VERIFIED"
+  ],
+  "windows_local_runtime": {
+    "canonical_root": "D:\\ForPrint_Automation\\GraficsDesignLab\\Automation",
+    "worker": "Worker/gc30_dedicated_worker_v0_1.ps1",
+    "worker_config": "Worker/worker_config.json",
+    "assets": "Shared/AssetCache and Clients/<client>/AssetCache",
+    "client_local_staging": "Clients/<client>/GreetingCards/<ticket>",
+    "prohibited_runtime_root": "%LOCALAPPDATA%",
+    "root_created_by_registration": false,
+    "source_of_truth": "GDL server; Windows is a verified projection",
+    "production_ready": false
+  }
+}
