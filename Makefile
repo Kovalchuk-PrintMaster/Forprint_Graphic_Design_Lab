@@ -132,3 +132,103 @@ gc27-p03-check:
 gc27-p03-prepare:
 	@test -n "$(GC27_CLIENT_NAME)" -a -n "$(GC27_PACKAGE_NAME)" -a -n "$(GC27_RESOURCE_MANIFEST)" -a -n "$(OUTPUT_NAME)" -a "$(CONFIRM_PRIVATE_PREPARE)" = YES || (echo "GC27_CLIENT_NAME, GC27_PACKAGE_NAME, GC27_RESOURCE_MANIFEST, OUTPUT_NAME, CONFIRM_PRIVATE_PREPARE=YES required"; exit 2)
 	$(PYTHON) -B $(GC27_P03_NATIVE) --mode prepare --confirm-private-prepare --client-name "$(GC27_CLIENT_NAME)" --package-name "$(GC27_PACKAGE_NAME)" --resource-manifest "$(GC27_RESOURCE_MANIFEST)" --source-root "$(GC27_RESOURCE_SOURCE_ROOT)" --output-name "$(OUTPUT_NAME)"
+
+# TS01 Template Studio: P01 STANDARD reference visual passport, no native master or client publication.
+TS01_P01_CLI := scripts/graphic_design_lab/template_studio/ts01_p01_visual_passport_v0_1.py
+TS01_RESOURCE_MANIFEST ?=
+TS01_SOURCE_ROOT ?= ../forprint_prepress_hub
+.PHONY: ts01-p01-test ts01-p01-check ts01-p01-prepare
+ts01-p01-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_ts01_p01_visual_passport_v0_1.py
+ts01-p01-check:
+	@test -n "$(TS01_RESOURCE_MANIFEST)" || (echo "Set TS01_RESOURCE_MANIFEST=/private/path/resources.yaml"; exit 2)
+	$(PYTHON) -B $(TS01_P01_CLI) --mode check --resource-manifest "$(TS01_RESOURCE_MANIFEST)" --source-root "$(TS01_SOURCE_ROOT)"
+ts01-p01-prepare:
+	@test -n "$(TS01_RESOURCE_MANIFEST)" -a -n "$(OUTPUT_NAME)" -a "$(CONFIRM_PRIVATE_PREPARE)" = YES || (echo "Set TS01_RESOURCE_MANIFEST=... OUTPUT_NAME=ts01_p01_... CONFIRM_PRIVATE_PREPARE=YES"; exit 2)
+	$(PYTHON) -B $(TS01_P01_CLI) --mode prepare --confirm-private-prepare --resource-manifest "$(TS01_RESOURCE_MANIFEST)" --source-root "$(TS01_SOURCE_ROOT)" --output-name "$(OUTPUT_NAME)"
+
+# Template Studio FULL: private static 4-page operator GUI, no render or print authority.
+TS_FULL_CLI := scripts/graphic_design_lab/template_studio/ts_full_publisher_v0_1.py
+TS_FULL_RESOURCE_MANIFEST ?=
+TS_FULL_SOURCE_ROOT ?= ../forprint_prepress_hub
+.PHONY: ts-full-test ts-full-check ts-full-build ts-full-publish ts-full-verify
+ts-full-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_ts_full_publisher_v0_1.py
+ts-full-check:
+	@test -n "$(TS_FULL_RESOURCE_MANIFEST)" || (echo "TS_FULL_RESOURCE_MANIFEST required"; exit 2)
+	$(PYTHON) -B $(TS_FULL_CLI) --mode check --resource-manifest "$(TS_FULL_RESOURCE_MANIFEST)" --source-root "$(TS_FULL_SOURCE_ROOT)"
+ts-full-build:
+	@test -n "$(TS_FULL_RESOURCE_MANIFEST)" -a -n "$(OUTPUT_NAME)" || (echo "TS_FULL_RESOURCE_MANIFEST OUTPUT_NAME required"; exit 2)
+	$(PYTHON) -B $(TS_FULL_CLI) --mode build --resource-manifest "$(TS_FULL_RESOURCE_MANIFEST)" --source-root "$(TS_FULL_SOURCE_ROOT)" --output-name "$(OUTPUT_NAME)"
+ts-full-publish:
+	@test -n "$(CLIENT_NAME)" -a -n "$(BUILD_DIR)" -a "$(CONFIRM_PUBLISH)" = YES || (echo "CLIENT_NAME BUILD_DIR CONFIRM_PUBLISH=YES required"; exit 2)
+	$(PYTHON) -B $(TS_FULL_CLI) --mode publish --client-name "$(CLIENT_NAME)" --build-dir "$(BUILD_DIR)" --confirm-publish
+ts-full-verify:
+	@test -n "$(CLIENT_NAME)" || (echo "CLIENT_NAME required"; exit 2)
+	$(PYTHON) -B $(TS_FULL_CLI) --mode verify --client-name "$(CLIENT_NAME)"
+
+# GC32: single PREPRESS root + TS FULL infrastructure portal, docs WARN only.
+GC32_INFRA := scripts/graphic_design_lab/greeting_cards/gc32_infrastructure_portal_v0_1.py
+GC32_CLIENT ?=
+.PHONY: gc32-test gc32-documentation-check gc32-worker-check gc32-worker-install gc32-portal-check gc32-portal-refresh
+gc32-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc32_single_root_portal_v0_1.py
+	$(PYTHON) -B $(GC32_INFRA) --mode audit
+gc32-documentation-check:
+	$(PYTHON) -B $(GC32_INFRA) --mode audit
+gc32-worker-check:
+	@test -n "$(GC32_CLIENT)" || (echo "GC32_CLIENT required"; exit 2)
+	$(PYTHON) -B $(GC32_INFRA) --mode worker-check --client-name "$(GC32_CLIENT)"
+gc32-worker-install:
+	@test -n "$(GC32_CLIENT)" -a "$(CONFIRM_INSTALL)" = YES || (echo "GC32_CLIENT / CONFIRM_INSTALL=YES required"; exit 2)
+	$(PYTHON) -B $(GC32_INFRA) --mode worker-install --client-name "$(GC32_CLIENT)" --confirm
+gc32-portal-check:
+	@test -n "$(GC32_CLIENT)" || (echo "GC32_CLIENT required"; exit 2)
+	$(PYTHON) -B $(GC32_INFRA) --mode portal-check --client-name "$(GC32_CLIENT)"
+gc32-portal-refresh:
+	@test -n "$(GC32_CLIENT)" -a "$(CONFIRM_PUBLISH)" = YES || (echo "GC32_CLIENT / CONFIRM_PUBLISH=YES required"; exit 2)
+	$(PYTHON) -B $(GC32_INFRA) --mode portal-refresh --client-name "$(GC32_CLIENT)" --confirm
+
+# GC32 Atlas: one canonical portal with conceptual + observed directory trees.
+GC32_ATLAS := scripts/graphic_design_lab/greeting_cards/gc32_structure_atlas_v0_1.py
+.PHONY: gc32-atlas-test gc32-atlas-check
+gc32-atlas-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc32_structure_atlas_v0_1.py tests/graphic_design_lab/test_gc32_single_root_portal_v0_1.py
+gc32-atlas-check:
+	@test -n "$(GC32_CLIENT)" || (echo "Set GC32_CLIENT=..."; exit 2)
+	$(PYTHON) -B $(GC32_ATLAS) --client-name "$(GC32_CLIENT)"
+
+.PHONY: gc32-atlas-scanner-check gc32-atlas-scanner-install
+gc32-atlas-scanner-check:
+	@test -n "$(GC32_CLIENT)" || (echo "Set GC32_CLIENT=..."; exit 2)
+	$(PYTHON) -B $(GC32_ATLAS) --mode scanner-check --client-name "$(GC32_CLIENT)"
+gc32-atlas-scanner-install:
+	@test -n "$(GC32_CLIENT)" -a "$(CONFIRM_INSTALL)" = YES || (echo "GC32_CLIENT and CONFIRM_INSTALL=YES required"; exit 2)
+	$(PYTHON) -B $(GC32_ATLAS) --mode scanner-install --client-name "$(GC32_CLIENT)" --confirm
+
+# GC32 Atlas: remote PREPRESS inventory over EXISTING SSH, without Windows->SMB writes.
+GC32_SSH_INVENTORY := scripts/graphic_design_lab/greeting_cards/gc32_ssh_inventory_lifecycle_v0_1.py
+.PHONY: gc32-ssh-inventory-test gc32-ssh-inventory-capture gc32-ssh-inventory-review gc32-ssh-inventory-publish
+gc32-ssh-inventory-test:
+	$(PYTHON) -m pytest -q -p no:cacheprovider tests/graphic_design_lab/test_gc32_ssh_inventory_lifecycle_v0_1.py
+gc32-ssh-inventory-capture:
+	@test -n "$(GC32_CLIENT)" || (echo "GC32_CLIENT required"; exit 2)
+	$(PYTHON) -B $(GC32_SSH_INVENTORY) --mode capture --client-name "$(GC32_CLIENT)"
+gc32-ssh-inventory-review:
+	@test -n "$(GC32_CLIENT)" -a -n "$(GC32_CAPTURE_DIR)" || (echo "GC32_CLIENT and GC32_CAPTURE_DIR required"; exit 2)
+	$(PYTHON) -B $(GC32_SSH_INVENTORY) --mode review --client-name "$(GC32_CLIENT)" --run-dir "$(GC32_CAPTURE_DIR)"
+gc32-ssh-inventory-publish:
+	@test -n "$(GC32_CLIENT)" -a -n "$(GC32_CAPTURE_DIR)" -a "$(CONFIRM_PUBLISH)" = YES || (echo "GC32_CLIENT, GC32_CAPTURE_DIR and CONFIRM_PUBLISH=YES required"; exit 2)
+	$(PYTHON) -B $(GC32_SSH_INVENTORY) --mode publish --client-name "$(GC32_CLIENT)" --run-dir "$(GC32_CAPTURE_DIR)" --confirm-publish
+
+# GC32 r005: versioned PREPRESS inventory scanner under the existing Automation/Worker root.
+# One-time installation via s01 -> PREPRESS, then SHA-verified read-only capture.
+.PHONY: gc32-ssh-scanner-check gc32-ssh-scanner-install
+
+gc32-ssh-scanner-check:
+	@test -n "$(GC32_CLIENT)" || (echo "GC32_CLIENT required"; exit 2)
+	$(PYTHON) -B scripts/graphic_design_lab/greeting_cards/gc32_ssh_inventory_lifecycle_v0_1.py --mode scanner-check --client-name "$(GC32_CLIENT)"
+
+gc32-ssh-scanner-install:
+	@test -n "$(GC32_CLIENT)" -a "$(CONFIRM_INSTALL)" = "YES" || (echo "GC32_CLIENT=... CONFIRM_INSTALL=YES required"; exit 2)
+	$(PYTHON) -B scripts/graphic_design_lab/greeting_cards/gc32_ssh_inventory_lifecycle_v0_1.py --mode scanner-install --client-name "$(GC32_CLIENT)" --confirm-install
