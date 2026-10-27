@@ -145,10 +145,15 @@ def html_bytes(model:dict,images:dict,template:bytes,source_sha:str=SOURCE_SHA,i
     if infra is None: infra=load_infrastructure(ROOT)
     need(isinstance(infra,dict) and infra.get('schema_version')=='forprint_gdl_gc32_infrastructure_map_v0_1','INFRA_SCHEMA_INVALID')
     need(t.count('/*__TS_INFRA__*/')==1,'INFRA_TOKEN_MISSING')
+    # A stable description identity is independent from volatile observations
+    # (scan timestamps, git status, inventory deltas). A publication build_id
+    # still identifies the *entire* embedded HTML snapshot and is immutable.
+    definition_seed=json.dumps({'registry':model,'template_sha256':digest(template),'source':source_sha},sort_keys=True,ensure_ascii=False,separators=(',',':')).encode('utf8')
+    definition_id='tsdef-'+digest(definition_seed)[:16]
     id_seed=json.dumps({'registry':model,'infra':infra,'template_sha256':digest(template),'source':source_sha},sort_keys=True,ensure_ascii=False,separators=(',',':')).encode('utf8')
     build_id='tsfull-'+digest(id_seed)[:16]
     safe=lambda o:json.dumps(o,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c').replace('>','\\u003e').replace('&','\\u0026')
-    html=(MARKER+'\n'+t.replace('/*__TS_FULL_MODEL__*/',safe(model)).replace('/*__TS_FULL_IMAGES__*/',safe(images)).replace('/*__TS_FULL_BUILD__*/',safe({'id':build_id,'source_sha256':source_sha})).replace('/*__TS_INFRA__*/',safe(infra))).encode('utf-8')
+    html=(MARKER+'\n'+t.replace('/*__TS_FULL_MODEL__*/',safe(model)).replace('/*__TS_FULL_IMAGES__*/',safe(images)).replace('/*__TS_FULL_BUILD__*/',safe({'id':build_id,'definition_id':definition_id,'source_sha256':source_sha})).replace('/*__TS_INFRA__*/',safe(infra))).encode('utf-8')
     need(len(html)<MAX_HTML,'PORTAL_HTML_TOO_LARGE')
     return html,build_id
 

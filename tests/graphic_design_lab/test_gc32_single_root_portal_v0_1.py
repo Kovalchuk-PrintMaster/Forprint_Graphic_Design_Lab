@@ -31,8 +31,9 @@ def test_map_honesty():
 
 def test_seven_ui_pages_offline():
     s=PORTAL.read_text('utf8')
-    for t in ('PREPRESS · Windows','Папка клієнта','Конвеєр і контроль','function renderInfrastructure','/*__TS_INFRA__*/'):
+    for t in ('Конвеєр і контроль','Еталонне дерево','Фактичне дерево','function renderInfrastructure','/*__TS_INFRA__*/'):
         assert t in s
+    assert "[['windows','PREPRESS · Windows']" not in s
     assert s.count('/*__TS_INFRA__*/')==1
     assert 'fetch(' not in s and 'XMLHttpRequest' not in s
 

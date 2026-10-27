@@ -77,9 +77,9 @@
         "state": "OPTIONAL_ONE_TIME_INSTALL"
       },
       {
-        "path": "(SSH inventory, no Windows install)",
-        "title": "s01 зчитує стан PREPRESS через SSH; без копіювання чи запису SMB",
-        "state": "READ_ONLY_REMOTE_CAPTURE"
+        "path": "Worker/gc32_prepress_ssh_snapshot_v0_1.ps1",
+        "title": "SHA256-версійований сканер PREPRESS, встановлений зі s01 і запущений через SSH; тільки читання",
+        "state": "INSTALLED_VERIFIED_R006_2026_10_27"
       }
     ],
     "root_verified_by": "PREPRESS / Work: Test-Path=True and operator tree listing, 2026-10-26"
@@ -139,13 +139,13 @@
       },
       {
         "path": "template_studio/inventory/",
-        "title": "Операторські знімки дерева PREPRESS; не замовлення й не ресурсна бібліотека",
+        "title": "Опублікований сервером перевірений SSH-самозвіт PREPRESS, не незалежна атестація",
         "state": "CREATED_ON_EXPLICIT_WINDOWS_EXPORT"
       },
       {
         "path": "template_studio/inventory/prepress_snapshot.json",
-        "title": "Останнє локальне самообстеження PREPRESS; не серверна атестація",
-        "state": "OPTIONAL_SNAPSHOT"
+        "title": "Останній перевірений SSH-самозвіт PREPRESS; scan_truncated=false не означає повний диск",
+        "state": "PUBLISHED_VERIFIED_2026_10_27"
       },
       {
         "path": "template_studio/releases/",
@@ -250,7 +250,26 @@
       "gc32-ssh-inventory-publish"
     ],
     "policy": "WARNING_ONLY; map and controlled-code changes must be synchronized, including untracked exact file paths",
-    "structure_atlas": "GC32_STRUCTURE_ATLAS_V0_1_CLIENT_READ_ONLY_PREPRESS_OPTIONAL_SNAPSHOT"
+    "structure_atlas": "GC32_STRUCTURE_ATLAS_V0_1_CLIENT_READ_ONLY_PREPRESS_OPTIONAL_SNAPSHOT",
+    "source_checkpoint_boundary": {
+      "at_commit": "b79a659",
+      "ts_gc32_targets_committed": [
+        "ts-full-test",
+        "gc32-documentation-check",
+        "gc32-worker-install",
+        "gc32-portal-refresh",
+        "gc32-ssh-inventory-capture",
+        "gc32-ssh-inventory-review",
+        "gc32-ssh-inventory-publish"
+      ],
+      "other_workflow_targets_worktree_only": [
+        "gc30-dispatch-test",
+        "gc30-worker-binding",
+        "gc30-queue",
+        "gc29-native-test"
+      ],
+      "release_ready": false
+    }
   },
   "progress": {
     "gc30_binding": "VERIFIED_PREPRESS_WORK",
@@ -260,7 +279,9 @@
     "illustrator_export": "BLOCKED_UNTIL_REAL_REVIEW",
     "gc32_existing_root": "VERIFIED_PREPRESS_WORK_D_DRIVE",
     "gc32_structure": "RECONCILED_WITH_EXISTING_CACHE_CONFIG_JOBS_LOGS_RUNTIME_WORKER",
-    "gc32_portal": "PUBLISHED_R002_WITH_AUDIT_OK"
+    "gc32_portal": "PUBLISHED_R002_WITH_AUDIT_OK",
+    "gc32_prepress_ssh_scan": "23_ITEMS_CAPTURE_REVIEW_PUBLISH_PASS_2026_10_27_BOUNDED_SCOPE",
+    "gc32_sources_checkpoint": "e76a286_NON_RELEASE; b79a659_MAKE_TARGETS_NON_RELEASE"
   },
   "provenance": "2026-10-26 GC32 SSH addon + visual atlas r003; confirmed structure only; observed values via explicit scan",
   "atlas_purpose": {

@@ -191,9 +191,15 @@ def _prepress(ws:Path,client:str, previous:dict|None):
                         'size_bytes':item.get('size_bytes') if isinstance(item.get('size_bytes'),int) else None,
                         'sha256':item.get('sha256') if _hex64(item.get('sha256')) else None,
                         'change':'WINDOWS_SELF_REPORTED'})
-    return {'source':'WINDOWS_LOCAL_OPERATOR_SNAPSHOT','state':'SELF_REPORTED_NOT_REMOTE_ATTESTED',
+    # The published file is a validated self-report captured through the server SSH
+    # route.  It is not an independent remote attestation of every Windows file.
+    return {'source':'PUBLISHED_WINDOWS_SELF_REPORT','state':'SELF_REPORTED_NOT_REMOTE_ATTESTED',
             'captured_utc':str(raw.get('captured_utc',''))[:35], 'entries':results,
-            'counts':{'items':len(results)}, 'root':raw['root']},[]
+            'counts':{'items':len(results)}, 'root':raw['root'],
+            'scan_truncated':raw.get('scan_truncated') if type(raw.get('scan_truncated')) is bool else None,
+            'scan_scope':'BOUNDED_CONFIG_WORKER_CACHE_AND_THIS_CLIENT_JOBS',
+            'scan_policy':'MAX_450_RECORDS_DEPTH_3_SELECT_FIRST_150_PER_SEGMENT',
+            'content_hash_scope':'SMALL_SELECTED_FILES_ONLY_NOT_COMPLETE_DISK_PROOF'},[]
 
 def build_atlas(ws:Path,client:str,meta:dict,previous:dict|None=None):
     """Return declarative map + bounded fresh observations, never mutation."""

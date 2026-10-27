@@ -112,7 +112,7 @@ const bbox=el=>{if(!el)return null;
  if(front && el.id==='P01-030')return front.occasion_bbox_mm;
  }
  return el.bbox_mm;};
-function init(){const p=$('pages');MODEL.pages.forEach((x,i)=>{const b=E('button','tab',x.id+' · '+x.title_ua);b.type='button';b.onclick=()=>{page=i;infraTab=null;selected=null;render();};p.appendChild(b)});[['windows','PREPRESS · Windows'],['client','Папка клієнта'],['process','Конвеєр і контроль'],['atlas-concept','Еталонне дерево'],['atlas-actual','Фактичне дерево']].forEach(([id,label])=>{const b=E('button','tab',label);b.type='button';b.onclick=()=>{infraTab=id;atlasSelectedPath=null;(id.startsWith('atlas-')?renderAtlas():renderInfrastructure());};p.appendChild(b)});$('guides').onclick=()=>{guides=!guides;render()};$('reset').onclick=()=>{selected=null;proposals=[];Object.keys(MODEL.variant_groups).forEach(k=>choices[k]=MODEL.variant_groups[k].default);render()};$('copy').onclick=copyProposal;$('download').onclick=downloadProposal;
+function init(){const p=$('pages');MODEL.pages.forEach((x,i)=>{const b=E('button','tab',x.id+' · '+x.title_ua);b.type='button';b.onclick=()=>{page=i;infraTab=null;selected=null;render();};p.appendChild(b)});[['process','Конвеєр і контроль'],['atlas-concept','Еталонне дерево'],['atlas-actual','Фактичне дерево']].forEach(([id,label])=>{const b=E('button','tab',label);b.type='button';b.onclick=()=>{infraTab=id;atlasSelectedPath=null;(id.startsWith('atlas-')?renderAtlas():renderInfrastructure());};p.appendChild(b)});$('guides').onclick=()=>{guides=!guides;render()};$('reset').onclick=()=>{selected=null;proposals=[];Object.keys(MODEL.variant_groups).forEach(k=>choices[k]=MODEL.variant_groups[k].default);render()};$('copy').onclick=copyProposal;$('download').onclick=downloadProposal;
 $('atlas-client').onclick=()=>{atlasTarget='client';atlasSelectedPath=null;renderAtlas()};
 $('atlas-prepress').onclick=()=>{atlasTarget='prepress';atlasSelectedPath=null;renderAtlas()};
 $('atlas-search').oninput=v=>{atlasQuery=v.target.value;renderAtlasTree()};
@@ -132,23 +132,22 @@ function render(){document.querySelector('.main').hidden=false;$('infra-shell').
 
 function renderInfrastructure(){
  document.querySelector('.main').hidden=true;$('infra-shell').hidden=false;$('atlas-shell').hidden=true;
- [...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===({'windows':4,'client':5,'process':6}[infraTab]))));
- const w=INFRA.worker,c=INFRA.client,steps=INFRA.workflow,coverage=INFRA.audit||{warnings:[]};
- const chosen=infraTab==='windows'?w:infraTab==='client'?c:null;
- $('infra-title').textContent=infraTab==='windows'?'PREPRESS / Work · один корінь':infraTab==='client'?'Клієнтська автоматизація':'Маршрут замовлення та контроль';
- $('infra-description').textContent=infraTab==='windows'?'Підтверджений робочий диск PREPRESS. Нові файли не розміщувати у TEMP чи LOCALAPPDATA.':infraTab==='client'?'Одна постійна папка input, output і Template Studio для клієнта.':'Лише підтверджені межі виконання; очікування не дорівнюють готовому результату.';
- $('infra-tree').textContent=chosen ? (infraTab==='windows'?(w.root_hint+(w.root_hint_verified?'  [ПІДТВЕРДЖЕНО]\n':'  [ПОТРІБНЕ ПІДТВЕРДЖЕННЯ]\n')):c.workspace+'\n')+chosen.structure.map(x=>'  '+x.path+'\n      '+x.title+'  ['+x.state+']').join('\n') : steps.map(x=>x.id+' · '+x.title+'\n    '+x.detail+'\n    '+x.authority).join('\n\n');
+ [...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===4)));
+ const steps=INFRA.workflow,coverage=INFRA.audit||{warnings:[]};
+ $('infra-title').textContent='Маршрут замовлення та контроль';
+ $('infra-description').textContent='Маршрут і межі виконання. Структуру PREPRESS та клієнта переглядай в єдиному інтерактивному Atlas.';
+ $('infra-tree').textContent=steps.map(x=>x.id+' · '+x.title+'\n    '+x.detail+'\n    '+x.authority).join('\n\n');
  const flag=$('infra-flags');flag.replaceChildren();
  const summary=E('div','notice','Контроль покриття: '+(coverage.warnings.length?'ПОПЕРЕДЖЕННЯ ('+coverage.warnings.length+')':'нових неописаних змін не виявлено')+' · перевірено під час публікації');flag.appendChild(summary);
  coverage.warnings.forEach(x=>flag.appendChild(E('div','infra-warn',x)));
  const status=E('div','infra-step');status.appendChild(E('strong','','Поточний рубіж'));status.appendChild(E('div','',Object.entries(INFRA.progress).map(([k,v])=>k+': '+v).join(' · ')));flag.appendChild(status);
- const list=$('infra-steps');list.replaceChildren();const arr=infraTab==='process'?steps:INFRA.boundaries.map((x,i)=>({id:String(i+1),title:'Правило',detail:x,authority:'ACTIVE'}));
+ const list=$('infra-steps');list.replaceChildren();const arr=steps;
  arr.forEach(x=>{const d=E('div','infra-step');d.appendChild(E('strong','',x.id+' · '+x.title));d.appendChild(E('div','',x.detail));d.appendChild(E('div','infra-tag',x.authority));list.appendChild(d)});
 }
 
 function renderAtlas(){
  document.querySelector('.main').hidden=true;$('infra-shell').hidden=true;$('atlas-shell').hidden=false;
- [...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===({'atlas-concept':7,'atlas-actual':8}[infraTab]))));
+ [...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===({'atlas-concept':5,'atlas-actual':6}[infraTab]))));
  const actual=infraTab==='atlas-actual',A=INFRA.atlas||{};
  $('atlas-title').textContent=actual?'Фактичне дерево · останній знімок':'Еталонне дерево · призначення кожної гілки';
  $('atlas-description').textContent=actual?'Реальне читання s01; для PREPRESS — окремий локальний знімок, якщо його вже передано.':'Натисни папку або файл: праворуч відкриється паспорт призначення й відновлення. Це контракт, не твердження про наявність.';
@@ -156,7 +155,9 @@ function renderAtlas(){
  $('atlas-prepress').setAttribute('aria-pressed',String(atlasTarget==='prepress'));
  $('atlas-search').value=atlasQuery;
  const time=A.captured_utc||'немає';
- $('atlas-summary').textContent='Знімок: '+time+' · '+(actual?'Перевірка с01 / самообстеження PREPRESS':'Еталонні функції')+' · Публікація не дає дозволу на виробництво.';
+ const snap=actual?((A.actual||{})[atlasTarget]||{}):{};
+ const scanAt=actual?(snap.captured_utc||time):time;
+ $('atlas-summary').textContent='Знімок: '+scanAt+' · '+(actual?(atlasTarget==='prepress'?'SSH-самозвіт PREPRESS · обмежений обхід':'Серверне читання клієнтської папки · обмежений обхід'):'Еталонні функції')+' · Опис: '+(BUILD.definition_id||'без ID')+' · Друк та очищення не дозволені.';
  renderAtlasTree();renderAtlasSide();renderAtlasDetails();
 }
 function atlasCurrentNodes(){
@@ -248,7 +249,7 @@ function renderAtlasDetails(){
  if(actual)tags.appendChild(E('span','atlas-mini',x.change||x.state||'Знімок'));
  card.appendChild(tags);
  const fields=[['Призначення',info.purpose],['Отримує',role[0]],['Передає / використовує',role[1]],['Стан відновлення',role[2]],['Життєвий цикл',info.state||role[3]],['Джерело опису',info.exact?'Контракт структури GC32':'Ієрархічний контекст / потребує уточнення']];
- if(actual){fields.push(['Фактичність',atlasTarget==='client'?'Перевірено s01 під час публікації':'Звіт PREPRESS через оператора або SSH; звірити provenance']);if(typeof x.size_bytes==='number')fields.push(['Розмір',x.size_bytes.toLocaleString('uk-UA')+' байт']);}
+ if(actual){fields.push(['Фактичність',atlasTarget==='client'?'Метадані прочитані s01 під час публікації; обмежений обхід':'SSH-отриманий самозвіт PREPRESS, не незалежна атестація']);if(typeof x.size_bytes==='number')fields.push(['Розмір',x.size_bytes.toLocaleString('uk-UA')+' байт']);}
  const A=INFRA.atlas||{},asset=(A.assets||[]).find(v=>v.path===key);
  if(asset){fields.push(['Цілісність ресурсу',asset.state]);if(asset.actual_sha256)fields.push(['Фактичний SHA256',asset.actual_sha256]);if(asset.expected_sha256)fields.push(['Еталонний SHA256',asset.expected_sha256]);}
  const children=items.filter(v=>atlasNorm(v.path).startsWith(key+'/'));
@@ -262,8 +263,14 @@ function renderAtlasSide(){
  const actual=infraTab==='atlas-actual';
  if(actual){
  const snap=A.actual&&A.actual[atlasTarget];
- assets.appendChild(E('div','atlas-summary',atlasTarget==='client'?'Джерело: читання файлової системи s01 під час оновлення.':'Джерело: локальний звіт Windows, НЕ серверна атестація.'));
+ assets.appendChild(E('div','atlas-summary',atlasTarget==='client'?'Джерело: обмежене читання файлової системи s01 під час оновлення.':'Джерело: опублікований самозвіт Windows. Поточний журнал підтверджує SSH-маршрут; сам JSON не засвідчує транспорт.'));
  if(snap&&snap.counts)assets.appendChild(E('div','metadata',JSON.stringify(snap.counts)));
+ if(snap&&atlasTarget==='prepress'&&snap.state==='SELF_REPORTED_NOT_REMOTE_ATTESTED'){
+   assets.appendChild(E('div','metadata','Отримано: '+(snap.captured_utc||'невідомо')+' · Записів: '+(snap.counts?.items??'невідомо')));
+   assets.appendChild(E('div',snap.scan_truncated===true?'infra-warn':'atlas-summary',snap.scan_truncated===true?'ОБРІЗАНИЙ ЗНІМОК: перевищено ліміт сканера. Відсутність запису не доводить відсутність файла.':snap.scan_truncated===false?'Сканер не досяг загального ліміту, але читав лише вибрані гілки PREPRESS (не весь диск).':'Повнота знімка невідома: scan_truncated не підтверджено.'));
+   assets.appendChild(E('div','metadata','Область: '+(snap.scan_scope||'не підтверджено')+' · '+(snap.scan_policy||'bounded')));
+ }
+ if(snap&&atlasTarget==='client'&&snap.scan_complete===false)assets.appendChild(E('div','infra-warn','Клієнтський знімок неповний: досягнуто ліміт обходу.'));
  if(atlasTarget==='prepress'&&(!snap||snap.state==='NOT_SCANNED'))assets.appendChild(E('div','infra-warn','Немає фактичного знімка PREPRESS. Показані в інших вкладках шляхи є планом, а не результатом сканування.'));
  }else assets.appendChild(E('div','atlas-summary','Структура — еталон. Реальну наявність і зміни дивись у вкладці «Фактичне дерево».'));
  if(atlasTarget==='client'){
@@ -288,7 +295,7 @@ function drawDetails(){const dest=$('details');dest.replaceChildren();const el=i
  dest.appendChild(E('p','status','Пробна зміна координат для пропозиції. Реальне зображення не пересувається.'));
  const edits=E('div','editgrid');const names=['X','Y','W','H'];const initial=[box[0],box[1],box[2]-box[0],box[3]-box[1]];const inputs=names.map((n,i)=>{const l=E('label','',n+' (мм)'),inp=E('input');inp.type='number';inp.step='0.1';inp.value=initial[i];l.appendChild(inp);edits.appendChild(l);return inp});dest.appendChild(edits);
  const b=E('button','action','Додати пропозицію');b.onclick=()=>{const v=inputs.map(x=>Number(x.value));if(v.some(x=>!Number.isFinite(x))||v[2]<=0||v[3]<=0||v[2]>856||v[3]>1204){alert('Некоректні координати або розміри');return}let rect=[+v[0].toFixed(3),+v[1].toFixed(3),+(v[0]+v[2]).toFixed(3),+(v[1]+v[3]).toFixed(3)];proposals=proposals.filter(x=>!(x.page_id===curr().id&&x.element_id===el.id));proposals.push({page_id:curr().id,element_id:el.id,variants:Object.fromEntries(curr().variant_groups.map(k=>[k,choices[k]])),original_bbox_mm:box,proposed_bbox_mm:rect,authority:'PROPOSAL_ONLY'});drawMarks();drawProposal()};dest.appendChild(b)}
-function record(){return {schema_version:'forprint_ts_full_operator_change_proposal_v0_1',build_id:BUILD.id,source_sha256:BUILD.source_sha256,approved:false,production_ready:false,operator_review_required:true,changes:proposals}}
+function record(){return {schema_version:'forprint_ts_full_operator_change_proposal_v0_1',build_id:BUILD.id,definition_id:BUILD.definition_id,source_sha256:BUILD.source_sha256,approved:false,production_ready:false,operator_review_required:true,changes:proposals}}
 function drawProposal(){$('proposal').textContent=JSON.stringify(record(),null,2)}
 function copyProposal(){const t=$('proposal').textContent;const fallback=()=>{const area=document.createElement('textarea');area.value=t;document.body.appendChild(area);area.select();let ok=document.execCommand('copy');area.remove();$('copy-status').textContent=ok?'JSON скопійовано':'Виділи та скопіюй текст вручну'};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(()=>{$('copy-status').textContent='JSON скопійовано'}).catch(fallback);else fallback()}
 function downloadProposal(){const blob=new Blob([JSON.stringify(record(),null,2)+'\n'],{type:'application/json'});const url=URL.createObjectURL(blob);const a=E('a');a.href=url;a.download='forprint_ts_full_change_proposal.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
