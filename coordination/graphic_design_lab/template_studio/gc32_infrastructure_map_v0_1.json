@@ -1,0 +1,276 @@
+{
+  "schema_version": "forprint_gdl_gc32_infrastructure_map_v0_1",
+  "version": "0.5.0",
+  "scope": "GREETING_CARDS_DEDICATED_WINDOWS_WORKER",
+  "worker": {
+    "machine": "PREPRESS",
+    "user": "Work",
+    "root_hint": "D:\\ForPrint_Automation\\GraficsDesignLab\\Automation",
+    "root_hint_verified": true,
+    "entry": "Worker/gc32_prepress_worker_v0_1.ps1",
+    "single_root": true,
+    "registration": "CONFIG_IN_SAME_ROOT",
+    "structure": [
+      {
+        "path": ".",
+        "title": "Підтверджений єдиний корінь PREPRESS",
+        "state": "VERIFIED_EXISTING"
+      },
+      {
+        "path": "cache/",
+        "title": "SHA256-кеш; стандартні та клієнтські ресурси у підкаталогах",
+        "state": "EXISTING"
+      },
+      {
+        "path": "cache/shared/",
+        "title": "Бібліотечні ресурси за SHA256",
+        "state": "CREATED_ON_DEMAND"
+      },
+      {
+        "path": "cache/clients/<клієнт>/",
+        "title": "Вкладення конкретного клієнта за SHA256",
+        "state": "CREATED_ON_DEMAND"
+      },
+      {
+        "path": "config/",
+        "title": "Налаштування вузла, один worker_config.json",
+        "state": "EXISTING"
+      },
+      {
+        "path": "config/worker_config.json",
+        "title": "Прив’язка до PREPRESS/Work і SHA256 робітника",
+        "state": "CREATED_ON_REGISTER"
+      },
+      {
+        "path": "jobs/",
+        "title": "Історичні роботи залишаються на місці",
+        "state": "EXISTING"
+      },
+      {
+        "path": "jobs/<клієнт>/GreetingCards/<ticket>/",
+        "title": "Одна робоча спроба листівки для клієнта",
+        "state": "CREATED_ON_JOB"
+      },
+      {
+        "path": "logs/",
+        "title": "Журнали і діагностика",
+        "state": "EXISTING"
+      },
+      {
+        "path": "runtime/",
+        "title": "Стан робочого виконавця",
+        "state": "EXISTING"
+      },
+      {
+        "path": "Worker/",
+        "title": "Один локальний сценарій виконавця",
+        "state": "EXISTING"
+      },
+      {
+        "path": "Worker/gc32_prepress_worker_v0_1.ps1",
+        "title": "Локальний Windows-робітник, не UNC",
+        "state": "INSTALLED_REQUIRES_R002_UPDATE"
+      },
+      {
+        "path": "Worker/gc32_prepress_inventory_v0_1.ps1",
+        "title": "Операторський знімок реального диска D: для HTML-довідника; тільки метадані",
+        "state": "OPTIONAL_ONE_TIME_INSTALL"
+      },
+      {
+        "path": "(SSH inventory, no Windows install)",
+        "title": "s01 зчитує стан PREPRESS через SSH; без копіювання чи запису SMB",
+        "state": "READ_ONLY_REMOTE_CAPTURE"
+      }
+    ],
+    "root_verified_by": "PREPRESS / Work: Test-Path=True and operator tree listing, 2026-10-26"
+  },
+  "client": {
+    "workspace": "<папка клієнта>/_forprint_automation",
+    "structure": [
+      {
+        "path": "input/",
+        "title": "Прийняті ZIP Intake і кнопка «Створити листівку»",
+        "state": "EXISTING"
+      },
+      {
+        "path": "output/",
+        "title": "Звіти й підсумки замовлень",
+        "state": "EXISTING"
+      },
+      {
+        "path": "output/illustrator_review/",
+        "title": "Лише перевірені AI, PDF, PNG і JSON — внутрішній review",
+        "state": "REVIEW_ONLY"
+      },
+      {
+        "path": "template_studio/",
+        "title": "Візуальний конструктор, бібліотека, версії, службові знімки",
+        "state": "EXISTING"
+      },
+      {
+        "path": "template_studio/index.html",
+        "title": "Постійна закладка конструктора",
+        "state": "EXISTING"
+      },
+      {
+        "path": "template_studio/native_asset_vault_v0_1/",
+        "title": "Серверна бібліотека стандартних елементів із SHA256",
+        "state": "EXISTING_SHA_VERIFIED"
+      },
+      {
+        "path": "template_studio/native_runs/",
+        "title": "Підготовлені сервером сцени до GC30",
+        "state": "EXISTING"
+      },
+      {
+        "path": "template_studio/dispatch/queued/",
+        "title": "Тільки заявки, що очікують PREPRESS",
+        "state": "EXISTING_OR_ON_DEMAND"
+      },
+      {
+        "path": "template_studio/dispatch/status/",
+        "title": "Машинні результати отримання завдань",
+        "state": "CREATED_ON_DEMAND"
+      },
+      {
+        "path": "template_studio/worker_bootstrap/",
+        "title": "Одноразова точка відновлення агента PREPRESS, не runtime",
+        "state": "BOOTSTRAP_ONLY"
+      },
+      {
+        "path": "template_studio/inventory/",
+        "title": "Операторські знімки дерева PREPRESS; не замовлення й не ресурсна бібліотека",
+        "state": "CREATED_ON_EXPLICIT_WINDOWS_EXPORT"
+      },
+      {
+        "path": "template_studio/inventory/prepress_snapshot.json",
+        "title": "Останнє локальне самообстеження PREPRESS; не серверна атестація",
+        "state": "OPTIONAL_SNAPSHOT"
+      },
+      {
+        "path": "template_studio/releases/",
+        "title": "Історія незмінних версій HTML-порталу",
+        "state": "EXISTING"
+      },
+      {
+        "path": "template_studio/worker_bootstrap/",
+        "title": "Підписані службові запускачі для локального PREPRESS",
+        "state": "EXISTING"
+      },
+      {
+        "path": "template_studio/native_asset_vault_v0_1/vault_manifest.json",
+        "title": "Маніфест 13 стандартних ресурсів та їх SHA256; runtime без PDF",
+        "state": "SHA256_PINNED"
+      }
+    ]
+  },
+  "workflow": [
+    {
+      "id": "01",
+      "title": "Intake",
+      "detail": "Прийнятий ZIP містить змінні тексти, фото й варіанти; початкові клієнтські файли незмінні",
+      "authority": "ACCEPTED_ONLY"
+    },
+    {
+      "id": "02",
+      "title": "s01 / GDL",
+      "detail": "GC30 формує ticket з точними SHA256 і закріпленою машиною PREPRESS",
+      "authority": "QUEUE_ONLY"
+    },
+    {
+      "id": "03",
+      "title": "PREPRESS / Work",
+      "detail": "GC32 PollOnce використовує існуючі jobs/ та cache/ і приймає лише ticket свого worker_id/машини/користувача",
+      "authority": "STAGE_ONLY_V0_1"
+    },
+    {
+      "id": "04",
+      "title": "Локальний кеш",
+      "detail": "Одна копія стандартного SHA-ресурсу; відновити тільки якщо відсутній або пошкоджений",
+      "authority": "HASH_PINNED"
+    },
+    {
+      "id": "05",
+      "title": "Illustrator",
+      "detail": "Виконання JSX локально; повний авто-рендер ще НЕ реалізовано для GC30",
+      "authority": "MANUAL_REVIEW_PENDING"
+    },
+    {
+      "id": "06",
+      "title": "Повернення",
+      "detail": "Копіювання перевіреного AI/PDF/PNG/JSON у output/illustrator_review без друку",
+      "authority": "NON_PRODUCTION"
+    }
+  ],
+  "boundaries": [
+    "Не виконувати сценарії з UNC прямо в Illustrator",
+    "Не переносити архіви стандартних ресурсів на кожне замовлення",
+    "Застарілі GC29 r003, GC30 v0.1 не видаляти без окремої інвентаризації",
+    "Виконання Illustrator, друк і клієнтська публікація не дозволені поточним GC30 PollOnce",
+    "Керувати роботою з існуючого кореня; не створювати паралельні Shared/ та Clients/",
+    "Запускати PowerShell локально з process-scoped -ExecutionPolicy Bypass; системні політики не змінювати",
+    "GC32 SSH inventory is not an automatic cleanup authority; potential historic files remain untouched until reviewed"
+  ],
+  "documented_modules": {
+    "gc27": "P03 legacy proof (незавершений, не чіпати)",
+    "gc28": "Історичний PDF міст, не головний runtime",
+    "gc29": "Native four-page scene builder + 13 asset vault",
+    "gc30": "s01 dispatcher + tickets + server worker-binding",
+    "gc31": "Живі тексти та PNG-графічний підпис",
+    "gc32": "Single PREPRESS root; visual clickable Structure Atlas r003; PREPRESS SSH read-only diagnostics, and review-only lifecycle catalogue",
+    "ts": "4 card pages + infrastructure tree with selected-node inspector, source/consumer, SHA status, rebuildability"
+  },
+  "coverage": {
+    "watched_families": [
+      "gc27",
+      "gc28",
+      "gc29",
+      "gc30",
+      "gc31",
+      "gc32",
+      "ts"
+    ],
+    "watched_directories": [
+      "scripts/graphic_design_lab/greeting_cards",
+      "scripts/graphic_design_lab/template_studio",
+      "tests/graphic_design_lab",
+      "coordination/graphic_design_lab/template_studio"
+    ],
+    "required_make_targets": [
+      "gc30-dispatch-test",
+      "gc30-worker-binding",
+      "gc30-queue",
+      "gc29-native-test",
+      "ts-full-test",
+      "gc32-documentation-check",
+      "gc32-worker-install",
+      "gc32-portal-refresh",
+      "gc32-ssh-inventory-capture",
+      "gc32-ssh-inventory-review",
+      "gc32-ssh-inventory-publish"
+    ],
+    "policy": "WARNING_ONLY; map and controlled-code changes must be synchronized, including untracked exact file paths",
+    "structure_atlas": "GC32_STRUCTURE_ATLAS_V0_1_CLIENT_READ_ONLY_PREPRESS_OPTIONAL_SNAPSHOT"
+  },
+  "progress": {
+    "gc30_binding": "VERIFIED_PREPRESS_WORK",
+    "gc31_regression": "357_PASS_8_SKIPPED",
+    "gc32_worker_registration": "VERIFIED_PREPRESS_WORK_OPERATOR_LOG_2026_10_26",
+    "gc30_staging": "PENDING_REAL_POLL_ONCE",
+    "illustrator_export": "BLOCKED_UNTIL_REAL_REVIEW",
+    "gc32_existing_root": "VERIFIED_PREPRESS_WORK_D_DRIVE",
+    "gc32_structure": "RECONCILED_WITH_EXISTING_CACHE_CONFIG_JOBS_LOGS_RUNTIME_WORKER",
+    "gc32_portal": "PUBLISHED_R002_WITH_AUDIT_OK"
+  },
+  "provenance": "2026-10-26 GC32 SSH addon + visual atlas r003; confirmed structure only; observed values via explicit scan",
+  "atlas_purpose": {
+    "concept": "Концептуальна карта — що повинно існувати і навіщо",
+    "actual": "Побачені на s01 метадані клієнтської папки + опційний самозвіт Windows",
+    "delta": "Порівняння двох останніх публікацій HTML; metadata ≠ sha256",
+    "resources": "SHA256 звіряється лише з підтвердженим vault_manifest.json",
+    "policy": "WARNING_ONLY; жодного автоматичного виправлення структури чи видалення історії",
+    "ssh": "Authenticated read-only s01 -> PREPRESS over SSH; server writes snapshot; no Windows SMB writes",
+    "retention": "Files receive active/protected/review labels only; no moving, quarantining, deleting"
+  },
+  "structure_atlas_visual_revision": "r003; one selected-node passport; NO automatic cleanup; restore from server-reviewed source and private backup"
+}

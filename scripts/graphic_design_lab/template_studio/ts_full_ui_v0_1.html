@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="uk">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:;">
+<title>ForPrint · Template Studio · 4 сторінки</title>
+<style>
+:root{color-scheme:light;--ink:#17263d;--muted:#596a7d;--blue:#205b91;--line:#d9e0e9;--bg:#f2f5f9;--card:#fff;--orange:#db6625}
+*{box-sizing:border-box}body{font:14px/1.46 system-ui,-apple-system,'Segoe UI',sans-serif;margin:0;background:var(--bg);color:var(--ink)}
+header{max-width:1580px;margin:0 auto;padding:25px 22px 11px}h1{font-size:27px;margin:0 0 6px;font-weight:720}h2{font-size:18px;margin:4px 0 10px}h3{font-size:14px;margin:15px 0 6px}.muted{color:var(--muted)}.notice{background:#fff8e9;border-left:3px solid #d59a37;padding:9px 12px;font-size:13px}
+.shell{max-width:1580px;margin:auto;padding:12px 22px 36px}.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.tab,.choice,.utility,.action{border:1px solid #c7d4e4;background:white;color:var(--ink);padding:9px 13px;border-radius:8px;cursor:pointer;font:inherit}.tab[aria-selected=true]{background:var(--blue);color:white;border-color:var(--blue)}.main{display:grid;grid-template-columns:minmax(320px, 0.9fr) minmax(330px,1.1fr);gap:18px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:15px;min-width:0}
+.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:10px}.choices{padding:5px 0 10px;border-bottom:1px solid var(--line);margin-bottom:10px}.choicegroup{margin-bottom:6px}.choicegroup strong{font-size:12px;color:var(--muted);display:inline-block;min-width:124px}.choice{padding:6px 10px;margin:3px 4px 3px 0;font-size:12px}.choice[aria-pressed=true]{color:white;background:var(--blue);border-color:var(--blue)}.utility{font-size:12px;padding:7px 10px}.viewport{background:#e8ecf0;border:1px solid var(--line);padding:8px;display:flex;justify-content:center;align-items:flex-start}.artboard{width:100%;max-width:530px;aspect-ratio:214/301;position:relative;background:#f6f0e4;box-shadow:0 2px 14px #101e2822;overflow:hidden}.artboard img{width:100%;height:100%;object-fit:fill;display:block}.marks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.marks rect{vector-effect:non-scaling-stroke;fill:#f7931e0b;stroke:#ff6a2b;stroke-width:1.5;stroke-dasharray:4 3}.marks rect.selected{stroke:#0966e4;stroke-width:2.5;fill:#3385ef10}.marks text{paint-order:stroke;stroke:white;stroke-width:1.2;fill:#081d39;font-size:5px;font-weight:800}.legend{margin:10px 0 0;color:#485a70;font-size:12px}
+.item{display:block;border:1px solid var(--line);width:100%;background:white;border-radius:8px;text-align:left;padding:9px 12px;margin:6px 0;cursor:pointer;color:var(--ink)}.item.active{background:#fff5ee;border-color:var(--orange)}.item-title{font-weight:700;font-size:13px}.metadata{font-size:11px;color:var(--muted)}.item-meta{padding-top:4px;line-height:1.46}.pill{display:inline-block;background:#edf2f8;color:#37506f;border-radius:4px;padding:1px 5px;font-size:11px}.danger{color:#a54914}details{border-top:1px solid var(--line);padding:12px 0 1px}summary{font-weight:700;cursor:pointer}.kv{display:grid;grid-template-columns:135px minmax(0,1fr);gap:6px 12px;margin:10px 0;font-size:12px}.kv span:nth-child(odd){color:var(--muted)}.editgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.editgrid label{font-size:11px}.editgrid input{display:block;max-width:100%;width:100%;padding:6px;border-radius:6px;border:1px solid #b9c8dc;font-size:13px}.action{margin:8px 6px 8px 0;background:#205b91;color:white;border-color:#205b91}.action.secondary{color:#205b91;background:white}.action:disabled{opacity:.5;cursor:not-allowed}.status{color:var(--muted);font-size:12px}.readonly{background:#f4f6fa;padding:10px;border:1px solid var(--line);border-radius:8px;font:12px/1.5 ui-monospace,Consolas,monospace;white-space:pre-wrap;word-break:break-all;max-height:260px;overflow:auto}.subheading{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.6px}.footer{margin-top:15px;font-size:12px;color:var(--muted)}@media(max-width:860px){.main{grid-template-columns:1fr}header,.shell{padding-left:12px;padding-right:12px}h1{font-size:22px}}@media print{.panel:nth-child(2),.tabs,.controls,.choices{display:none}body{background:white}}
+
+#atlas-shell[hidden],#infra-shell[hidden],.main[hidden]{display:none!important}
+.infra-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.infra-pre{background:#f5f7fa;border:1px solid #dce3ed;border-radius:8px;padding:15px;white-space:pre-wrap;word-break:break-word;font:12px/1.65 ui-monospace,Consolas,monospace}
+.infra-step{padding:12px;border:1px solid #d8e2ee;border-radius:8px;margin:8px 0}
+.infra-step strong{display:block;margin-bottom:3px}.infra-tag{font-size:11px;color:#65748a}
+.infra-warn{color:#963400;background:#fff7ea;padding:8px 12px;margin:8px 0;border-radius:6px}
+@media(max-width:860px){.infra-layout{grid-template-columns:1fr}}
+
+/* GC32 Structure Atlas · intentionally static and private; no browser file access. */
+.atlas-layout{display:grid;grid-template-columns:minmax(380px,1.35fr) minmax(290px,.85fr);gap:16px;align-items:start}
+.atlas-tools{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:10px 0 15px}
+.atlas-tools input{flex:1;min-width:180px;max-width:400px;border:1px solid var(--line);border-radius:7px;padding:8px 10px;font:inherit}
+.atlas-tree{max-height:70vh;overflow:auto;border:1px solid #d9e0ea;border-radius:9px;padding:10px;background:#fbfcfe}
+.atlas-node{border-left:1px solid #d1dae5;margin:2px 0 3px 11px;padding-left:11px}
+.atlas-node>summary{cursor:pointer;padding:5px;border-radius:5px}
+.atlas-node>summary:hover,.atlas-file:hover{background:#f0f5fb}
+.atlas-file{margin:2px 0 2px 18px;padding:5px;border-radius:5px;overflow-wrap:anywhere}
+.atlas-name{font-weight:650;font-size:13px}.atlas-desc{display:block;font-size:12px;color:#5b6d80;margin:1px 0}
+.atlas-status{font-size:10px;border-radius:5px;padding:2px 5px;background:#eaf0f7;color:#3e5570;margin-left:5px}
+.atlas-status.alert{background:#fff0e5;color:#a44014}.atlas-status.ok{background:#e4f4e9;color:#257147}
+.atlas-resource{border:1px solid #dce4ed;border-radius:8px;padding:9px 12px;margin:7px 0;overflow-wrap:anywhere}
+.atlas-summary{padding:11px;border-radius:9px;background:#eef3f9;margin:7px 0 12px;font-size:12px}
+@media(max-width:900px){.atlas-layout{grid-template-columns:1fr}.atlas-tree{max-height:65vh}}
+
+/* GC32 visual atlas r003: structured operator directory cards, no additional data requests. */
+.atlas-layout{grid-template-columns:minmax(340px,1.02fr) minmax(330px,.98fr);gap:18px}
+.atlas-layout>.panel{box-shadow:0 8px 26px #152c4a08}
+.atlas-tree{background:#f4f7fb;border:1px solid #d6e0eb;padding:14px 10px;border-radius:15px;max-height:73vh}
+.atlas-node{margin:6px 0 5px 14px;padding:1px 0 1px 13px;border-left:2px solid #dce6f1}
+.atlas-node>summary{list-style:none;display:flex;align-items:center;gap:9px;padding:10px;border:1px solid #e1e7f0;border-radius:11px;background:white;box-shadow:0 1px 3px #2136570b;cursor:pointer}
+.atlas-node>summary::-webkit-details-marker{display:none}
+.atlas-node>summary::after{content:'▸';margin-left:auto;color:#587292;font-size:13px}
+.atlas-node[open]>summary::after{content:'▾'}
+.atlas-node>summary:hover,.atlas-file:hover{background:#edf4fc;border-color:#9fc0e4}
+.atlas-file{margin:5px 0 5px 20px;background:white;border:1px solid #e3e9f0;display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:10px;cursor:pointer;text-align:left;width:calc(100% - 20px);font:inherit;color:inherit}
+.atlas-file .atlas-name{font-size:12px}
+.atlas-node .atlas-children{margin-left:1px}
+.atlas-name{font-weight:650;font-size:13px;overflow-wrap:anywhere}
+.atlas-node [data-selected=true],.atlas-file[data-selected=true],.atlas-node>summary[data-selected=true]{background:#eaf2fc!important;border-color:#3f85c5!important;box-shadow:inset 3px 0 #2d72b1}
+.atlas-nameblock{min-width:0;flex:1}
+.atlas-ico{flex:none;width:30px;height:30px;border-radius:9px;background:#e9f3ff;display:grid;place-items:center;font-size:17px}
+.atlas-ico.file{background:#f1f3f8}.atlas-ico.resource{background:#fff4e3}.atlas-ico.runtime{background:#e7f6f0}
+.atlas-brief{font-size:11px;color:#698094;overflow-wrap:anywhere}
+.atlas-doc{background:linear-gradient(165deg,#f8fbff,#fff);border:1px solid #d9e3ed;border-radius:15px;padding:15px;margin-bottom:12px}
+.atlas-doc-head{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.atlas-doc-title{font-size:17px;font-weight:750;overflow-wrap:anywhere}
+.atlas-doc-sub{font-size:12px;color:#67788b}
+.atlas-doc-grid{display:grid;grid-template-columns:118px minmax(0,1fr);gap:8px 12px;font-size:12px}
+.atlas-doc-grid dt{color:#667c91}.atlas-doc-grid dd{margin:0;overflow-wrap:anywhere;font-weight:500}
+.atlas-doc .atlas-tagline{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 14px}
+.atlas-mini{background:#e9eff6;border-radius:6px;font-size:11px;padding:4px 7px;color:#37506b}
+.atlas-mini.good{background:#e4f2e9;color:#287450}.atlas-mini.review{background:#fff2e2;color:#8a5617}
+.atlas-hint{font-size:11px;color:#63748c;margin-top:11px;border-top:1px solid #e2eaf2;padding-top:10px}
+.atlas-status{font-size:10px;border-radius:6px;padding:3px 6px}
+.atlas-tools{background:#f5f8fc;border:1px solid #e0e9f2;padding:10px;border-radius:11px}
+.atlas-tools button[aria-pressed=true]{background:#205b91;color:#fff;border-color:#205b91}
+@media(max-width:900px){.atlas-layout{grid-template-columns:1fr}.atlas-tree{max-height:56vh}}
+</style></head>
+<body>
+<header><h1>ForPrint Template Studio <span class="muted">· повний паспорт листівки</span></h1>
+<p class="muted">4 сторінки · варіанти в межах сторінки · стабільні ID · порядок складання · приватний контрольний перегляд</p>
+<div class="notice"><b>REFERENCE / NON-PRODUCTION.</b> Зображення — сторінки зафіксованого PDF-джерела, а не згенерований дизайн для кожної комбінації. Перемикачі показують конфігурацію й контрольні зони; без окремого verified renderer вони не змінюють друкарський макет. Редагування нижче формує лише пропозицію.</div></header>
+<div class="shell"><nav id="pages" class="tabs" aria-label="Сторінки"></nav><div class="main">
+<section class="panel"><div id="choice-area" class="choices"></div><div class="controls"><button class="utility" id="guides">Приховати межі</button><button class="utility" id="reset">Скинути вибір</button></div>
+<div class="viewport"><div class="artboard" id="artboard"><img id="preview" alt="Зафіксована контрольна сторінка PDF"/><svg class="marks" id="marks" viewBox="0 0 214 301" preserveAspectRatio="none" aria-hidden="true"></svg></div></div><p class="legend" id="preview-note"></p></section>
+<section class="panel"><h2 id="panel-title">Елементи й послідовність</h2><p class="status" id="config-line"></p><div id="elements"></div>
+<details open><summary>Вибраний елемент · параметри</summary><div id="details"></div></details>
+<details><summary>Машинна пропозиція правок</summary><p class="status">Зміни в браузері не впливають на затверджений шаблон, клієнтські замовлення або Illustrator. Можна скопіювати JSON для погодження.</p><div id="proposal" class="readonly" role="textbox" aria-readonly="true"></div><button class="action secondary" id="copy">Копіювати JSON</button><button class="action secondary" id="download">Зберегти JSON</button><p class="status" id="copy-status"></p></details>
+<p class="footer" id="foot"></p></section></div></div>
+<div id="infra-shell" class="shell" hidden><div class="infra-layout">
+<section class="panel"><div class="subheading">ForPrint · єдине джерело опису інфраструктури</div><h2 id="infra-title">Структура</h2><p class="muted" id="infra-description"></p><pre class="infra-pre" id="infra-tree"></pre></section>
+<section class="panel"><h2>Фактичний стан і правила</h2><div id="infra-flags"></div><div id="infra-steps"></div><p class="footer">Паспорт не дає дозволу на запуск, друк або публікацію. Дані актуальні станом на останнє перевірене оновлення порталу.</p></section>
+</div></div>
+<div id="atlas-shell" class="shell" hidden><div class="atlas-layout">
+<section class="panel"><div class="subheading">GC32 · відновлюваний довідник каталогів</div><h2 id="atlas-title"></h2>
+<p class="muted" id="atlas-description"></p>
+<div class="atlas-tools"><button class="utility" id="atlas-client">Клієнт · s01</button><button class="utility" id="atlas-prepress">PREPRESS · D:</button>
+<input id="atlas-search" type="search" aria-label="Пошук по дереву" placeholder="Шукати файл, каталог або призначення">
+<button class="utility" id="atlas-open-all">Розгорнути все</button><button class="utility" id="atlas-close-all">Згорнути все</button></div>
+<div id="atlas-summary" class="atlas-summary"></div><div id="atlas-tree" class="atlas-tree"></div></section>
+<section class="panel"><div id="atlas-inspector" aria-live="polite"></div><h2>Бібліотека ресурсів і контроль</h2><div id="atlas-assets"></div><h3>Невідповідності та межі</h3><div id="atlas-warnings"></div>
+<p class="footer">Це знімок на момент останнього оновлення порталу, а не поточне читання папок браузером. Відкриття HTML не дає доступу до читання інших локальних файлів.</p></section>
+</div></div>
+<script>
+(function(){'use strict';
+const INFRA = /*__TS_INFRA__*/;
+const MODEL = /*__TS_FULL_MODEL__*/;
+const IMAGES = /*__TS_FULL_IMAGES__*/;
+const BUILD = /*__TS_FULL_BUILD__*/;
+let page=0, selected=null, guides=true, proposals=[],infraTab=null, atlasTarget='client',atlasQuery='',atlasSelectedPath=null;
+const choices={}; Object.keys(MODEL.variant_groups).forEach(k=>choices[k]=MODEL.variant_groups[k].default);
+const $=id=>document.getElementById(id); const E=(tag,cl,text)=>{const n=document.createElement(tag);if(cl)n.className=cl;if(text!==undefined)n.textContent=text;return n;};
+const curr=()=>MODEL.pages[page];
+const items=()=>curr().elements.filter(el=>{const req=el.visible_if||{};return Object.keys(req).every(k=>req[k].includes(choices[k]));});
+const bbox=el=>{if(!el)return null;
+ if(curr().id==='P01' && choices.front_family!=='STANDARD'){
+ const fam=choices.front_family; const front=(MODEL._source_front_variants||{})[fam];
+ if(front && el.id==='P01-020')return front.sender_logo_bbox_mm;
+ if(front && el.id==='P01-030')return front.occasion_bbox_mm;
+ }
+ return el.bbox_mm;};
+function init(){const p=$('pages');MODEL.pages.forEach((x,i)=>{const b=E('button','tab',x.id+' · '+x.title_ua);b.type='button';b.onclick=()=>{page=i;infraTab=null;selected=null;render();};p.appendChild(b)});[['windows','PREPRESS · Windows'],['client','Папка клієнта'],['process','Конвеєр і контроль'],['atlas-concept','Еталонне дерево'],['atlas-actual','Фактичне дерево']].forEach(([id,label])=>{const b=E('button','tab',label);b.type='button';b.onclick=()=>{infraTab=id;atlasSelectedPath=null;(id.startsWith('atlas-')?renderAtlas():renderInfrastructure());};p.appendChild(b)});$('guides').onclick=()=>{guides=!guides;render()};$('reset').onclick=()=>{selected=null;proposals=[];Object.keys(MODEL.variant_groups).forEach(k=>choices[k]=MODEL.variant_groups[k].default);render()};$('copy').onclick=copyProposal;$('download').onclick=downloadProposal;
+$('atlas-client').onclick=()=>{atlasTarget='client';atlasSelectedPath=null;renderAtlas()};
+$('atlas-prepress').onclick=()=>{atlasTarget='prepress';atlasSelectedPath=null;renderAtlas()};
+$('atlas-search').oninput=v=>{atlasQuery=v.target.value;renderAtlasTree()};
+$('atlas-open-all').onclick=()=>document.querySelectorAll('#atlas-tree details').forEach(x=>x.open=true);
+$('atlas-close-all').onclick=()=>document.querySelectorAll('#atlas-tree details').forEach(x=>x.open=false);
+render()}
+function render(){document.querySelector('.main').hidden=false;$('infra-shell').hidden=true;$('atlas-shell').hidden=true;infraTab=null;const p=curr();[...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===page)));$('panel-title').textContent=p.id+' · '+p.title_ua+' · елементи й послідовність';$('guides').textContent=guides?'Приховати межі':'Показати межі';
+ const ca=$('choice-area');ca.replaceChildren();if(!p.variant_groups.length)ca.appendChild(E('span','status','Зафіксована сторінка · без перемикачів'));
+ p.variant_groups.forEach(id=>{let g=MODEL.variant_groups[id],group=E('div','choicegroup');group.appendChild(E('strong','',g.label_ua));g.values.forEach(v=>{const b=E('button','choice',v.label_ua);b.setAttribute('aria-pressed',String(choices[id]===v.id));b.title=v.id+' · '+v.availability;b.onclick=()=>{choices[id]=v.id;selected=null;render()};group.appendChild(b)});ca.appendChild(group)});
+ $('preview').src=IMAGES[p.id];const combo=p.variant_groups.map(g=>MODEL.variant_groups[g].values.find(v=>v.id===choices[g])).filter(Boolean);
+ const unverified=combo.some(x=>!['SOURCE_PINNED_LAYOUT','REFERENCE_SOURCE_OCCASION','REGISTERED_STANDARD_RUNTIME'].includes(x.availability));
+ $('preview-note').textContent='PDF-еталон '+p.id+' · версія '+BUILD.id+' · '+(unverified?'Обраний варіант НЕ має окремого підтвердженого візуального рендеру. Показана контрольна сторінка джерела.':'Растровий перегляд зафіксованого PDF; не експорт поточного варіанта.')+' Синій контур — вибраний блок.';
+ $('config-line').textContent=p.variant_groups.map(g=>g+'='+choices[g]).join(' · ')||'P02 LOCKED_REFERENCE_ONLY';
+ if(!selected||!items().find(e=>e.id===selected))selected=(items().find(e=>bbox(e))||items()[0]).id;
+ drawElements();drawMarks();drawDetails();drawProposal();$('foot').textContent='Геометрія: 214 × 301 мм; trim 210 × 297 мм. Джерело SHA256 '+BUILD.source_sha256.slice(0,16)+'… · Друк і затвердження вимкнені.';
+}
+
+function renderInfrastructure(){
+ document.querySelector('.main').hidden=true;$('infra-shell').hidden=false;$('atlas-shell').hidden=true;
+ [...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===({'windows':4,'client':5,'process':6}[infraTab]))));
+ const w=INFRA.worker,c=INFRA.client,steps=INFRA.workflow,coverage=INFRA.audit||{warnings:[]};
+ const chosen=infraTab==='windows'?w:infraTab==='client'?c:null;
+ $('infra-title').textContent=infraTab==='windows'?'PREPRESS / Work · один корінь':infraTab==='client'?'Клієнтська автоматизація':'Маршрут замовлення та контроль';
+ $('infra-description').textContent=infraTab==='windows'?'Підтверджений робочий диск PREPRESS. Нові файли не розміщувати у TEMP чи LOCALAPPDATA.':infraTab==='client'?'Одна постійна папка input, output і Template Studio для клієнта.':'Лише підтверджені межі виконання; очікування не дорівнюють готовому результату.';
+ $('infra-tree').textContent=chosen ? (infraTab==='windows'?(w.root_hint+(w.root_hint_verified?'  [ПІДТВЕРДЖЕНО]\n':'  [ПОТРІБНЕ ПІДТВЕРДЖЕННЯ]\n')):c.workspace+'\n')+chosen.structure.map(x=>'  '+x.path+'\n      '+x.title+'  ['+x.state+']').join('\n') : steps.map(x=>x.id+' · '+x.title+'\n    '+x.detail+'\n    '+x.authority).join('\n\n');
+ const flag=$('infra-flags');flag.replaceChildren();
+ const summary=E('div','notice','Контроль покриття: '+(coverage.warnings.length?'ПОПЕРЕДЖЕННЯ ('+coverage.warnings.length+')':'нових неописаних змін не виявлено')+' · перевірено під час публікації');flag.appendChild(summary);
+ coverage.warnings.forEach(x=>flag.appendChild(E('div','infra-warn',x)));
+ const status=E('div','infra-step');status.appendChild(E('strong','','Поточний рубіж'));status.appendChild(E('div','',Object.entries(INFRA.progress).map(([k,v])=>k+': '+v).join(' · ')));flag.appendChild(status);
+ const list=$('infra-steps');list.replaceChildren();const arr=infraTab==='process'?steps:INFRA.boundaries.map((x,i)=>({id:String(i+1),title:'Правило',detail:x,authority:'ACTIVE'}));
+ arr.forEach(x=>{const d=E('div','infra-step');d.appendChild(E('strong','',x.id+' · '+x.title));d.appendChild(E('div','',x.detail));d.appendChild(E('div','infra-tag',x.authority));list.appendChild(d)});
+}
+
+function renderAtlas(){
+ document.querySelector('.main').hidden=true;$('infra-shell').hidden=true;$('atlas-shell').hidden=false;
+ [...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===({'atlas-concept':7,'atlas-actual':8}[infraTab]))));
+ const actual=infraTab==='atlas-actual',A=INFRA.atlas||{};
+ $('atlas-title').textContent=actual?'Фактичне дерево · останній знімок':'Еталонне дерево · призначення кожної гілки';
+ $('atlas-description').textContent=actual?'Реальне читання s01; для PREPRESS — окремий локальний знімок, якщо його вже передано.':'Натисни папку або файл: праворуч відкриється паспорт призначення й відновлення. Це контракт, не твердження про наявність.';
+ $('atlas-client').setAttribute('aria-pressed',String(atlasTarget==='client'));
+ $('atlas-prepress').setAttribute('aria-pressed',String(atlasTarget==='prepress'));
+ $('atlas-search').value=atlasQuery;
+ const time=A.captured_utc||'немає';
+ $('atlas-summary').textContent='Знімок: '+time+' · '+(actual?'Перевірка с01 / самообстеження PREPRESS':'Еталонні функції')+' · Публікація не дає дозволу на виробництво.';
+ renderAtlasTree();renderAtlasSide();renderAtlasDetails();
+}
+function atlasCurrentNodes(){
+ const A=INFRA.atlas||{},actual=infraTab==='atlas-actual';
+ const source=actual?(A.actual&&A.actual[atlasTarget]):(A.conceptual&&A.conceptual[atlasTarget]);
+ return Array.isArray(source)?source:((source&&source.entries)||[]);
+}
+function atlasNorm(path){return String(path||'').replace(/\/$/,'')}
+function atlasInfoFor(path){
+ const m=atlasTarget==='client'?INFRA.client:INFRA.worker;
+ const known=(m&&m.structure)||[]; const val=atlasNorm(path);
+ const exact=known.find(x=>atlasNorm(x.path)===val);
+ if(exact)return {purpose:exact.title,state:exact.state,exact:true};
+ const parents=known.filter(x=>{const key=atlasNorm(x.path);return key&&key!=='.'&&!key.includes('<')&&val.startsWith(key+'/')}).sort((a,b)=>b.path.length-a.path.length);
+ if(parents.length)return {purpose:'Вкладення категорії: '+parents[0].title,state:parents[0].state,exact:false};
+ return {purpose:'Цільове призначення ще не класифіковано',state:'REVIEW',exact:false};
+}
+function atlasRole(path,isFile){
+ const p=atlasNorm(path),base=p.split('/')[0];
+ const roles={
+ input:['Прийнятий Intake, операторська кнопка','Створення замовлень на s01','Змінні клієнтські файли; оригінали не редагувати','REVIEW_SOURCE'],
+ output:['Результат конвеєра','Внутрішній перегляд оператором','Перегенеровувані макети, зберігати докази приймання','GENERATED'],
+ template_studio:['Керування шаблонами й інфраструктурою','Портал оператора / GC32','Серверна відновлювана проєкція; pinned assets потребують резервованої бібліотеки','MIXED'],
+ cache:['Підготовка локальних ресурсів','Illustrator і Windows-виконавець','SHA256-кеш; можна відтворити тільки з доступних серверних ресурсів','REBUILDABLE_CACHE'],
+ jobs:['Вхідні завдання від s01','PREPRESS / внутрішні results','Кожне завдання має окремий ticket; історичні роботи не очищати автоматично','RUNTIME_ATTEMPTS'],
+ config:['Локальне налаштування виконавця','Worker на PREPRESS','Відновлення лише після перевірки серверного контракту і секретів','CONFIG'],
+ Worker:['Завантаження робітника','Сервер s01 / клієнтська кнопка','Відновити з версійованого серверного скрипту за SHA256','SCRIPT'],
+ runtime:['Стан робітника та виконання','Черга і серверний звіт','Перегенеровуваний стан, не source-of-truth','STATE'],
+ logs:['Діагностика та перевірка','Оператор','Ротація після retention review; не видаляти acceptance evidence','LOG'],
+ };
+ if(p.includes('native_asset_vault'))return ['Версійована бібліотека ресурсів','Графічний native-компілятор','Відтворення залежить від резервованих непублічних джерел і SHA256','PINNED_RESOURCE'];
+ if(p.includes('releases'))return ['Історія версій порталу','Аудит/відновлення HTML','Незмінні релізи; контрольований retention','RELEASE_HISTORY'];
+ if(p.includes('inventory'))return ['Знімки інфраструктури','HTML-довідник','Перегенеровується за новим серверним/SSH-скануванням','REBUILDABLE_SNAPSHOT'];
+ return roles[base]||['Джерело не визначене','Одержувач не визначений','Перед переміщенням потрібна класифікація й перевірка залежностей','UNCLASSIFIED'];
+}
+function atlasSelect(path){atlasSelectedPath=path;renderAtlasDetails();
+ document.querySelectorAll('#atlas-tree [data-node-path]').forEach(el=>el.dataset.selected=String(el.dataset.nodePath===path));}
+function renderAtlasTree(){
+ const all=atlasCurrentNodes(),actual=infraTab==='atlas-actual';
+ const tree=$('atlas-tree');tree.replaceChildren();
+ if(!all.length){tree.appendChild(E('p','muted',actual&&atlasTarget==='prepress'?'PREPRESS ще не передав знімок дерева. Наявність каталогів не підтверджена.':'Записів поки немає.'));return;}
+ const q=atlasQuery.trim().toLocaleLowerCase('uk');
+ const index=new Map(all.filter(x=>typeof x.path==='string').map(x=>[atlasNorm(x.path),x]));
+ const filtered=all.filter(x=>!q||[x.path,x.purpose||'',atlasInfoFor(x.path).purpose,x.lifecycle||'',x.state||''].join(' ').toLocaleLowerCase('uk').includes(q));
+ const visible=new Set(filtered.map(x=>atlasNorm(x.path)));
+ if(q){for(const path of [...visible]){let p=path;while(p.includes('/')){p=p.slice(0,p.lastIndexOf('/'));if(index.has(p))visible.add(p)}}}
+ const elements=new Map(),parent=E('div');
+ for(const x of all){const key=atlasNorm(x.path);if(!visible.has(key))continue;
+ const folder=x.kind==='dir'||(!actual&&(x.path.endsWith('/')||x.path==='.'||!x.path.includes('.')));
+ const node=folder?E('details','atlas-node'):E('button','atlas-file');
+ if(!folder)node.type='button';
+ const label=folder?E('summary'):node;
+ label.dataset.nodePath=key;label.dataset.selected=String(atlasSelectedPath===key);
+ const glyph=key.includes('vault')?'🗃️':key.includes('Worker')?'⚙️':key.includes('output')?'📦':folder?'📁':'📄';
+ const ico=E('span','atlas-ico'+(key.includes('vault')?' resource':key.includes('Worker')?' runtime':!folder?' file':''),glyph);
+ label.appendChild(ico);
+ const text=E('span','atlas-nameblock');text.appendChild(E('span','atlas-name',key==='.'?'Корінь':key.split('/').at(-1)));
+ const info=atlasInfoFor(key);
+ text.appendChild(E('span','atlas-desc',x.purpose||info.purpose));
+ label.appendChild(text);
+ const state=x.change&&x.change!=='UNCHANGED'?x.change:(x.state||x.lifecycle||'');
+ if(state){const b=E('span','atlas-status'+(/MISSING|INVALID|CHANGED|UNSAFE|NEW|TRUNCATED/.test(state)?' alert':/SHA256_MATCH|VERIFIED/.test(state)?' ok':''),state);label.appendChild(b)}
+ if(folder){label.onclick=()=>{atlasSelectedPath=key;renderAtlasDetails();document.querySelectorAll('#atlas-tree [data-node-path]').forEach(el=>el.dataset.selected=String(el.dataset.nodePath===key))};
+   node.appendChild(label);node.open=!!q||key==='.'||key.split('/').length<=1;const children=E('div','atlas-children');node.appendChild(children);node._children=children;}
+ else{node.onclick=()=>atlasSelect(key)}
+ elements.set(key,node);
+ let p=key.includes('/')?key.slice(0,key.lastIndexOf('/')):null;
+ while(p&&!elements.has(p)){p=p.includes('/')?p.slice(0,p.lastIndexOf('/')):null}
+ (p?elements.get(p)._children||elements.get(p):parent).appendChild(node);
+ }
+ if(!parent.children.length)parent.appendChild(E('p','muted','За цим пошуком нічого не знайдено.'));
+ tree.appendChild(parent);
+}
+function renderAtlasDetails(){
+ const dest=$('atlas-inspector');dest.replaceChildren();const items=atlasCurrentNodes();
+ const x=items.find(v=>atlasNorm(v.path)===atlasSelectedPath);
+ if(!x){dest.appendChild(E('div','atlas-doc', 'Вибери папку або файл ліворуч, щоб переглянути його паспорт, призначення, джерела та правила відновлення.'));return;}
+ const key=atlasNorm(x.path),actual=infraTab==='atlas-actual';
+ const folder=x.kind==='dir'||(!actual&&(x.path.endsWith('/')||x.path==='.'||!x.path.includes('.')));
+ const info=atlasInfoFor(key),role=atlasRole(key,!folder);
+ const card=E('section','atlas-doc');
+ const head=E('div','atlas-doc-head');head.appendChild(E('div','atlas-ico'+(folder?'':' file'),folder?'📁':'📄'));
+ const names=E('div');names.appendChild(E('div','atlas-doc-title',key.split('/').at(-1)||'Корінь'));
+ names.appendChild(E('div','atlas-doc-sub',key));head.appendChild(names);card.appendChild(head);
+ const tags=E('div','atlas-tagline');
+ tags.appendChild(E('span','atlas-mini',folder?'Директорія':'Файл'));
+ tags.appendChild(E('span','atlas-mini'+(info.exact?' good':' review'),info.exact?'Функцію описано':'Опис успадкований/потрібен'));
+ tags.appendChild(E('span','atlas-mini',role[3]));
+ if(actual)tags.appendChild(E('span','atlas-mini',x.change||x.state||'Знімок'));
+ card.appendChild(tags);
+ const fields=[['Призначення',info.purpose],['Отримує',role[0]],['Передає / використовує',role[1]],['Стан відновлення',role[2]],['Життєвий цикл',info.state||role[3]],['Джерело опису',info.exact?'Контракт структури GC32':'Ієрархічний контекст / потребує уточнення']];
+ if(actual){fields.push(['Фактичність',atlasTarget==='client'?'Перевірено s01 під час публікації':'Звіт PREPRESS через оператора або SSH; звірити provenance']);if(typeof x.size_bytes==='number')fields.push(['Розмір',x.size_bytes.toLocaleString('uk-UA')+' байт']);}
+ const A=INFRA.atlas||{},asset=(A.assets||[]).find(v=>v.path===key);
+ if(asset){fields.push(['Цілісність ресурсу',asset.state]);if(asset.actual_sha256)fields.push(['Фактичний SHA256',asset.actual_sha256]);if(asset.expected_sha256)fields.push(['Еталонний SHA256',asset.expected_sha256]);}
+ const children=items.filter(v=>atlasNorm(v.path).startsWith(key+'/'));
+ if(folder)fields.push(['Вкладення в знімку',String(children.length)+' (знімок може бути частковим)']);
+ const dl=E('dl','atlas-doc-grid');fields.forEach(([label,value])=>{dl.appendChild(E('dt','',label));dl.appendChild(E('dd','',String(value)))});card.appendChild(dl);
+ card.appendChild(E('div','atlas-hint','Без дії над файлами: інформаційний паспорт. Розміщення, карантин і видалення — тільки після окремого погодження та recovery check.'));
+ dest.appendChild(card);
+}
+function renderAtlasSide(){
+ const A=INFRA.atlas||{},assets=$('atlas-assets'),warnings=$('atlas-warnings');assets.replaceChildren();warnings.replaceChildren();
+ const actual=infraTab==='atlas-actual';
+ if(actual){
+ const snap=A.actual&&A.actual[atlasTarget];
+ assets.appendChild(E('div','atlas-summary',atlasTarget==='client'?'Джерело: читання файлової системи s01 під час оновлення.':'Джерело: локальний звіт Windows, НЕ серверна атестація.'));
+ if(snap&&snap.counts)assets.appendChild(E('div','metadata',JSON.stringify(snap.counts)));
+ if(atlasTarget==='prepress'&&(!snap||snap.state==='NOT_SCANNED'))assets.appendChild(E('div','infra-warn','Немає фактичного знімка PREPRESS. Показані в інших вкладках шляхи є планом, а не результатом сканування.'));
+ }else assets.appendChild(E('div','atlas-summary','Структура — еталон. Реальну наявність і зміни дивись у вкладці «Фактичне дерево».'));
+ if(atlasTarget==='client'){
+ assets.appendChild(E('h3','','Підтверджені графічні ресурси · vault'));
+ for(const x of (A.assets||[])){
+  const card=E('div','atlas-resource');card.appendChild(E('div','atlas-name',x.id));card.appendChild(E('div','atlas-desc',x.purpose));
+  const badge=E('span','atlas-status'+(x.state==='SHA256_MATCH'?' ok':' alert'),x.state);card.appendChild(badge);
+  if(x.expected_sha256)card.appendChild(E('div','metadata','SHA256 еталон: '+x.expected_sha256));
+  if(x.actual_sha256)card.appendChild(E('div','metadata','SHA256 перевірено: '+x.actual_sha256));
+  assets.appendChild(card);
+ }
+ }
+ const issues=A.warnings||[];if(!issues.length)warnings.appendChild(E('p','muted','Нових проблем під час останнього сканування не виявлено.'));
+ else issues.forEach(x=>warnings.appendChild(E('div','infra-warn',x)));
+}
+
+function drawElements(){let root=$('elements');root.replaceChildren();items().sort((a,b)=>a.step-b.step).forEach(el=>{const box=bbox(el),btn=E('button','item'+(el.id===selected?' active':''));btn.appendChild(E('div','item-title',el.id+' — '+el.name_ua));btn.appendChild(E('div','metadata',box?('X '+box[0]+' · Y '+box[1]+' · W '+(box[2]-box[0]).toFixed(2)+' · H '+(box[3]-box[1]).toFixed(2)+' мм'):'Геометрія ще не виміряна з джерела'));btn.appendChild(E('div','metadata','Шар: '+el.layer+' · Крок '+el.step));btn.appendChild(E('div','metadata','Статус: '+el.status+(el.locked?' · LOCKED':'')));btn.onclick=()=>{selected=el.id;render()};root.appendChild(btn)})}
+function drawMarks(){const svg=$('marks');svg.replaceChildren();svg.style.display=guides?'block':'none';if(!guides)return;const ns='http://www.w3.org/2000/svg';items().forEach(el=>{let b=bbox(el);if(!b)return;const r=document.createElementNS(ns,'rect');r.setAttribute('x',b[0]);r.setAttribute('y',b[1]);r.setAttribute('width',b[2]-b[0]);r.setAttribute('height',b[3]-b[1]);if(el.id===selected)r.setAttribute('class','selected');svg.appendChild(r);const t=document.createElementNS(ns,'text');t.setAttribute('x',Math.max(2,Math.min(183,b[0])));t.setAttribute('y',Math.max(8,b[1]-2));t.textContent=el.id;svg.appendChild(t)});
+ const edit=proposals.findLast?proposals.findLast(x=>x.element_id===selected&&x.page_id===curr().id):[...proposals].reverse().find(x=>x.element_id===selected&&x.page_id===curr().id);if(edit && edit.proposed_bbox_mm){const b=edit.proposed_bbox_mm;const r=document.createElementNS(ns,'rect');r.setAttribute('x',b[0]);r.setAttribute('y',b[1]);r.setAttribute('width',b[2]-b[0]);r.setAttribute('height',b[3]-b[1]);r.setAttribute('stroke','#1c6fe3');r.setAttribute('fill','none');r.setAttribute('stroke-width','2');r.setAttribute('stroke-dasharray','2 2');svg.appendChild(r)}}
+function drawDetails(){const dest=$('details');dest.replaceChildren();const el=items().find(e=>e.id===selected);if(!el)return;const box=bbox(el);const grid=E('div','kv');[['ID',el.id],['Шар',el.layer],['Операція',el.operation],['Крок',String(el.step)],['Джерело геометрії',el.status],['Блокування',el.locked?'Так':'Ні'],['Bbox, мм',box?JSON.stringify(box):'Потрібна інвентаризація']].forEach(([a,b])=>{grid.appendChild(E('span','',a));grid.appendChild(E('span','',b))});dest.appendChild(grid);
+ if(!box){dest.appendChild(E('p','status','Редагування геометрії недоступне до підтвердження джерела.'));return}
+ dest.appendChild(E('p','status','Пробна зміна координат для пропозиції. Реальне зображення не пересувається.'));
+ const edits=E('div','editgrid');const names=['X','Y','W','H'];const initial=[box[0],box[1],box[2]-box[0],box[3]-box[1]];const inputs=names.map((n,i)=>{const l=E('label','',n+' (мм)'),inp=E('input');inp.type='number';inp.step='0.1';inp.value=initial[i];l.appendChild(inp);edits.appendChild(l);return inp});dest.appendChild(edits);
+ const b=E('button','action','Додати пропозицію');b.onclick=()=>{const v=inputs.map(x=>Number(x.value));if(v.some(x=>!Number.isFinite(x))||v[2]<=0||v[3]<=0||v[2]>856||v[3]>1204){alert('Некоректні координати або розміри');return}let rect=[+v[0].toFixed(3),+v[1].toFixed(3),+(v[0]+v[2]).toFixed(3),+(v[1]+v[3]).toFixed(3)];proposals=proposals.filter(x=>!(x.page_id===curr().id&&x.element_id===el.id));proposals.push({page_id:curr().id,element_id:el.id,variants:Object.fromEntries(curr().variant_groups.map(k=>[k,choices[k]])),original_bbox_mm:box,proposed_bbox_mm:rect,authority:'PROPOSAL_ONLY'});drawMarks();drawProposal()};dest.appendChild(b)}
+function record(){return {schema_version:'forprint_ts_full_operator_change_proposal_v0_1',build_id:BUILD.id,source_sha256:BUILD.source_sha256,approved:false,production_ready:false,operator_review_required:true,changes:proposals}}
+function drawProposal(){$('proposal').textContent=JSON.stringify(record(),null,2)}
+function copyProposal(){const t=$('proposal').textContent;const fallback=()=>{const area=document.createElement('textarea');area.value=t;document.body.appendChild(area);area.select();let ok=document.execCommand('copy');area.remove();$('copy-status').textContent=ok?'JSON скопійовано':'Виділи та скопіюй текст вручну'};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(()=>{$('copy-status').textContent='JSON скопійовано'}).catch(fallback);else fallback()}
+function downloadProposal(){const blob=new Blob([JSON.stringify(record(),null,2)+'\n'],{type:'application/json'});const url=URL.createObjectURL(blob);const a=E('a');a.href=url;a.download='forprint_ts_full_change_proposal.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+init();})();
+</script></body></html>

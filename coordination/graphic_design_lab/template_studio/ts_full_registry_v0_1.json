@@ -1,0 +1,72 @@
+{
+  "schema_version": "forprint_gdl_template_studio_full_registry_v0_1",
+  "studio_id": "forprint.gdl.template_studio.greeting_cards",
+  "status": "REFERENCE_CONTROL_UI_NOT_APPROVED_NATIVE_MASTER",
+  "authority": {
+    "canonical_prepress_source_read_only": true,
+    "client_source_mutation": false,
+    "image_selection_is_production_authority": false,
+    "automatic_design_approval": false,
+    "automatic_publication_of_print": false,
+    "native_illustrator_render_enabled": false,
+    "edit_proposal_is_authority": false,
+    "client_portal_static_read_only": true
+  },
+  "geometry": {"coordinate_system": "PDF_TOP_LEFT_MM", "media_mm": [214,301], "trim_mm": [210,297], "bleed_mm": 2},
+  "pages": [
+    {
+      "id":"P01","title_ua":"Обкладинка","physical_index":0,
+      "variant_groups": ["front_family","occasion"],
+      "elements": [
+        {"id":"P01-010","name_ua":"Паперовий фон","role":"PAPER","layer":"P01.PAPER","step":10,"bbox_mm":null,"status":"INVENTORY_REQUIRED","locked":true,"operation":"PLACE_PAPER_BACKGROUND"},
+        {"id":"P01-015","name_ua":"Золотиста декоративна рамка","role":"GOLD_FRAME","layer":"P01.GOLD_FRAME","step":15,"bbox_mm":null,"status":"VECTOR_SOURCE_UNVERIFIED","locked":true,"operation":"PLACE_GOLD_FRAME"},
+        {"id":"P01-020","name_ua":"Логотип відправника","role":"SENDER_LOGO","layer":"P01.SENDER_LOGO","step":20,"bbox_mm":[64.5,59.5,149.5,144.5],"status":"SOURCE_PINNED_GC23_STANDARD","locked":false,"operation":"PLACE_SENDER_LOGO"},
+        {"id":"P01-025","name_ua":"Логотип отримувача (overlay)","role":"RECIPIENT_BRANDING","layer":"P01.RECIPIENT_BRANDING","step":25,"bbox_mm":[26,134,188,191],"status":"VARIANT_ONLY_BBOX_GC23","locked":false,"operation":"PLACE_ACCEPTED_RECIPIENT_BRANDING","visible_if":{"front_family":["RECIPIENT_BRANDING_OVERLAY"]}},
+        {"id":"P01-030","name_ua":"Заголовок привітання","role":"OCCASION_TEXT","layer":"P01.OCCASION_TEXT","step":30,"bbox_mm":[32,203.5,182,248],"status":"SOURCE_PINNED_GC23_STANDARD","locked":false,"operation":"LAYOUT_OCCASION_TEXT"},
+        {"id":"P01-900","name_ua":"Службові ID і межі","role":"GUIDES","layer":"_FORPRINT_OPERATOR_GUIDES_NONPRINT","step":900,"bbox_mm":null,"status":"NONPRINT","locked":true,"operation":"DRAW_OPERATOR_GUIDES"}
+      ]
+    },
+    {"id":"P02","title_ua":"Зворотна сторона","physical_index":1,"variant_groups":[],"elements":[
+      {"id":"P02-010","name_ua":"Зафіксована композиція P02","role":"LOCKED_ART","layer":"P02.CANONICAL_LOCKED_BASE","step":10,"bbox_mm":null,"status":"LOCKED_REFERENCE_ONLY","locked":true,"operation":"REUSE_PINNED_REFERENCE_ART"},
+      {"id":"P02-020","name_ua":"Фоновий водяний знак","role":"WATERMARK","layer":"P02.WATERMARK","step":20,"bbox_mm":null,"status":"GC19_PINNED_CHECK_REQUIRED","locked":true,"operation":"SOURCE_PINNED_WATERMARK"},
+      {"id":"P02-900","name_ua":"Службові ID і межі","role":"GUIDES","layer":"_FORPRINT_OPERATOR_GUIDES_NONPRINT","step":900,"bbox_mm":null,"status":"NONPRINT","locked":true,"operation":"DRAW_OPERATOR_GUIDES"}
+    ]},
+    {"id":"P03","title_ua":"Фото або квіти","physical_index":2,"variant_groups":["image_mode"],"elements":[
+      {"id":"P03-010","name_ua":"Паперовий фон","role":"PAPER","layer":"P03.PAPER","step":10,"bbox_mm":[0,0,214,301],"status":"SOURCE_PINNED_GC27_P03","locked":true,"operation":"PLACE_PAPER_BACKGROUND"},
+      {"id":"P03-020","name_ua":"Фотографія / квіти","role":"IMAGE","layer":"P03.PHOTO_CONTENT","step":20,"bbox_mm":[-18.8139,20.854,240.4778,280.1457],"status":"SOURCE_BBOX_GC27_REFERENCE_IMAGE","locked":false,"operation":"PLACE_REVIEWED_PHOTO"},
+      {"id":"P03-030","name_ua":"Внутрішній clipping path","role":"PHOTO_CLIP","layer":"P03.PHOTO_CLIP_PATH","step":30,"bbox_mm":null,"status":"EXACT_VECTOR_CONTOUR_NOT_YET_PROVEN","locked":false,"operation":"CREATE_EDITABLE_CLIPPING_GROUP"},
+      {"id":"P03-040","name_ua":"Золота рамка поверх фото","role":"GOLD_FRAME","layer":"P03.GOLD_FRAME","step":40,"bbox_mm":[5.5,6.9265,208.5,294.0733],"status":"RASTER_EXTRACTED_VECTOR_RECOVERY_REQUIRED","locked":false,"operation":"PLACE_DECORATIVE_FRAME_ABOVE_CLIP"},
+      {"id":"P03-900","name_ua":"Службові ID і межі","role":"GUIDES","layer":"_FORPRINT_OPERATOR_GUIDES_NONPRINT","step":900,"bbox_mm":null,"status":"NONPRINT","locked":true,"operation":"DRAW_OPERATOR_GUIDES"}
+    ]},
+    {"id":"P04","title_ua":"Текст і підписи","physical_index":3,"variant_groups":["signature"],"elements":[
+      {"id":"P04-010","name_ua":"Паперовий фон","role":"PAPER","layer":"P04.PAPER","step":10,"bbox_mm":null,"status":"INVENTORY_REQUIRED","locked":true,"operation":"PLACE_PAPER_BACKGROUND"},
+      {"id":"P04-015","name_ua":"Золотиста декоративна рамка","role":"GOLD_FRAME","layer":"P04.GOLD_FRAME","step":15,"bbox_mm":null,"status":"VECTOR_SOURCE_UNVERIFIED","locked":true,"operation":"PLACE_GOLD_FRAME"},
+      {"id":"P04-020","name_ua":"Текст привітання","role":"GREETING","layer":"P04.GREETING_TEXT","step":20,"bbox_mm":[32,32,182,212],"status":"SOURCE_PINNED_GC23","locked":false,"operation":"FLOW_GREETING_TEXT"},
+      {"id":"P04-025","name_ua":"Підписант і посада","role":"SENDER_TEXT","layer":"P04.SENDER_TEXT","step":25,"bbox_mm":null,"status":"CANONICAL_TEXT_SOURCE_ONLY","locked":false,"operation":"LAYOUT_CANONICAL_SENDER"},
+      {"id":"P04-030","name_ua":"Власноручний підпис","role":"SIGNATURE","layer":"P04.SIGNATURE","step":30,"bbox_mm":null,"status":"SOURCE_DEPENDENT_VARIANT","locked":false,"operation":"PLACE_SOURCE_VERIFIED_SIGNATURE"},
+      {"id":"P04-900","name_ua":"Службові ID і межі","role":"GUIDES","layer":"_FORPRINT_OPERATOR_GUIDES_NONPRINT","step":900,"bbox_mm":null,"status":"NONPRINT","locked":true,"operation":"DRAW_OPERATOR_GUIDES"}
+    ]}
+  ],
+  "variant_groups": {
+    "front_family": {"label_ua":"Композиція обкладинки","default":"STANDARD","values":[
+      {"id":"STANDARD","label_ua":"Стандартна","availability":"SOURCE_PINNED_LAYOUT"},
+      {"id":"RECIPIENT_BRANDING_OVERLAY","label_ua":"З логотипом отримувача","availability":"REGISTERED_NOT_RENDERED_IN_STUDIO"},
+      {"id":"BILINGUAL_OCCASION","label_ua":"Двомовна","availability":"CATALOG_ONLY_REVIEW"}
+    ]},
+    "occasion": {"label_ua":"Подія","default":"BIRTHDAY","values":[
+      {"id":"BIRTHDAY","label_ua":"День народження","availability":"REFERENCE_SOURCE_OCCASION"},
+      {"id":"JUBILEE","label_ua":"Ювілей","availability":"CONCEPTUAL_UI_ONLY_NO_ACCEPTED_BINDING"}
+    ]},
+    "image_mode": {"label_ua":"Зображення","default":"DEFAULT_ASSET","values":[
+      {"id":"DEFAULT_ASSET","label_ua":"Квіти","availability":"REGISTERED_FLOWERS_SOURCE_PHOTO_NOT_IN_REFERENCE_PDF"},
+      {"id":"PORTRAIT","label_ua":"Фото людини","availability":"REGISTERED_REQUIRES_REVIEWED_ASSET"}
+    ]},
+    "signature": {"label_ua":"Підпис","default":"HERASYMENKO","values":[
+      {"id":"GRIGO","label_ua":"Григо","availability":"REGISTERED_STANDARD_RUNTIME"},
+      {"id":"HERASYMENKO","label_ua":"Герасименко","availability":"REGISTERED_STANDARD_RUNTIME"},
+      {"id":"DUAL_GRIGO_HERASYMENKO","label_ua":"Подвійний","availability":"CANDIDATE_GATED_NOT_AUTOMATICALLY_AUTHORIZED"}
+    ]}
+  },
+  "cross_page_constraints": ["P02 LOCKED", "No user-selection grants renderer, publishing, printing or acceptance", "JUBILEE and BILINGUAL are comparison choices, not proof of source-approved art", "DUAL signature candidate-gated", "P03 CLIP shape requires vector source inventory and review"],
+  "publication": {"share_root":"/srv/smb/In_Progress/data", "workspace_name":"_forprint_automation", "portal_subdir":"template_studio", "entry":"index.html", "mode":"STATIC_HTML_OVER_SMB_UNC", "http_service":"NONE", "browser_origin":"file:// UNC local-share", "publish_requires_operator_confirmation":true}
+}

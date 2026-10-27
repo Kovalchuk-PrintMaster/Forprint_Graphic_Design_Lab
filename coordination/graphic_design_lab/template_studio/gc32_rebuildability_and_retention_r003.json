@@ -1,0 +1,31 @@
+{
+  "schema_version": "forprint_gc32_rebuildability_retention_r003",
+  "authority": "REVIEW_ONLY",
+  "canonical_sources": {
+    "code": "GDL Git repository at a reviewed commit and pinned deployment configuration",
+    "shared_graphic_assets": "GDL verified private vault with independently tested backup; asset binaries need not be in Git",
+    "client_order_data": "accepted Intake ZIP; may be regenerable only if original customer material exists elsewhere",
+    "windows_runtime": "rebuildable from GDL code, worker registration, pinned assets, fonts and application prerequisites"
+  },
+  "folders": {
+    "PREPRESS/cache": "REBUILDABLE_AFTER_SOURCE_VERIFICATION",
+    "PREPRESS/config": "RESTORE_FROM_REVIEWED_SERVER_CONFIG_AND_OPERATOR_AUTHORITY",
+    "PREPRESS/jobs": "REGENERABLE_OUTPUT_REVIEW_HISTORY_BEFORE_CLEANUP",
+    "PREPRESS/runtime": "DERIVED_RUNTIME_STATE",
+    "PREPRESS/logs": "RETENTION_REVIEW_BEFORE_ARCHIVE",
+    "PREPRESS/Worker": "SERVER_OWNED_EXECUTABLE_PROJECTION",
+    "CLIENT/input": "ACCEPTED_CUSTOMER_ORIGINALS_RETAIN_UNTIL_INDEPENDENT_BACKUP_CONFIRMED",
+    "CLIENT/output": "GENERATED_AND_REVIEW_EVIDENCE_RETENTION_REQUIRED",
+    "CLIENT/template_studio": "SERVER_OWNED_UI_PROJECTION_AND_PINNED_PRIVATE_ASSETS",
+    "CLIENT/template_studio/releases": "IMMUTABLE_PUBLICATION_HISTORY_REVIEW"
+  },
+  "disposition_steps": [
+    "INVENTORY", "CLASSIFY_AND_CHECK_REFERENCES", "REBUILD_PROOF", "OWNER_APPROVAL", "QUARANTINE_WITH_MANIFEST", "RETENTION_REVIEW"
+  ],
+  "cleanup_allowed_by_this_package": false,
+  "deletion_allowed_by_this_package": false,
+  "warnings": [
+    "An accepted Intake ZIP is not necessarily reproducible without protected original client materials.",
+    "Private fonts, reference assets, licenses and application installations need independent backup and eligibility checks."
+  ]
+}
