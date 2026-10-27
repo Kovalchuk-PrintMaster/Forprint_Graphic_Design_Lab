@@ -75,6 +75,9 @@ header{max-width:1580px;margin:0 auto;padding:25px 22px 11px}h1{font-size:27px;m
 .element-proof .review-gate{background:#fff4e6;border-left:3px solid #cd8137;padding:8px 10px;margin:10px 0;border-radius:5px;font-size:12px}
 .element-proof dl{display:grid;grid-template-columns:120px minmax(0,1fr);gap:6px 11px;margin:9px 0;font-size:12px}
 .element-proof dt{color:var(--muted)}.element-proof dd{margin:0;overflow-wrap:anywhere}
+.element-proof .source-audit{margin:12px 0;padding:10px 12px;border:1px solid #dce4ef;border-radius:8px;background:white}
+.element-proof .source-audit h4{margin:0 0 7px;font-size:12px}
+.element-proof .source-audit .anchor{font-size:11px;overflow-wrap:anywhere;margin:4px 0;color:#53677e}
 .element-proof .proof-label{display:inline-block;font:600 11px/1.45 system-ui,sans-serif;color:#745119;background:#fff0d2;border-radius:6px;padding:3px 7px}
 </style></head>
 <body>
@@ -305,7 +308,18 @@ function drawDetails(){const dest=$('details');dest.replaceChildren();const el=i
   const facts=E('dl');
   const fields=[['Доказовий стан',proof.evidence_state],['Джерело опису',proof.source_anchor],['Очікуваний AI-шар',proof.expected_native_layer],['Фактичний native binding',proof.native_binding],['Контроль варіанта',curr().variant_groups.map(k=>k+'='+choices[k]).join(' · ')||'Без варіантів']];
   fields.forEach(([name,val])=>{facts.appendChild(E('dt','',name));facts.appendChild(E('dd','',String(val)))});
-  card.appendChild(facts);card.appendChild(E('div','review-gate','Наступний доказ: '+proof.next_verification));
+  card.appendChild(facts);
+  const X=MODEL.native_source_crosswalk||{},binding=(X.elements||{})[el.id];
+  if(binding){
+   const panel=E('div','source-audit');panel.appendChild(E('h4','','Зв’язок із кодом GC27–GC31 · НЕ доказ готового AI'));
+   const lines=E('dl');
+   [['Тип зіставлення',binding.relation],['Кандидатні native-ролі',binding.candidate_roles.length?binding.candidate_roles.join(' · '):'Не застосовується (службовий UI)'],['Runtime evidence',binding.runtime_evidence],['Область доказу',binding.source_scope]].forEach(([k,v])=>{lines.appendChild(E('dt','',k));lines.appendChild(E('dd','',v))});
+   panel.appendChild(lines);panel.appendChild(E('div','metadata',binding.finding_ua));
+   (binding.code_anchors||[]).forEach(a=>panel.appendChild(E('div','anchor','Код: '+a.path+':'+a.line+' · SHA256 '+a.sha256.slice(0,16)+'… · '+a.token)));
+   panel.appendChild(E('div','review-gate','Підтвердження: source-only; потрібні result.json, контроль SHA256 AI/PDF/PNG, reopen та візуальна перевірка конкретного job.'));
+   card.appendChild(panel);
+  }
+  card.appendChild(E('div','review-gate','Наступний доказ: '+proof.next_verification));
   card.appendChild(E('p','status','Повноваження: '+proof.authority+'. Перемикання варіантів, bbox-пропозиції та цей паспорт не запускають Illustrator і не надають design approval.'));
   dest.appendChild(card);
  }else{dest.appendChild(E('p','danger','Немає доказового паспорта елемента — потрібна синхронізація реєстру.'))}

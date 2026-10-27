@@ -218,7 +218,7 @@
     "gc30": "s01 dispatcher + tickets + server worker-binding",
     "gc31": "Живі тексти та PNG-графічний підпис",
     "gc32": "Single PREPRESS root; visual clickable Structure Atlas r003; PREPRESS SSH read-only diagnostics, and review-only lifecycle catalogue",
-    "ts": "4 card pages + Structure Atlas r007 + 20 source-bounded graphical element passports r008; reference-only, no verified Illustrator binding or execution authority"
+    "ts": "4 card pages + Structure Atlas r007 + 20 source-bounded graphical element passports r008; reference-only, no verified Illustrator binding or execution authority; r009 SOURCE_ONLY native role aliases and evidence gaps, runtime AI NOT_ATTESTED"
   },
   "coverage": {
     "watched_families": [
@@ -282,7 +282,8 @@
     "gc32_portal": "PUBLISHED_R002_WITH_AUDIT_OK",
     "gc32_prepress_ssh_scan": "23_ITEMS_CAPTURE_REVIEW_PUBLISH_PASS_2026_10_27_BOUNDED_SCOPE",
     "gc32_sources_checkpoint": "e76a286_NON_RELEASE; b79a659_MAKE_TARGETS_NON_RELEASE",
-    "ts_r008_element_passports": "20_OF_20_SOURCE_BOUNDED_REFERENCE_ONLY_NATIVE_BINDING_NOT_ATTESTED"
+    "ts_r008_element_passports": "20_OF_20_SOURCE_BOUNDED_REFERENCE_ONLY_NATIVE_BINDING_NOT_ATTESTED",
+    "ts_r009_source_crosswalk": "20_OF_20_SOURCE_AUDIT_ONLY; GC27_GC29_BRANCHES_DISTINCT; NO_RESULT_JSON_NO_NATIVE_AI_ATTESTATION"
   },
   "provenance": "2026-10-26 GC32 SSH addon + visual atlas r003; confirmed structure only; observed values via explicit scan",
   "atlas_purpose": {
@@ -293,7 +294,8 @@
     "policy": "WARNING_ONLY; жодного автоматичного виправлення структури чи видалення історії",
     "ssh": "Authenticated read-only s01 -> PREPRESS over SSH; server writes snapshot; no Windows SMB writes",
     "retention": "Files receive active/protected/review labels only; no moving, quarantining, deleting",
-    "element_passports": "P01–P04 element cards refer to expected native layers and missing proofs; no renderer, source mutation or design approval"
+    "element_passports": "P01–P04 element cards refer to expected native layers and missing proofs; no renderer, source mutation or design approval",
+    "element_source_crosswalk": "TS r009 code-only mapping of TS passport to GC27/29 role; neither AI-output proof nor production approval"
   },
   "structure_atlas_visual_revision": "r003; one selected-node passport; NO automatic cleanup; restore from server-reviewed source and private backup"
 }

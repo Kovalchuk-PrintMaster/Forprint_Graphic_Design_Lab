@@ -579,5 +579,341 @@
       "next_verification": "Підтвердити відсутність направляючих у виробничому виводі.",
       "authority": "OPERATOR_REFERENCE_ONLY_NO_EXECUTION"
     }
+  },
+  "native_source_crosswalk": {
+    "schema_version": "forprint_gdl_ts_r009_native_source_crosswalk_v0_1",
+    "status": "SOURCE_AUDIT_NON_AUTHORIZING",
+    "audit_archive_sha256": "a41e14743b320f12eebc10b1b4668597ecfaa477755ca8b4da16b9de07cc7765",
+    "audit_head": "912b05c",
+    "runtime_result_supplied": false,
+    "native_artifact_inspected": false,
+    "automatic_approval": false,
+    "elements": {
+      "P01-010": {
+        "relation": "DIRECT_SOURCE_ROLE",
+        "candidate_roles": [
+          "P01.PAPER"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py",
+            "sha256": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+            "line": 278,
+            "token": "'P01.PAPER'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Паперовий фон заявлено в сцені GC29; фактичний AI-шар не оглянуто."
+      },
+      "P01-015": {
+        "relation": "NAME_ALIAS_CANDIDATE",
+        "candidate_roles": [
+          "P01.FRAME"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py",
+            "sha256": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+            "line": 279,
+            "token": "'P01.FRAME'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Золотиста рамка у TS має назву GOLD_FRAME, у GC29 — FRAME; тотожність ресурсу не атестована."
+      },
+      "P01-020": {
+        "relation": "DIRECT_SOURCE_ROLE",
+        "candidate_roles": [
+          "P01.SENDER_LOGO"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py",
+            "sha256": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+            "line": 280,
+            "token": "'P01.SENDER_LOGO'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Сценовий графічний ресурс GC29; положення потребує візуальної перевірки."
+      },
+      "P01-025": {
+        "relation": "CONDITIONAL_SOURCE_ROLE",
+        "candidate_roles": [
+          "P01.RECIPIENT_BRANDING"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py",
+            "sha256": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+            "line": 293,
+            "token": "'P01.RECIPIENT_BRANDING'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Створюється лише для RECIPIENT_BRANDING_OVERLAY, не для кожного замовлення."
+      },
+      "P01-030": {
+        "relation": "NAME_ALIAS_LIVE_TEXT",
+        "candidate_roles": [
+          "P01.OCCASION_TEXT_LIVE"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.jsx",
+            "sha256": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
+            "line": 66,
+            "token": "'P01.OCCASION_TEXT_LIVE'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "GC29 описує окремий шар живого тексту, а не растрову копію заголовка."
+      },
+      "P01-900": {
+        "relation": "UI_GUIDE_ONLY",
+        "candidate_roles": [],
+        "code_anchors": [],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Службова рамка Template Studio не є native-об’єктом і не повинна друкуватися."
+      },
+      "P02-010": {
+        "relation": "NAME_ALIAS_CANDIDATE",
+        "candidate_roles": [
+          "P02.LOCKED_BASE"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py",
+            "sha256": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+            "line": 282,
+            "token": "'P02.LOCKED_BASE'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Locked base з GC29 відповідає концепції TS; рівність композиції за пікселями ще не доведена."
+      },
+      "P02-020": {
+        "relation": "DIRECT_SOURCE_ROLE",
+        "candidate_roles": [
+          "P02.WATERMARK"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py",
+            "sha256": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+            "line": 283,
+            "token": "'P02.WATERMARK'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Водяний знак є у сцені GC29; перевірка прозорості й рендеру відсутня."
+      },
+      "P02-900": {
+        "relation": "UI_GUIDE_ONLY",
+        "candidate_roles": [],
+        "code_anchors": [],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Службові направляючі не повинні входити до native-документа."
+      },
+      "P03-010": {
+        "relation": "DIRECT_SOURCE_ROLE",
+        "candidate_roles": [
+          "P03.PAPER"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py",
+            "sha256": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+            "line": 284,
+            "token": "'P03.PAPER'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Паперовий шар GC29 є кандидатом, але не підтвердженням готового AI."
+      },
+      "P03-020": {
+        "relation": "MULTIPLE_BRANCH_CANDIDATES",
+        "candidate_roles": [
+          "GC29:P03.FLOWERS",
+          "GC27:P03.DEFAULT_FLOWERS"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py",
+            "sha256": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+            "line": 285,
+            "token": "'P03.FLOWERS'"
+          },
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc27_p03_default_flowers_v0_1.py",
+            "sha256": "c144fa69c037242156ac0010a1c0feb4b60c90f08c6fcacb48eccd5875d0499e",
+            "line": 161,
+            "token": "'P03.DEFAULT_FLOWERS'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "GC27 proof і GC29 four-page — різні гілки; їх не можна автоматично зливати в один результат."
+      },
+      "P03-030": {
+        "relation": "NESTED_PATH_NOT_LAYER",
+        "candidate_roles": [
+          "GC29:P03-030.CLIP_SHAPE",
+          "GC27:EDITABLE_ILLUSTRATOR_RECTANGULAR_GROUP_CLIP"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.jsx",
+            "sha256": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
+            "line": 56,
+            "token": "'P03-030.CLIP_SHAPE'"
+          },
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc27_p03_default_flowers_proof_v0_1.jsx",
+            "sha256": "46d5787bab9511af286b07f7f108bf5e8ee70554901419e06b393f3b0481438b",
+            "line": 56,
+            "token": "'EDITABLE_ILLUSTRATOR_RECTANGULAR_GROUP_CLIP'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "GC29 створює clipping path всередині групи квітів; це не окремий верхньорівневий шар. Контур прямокутний, точний фігурний контур не підтверджений."
+      },
+      "P03-040": {
+        "relation": "NAME_ALIAS_CANDIDATE",
+        "candidate_roles": [
+          "P03.FRAME"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py",
+            "sha256": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+            "line": 286,
+            "token": "'P03.FRAME'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "GC27/GC29 використовують FRAME; геометрію та джерело рамки потрібно перевірити в AI."
+      },
+      "P03-900": {
+        "relation": "UI_GUIDE_ONLY",
+        "candidate_roles": [],
+        "code_anchors": [],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Операторські напрямні існують лише в інтерфейсі Template Studio."
+      },
+      "P04-010": {
+        "relation": "DIRECT_SOURCE_ROLE",
+        "candidate_roles": [
+          "P04.PAPER"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py",
+            "sha256": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+            "line": 287,
+            "token": "'P04.PAPER'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Паперовий шар описаний в GC29."
+      },
+      "P04-015": {
+        "relation": "NAME_ALIAS_CANDIDATE",
+        "candidate_roles": [
+          "P04.FRAME"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py",
+            "sha256": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+            "line": 289,
+            "token": "'P04.FRAME'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Еквівалент назви FRAME у native-кандидаті, не векторна атестація рамки."
+      },
+      "P04-020": {
+        "relation": "NAME_ALIAS_LIVE_TEXT",
+        "candidate_roles": [
+          "P04.GREETING_LIVE_AREA_TEXT"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.jsx",
+            "sha256": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
+            "line": 76,
+            "token": "'P04.GREETING_LIVE_AREA_TEXT'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Native JSX створює area text і перевіряє переповнення, але конкретний виконаний результат не надано."
+      },
+      "P04-025": {
+        "relation": "NAME_ALIAS_LIVE_TEXT",
+        "candidate_roles": [
+          "P04.SENDER_LIVE_LINES"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.jsx",
+            "sha256": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
+            "line": 94,
+            "token": "'P04.SENDER_LIVE_LINES'"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "GC29 створює окремі live textFrames; потрібно звірити рядки з прийнятим Intake."
+      },
+      "P04-030": {
+        "relation": "DIRECT_SOURCE_ROLE",
+        "candidate_roles": [
+          "P04.SIGNATURE"
+        ],
+        "code_anchors": [
+          {
+            "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py",
+            "sha256": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+            "line": 290,
+            "token": "'P04.SIGNATURE'"
+          },
+          {
+            "path": "coordination/graphic_design_lab/greeting_cards/gc31_sender_content_contract_v0_1.json",
+            "sha256": "31ae3ff364effb6041a1b0d076191ee4170e58ee9142c9ea70f8b66e725eb05f",
+            "line": 13,
+            "token": "graphic_must_not_replace_live_text"
+          }
+        ],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Графічний підпис окремий від живого тексту; для GRIGO SVG може перетворюватися в PNG під час розміщення."
+      },
+      "P04-900": {
+        "relation": "UI_GUIDE_ONLY",
+        "candidate_roles": [],
+        "code_anchors": [],
+        "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
+        "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
+        "finding_ua": "Службові ID та межі залишаються тільки в операторському UI."
+      }
+    },
+    "limitations_ua": "Зіставлення виконано за вихідним кодом GC27–GC31. Немає result.json, перевіреного design.ai, повторного відкриття у звіті чи візуальної атестації конкретного завдання. Наявність ролі в коді не доводить її існування у готовому AI."
   }
 }
