@@ -665,8 +665,8 @@
         "code_anchors": [
           {
             "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.jsx",
-            "sha256": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
-            "line": 66,
+            "sha256": "96b0549cc21cc82f35e1648e16f4ee25cb88fd8d9333c1ad6a38b16c9b306955",
+            "line": 75,
             "token": "'P01.OCCASION_TEXT_LIVE'"
           }
         ],
@@ -774,8 +774,8 @@
         "code_anchors": [
           {
             "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.jsx",
-            "sha256": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
-            "line": 56,
+            "sha256": "96b0549cc21cc82f35e1648e16f4ee25cb88fd8d9333c1ad6a38b16c9b306955",
+            "line": 65,
             "token": "'P03-030.CLIP_SHAPE'"
           },
           {
@@ -856,14 +856,14 @@
         "code_anchors": [
           {
             "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.jsx",
-            "sha256": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
-            "line": 76,
+            "sha256": "96b0549cc21cc82f35e1648e16f4ee25cb88fd8d9333c1ad6a38b16c9b306955",
+            "line": 110,
             "token": "'P04.GREETING_LIVE_AREA_TEXT'"
           }
         ],
         "source_scope": "SOURCE_ONLY_NOT_EXECUTED",
         "runtime_evidence": "NOT_PROVIDED_NOT_ATTESTED",
-        "finding_ua": "Native JSX створює area text і перевіряє переповнення, але конкретний виконаний результат не надано."
+        "finding_ua": "GC29 r003 містить адаптивне компонування AreaText без фіксованого порога рядків; виконання оновленого JSX у Illustrator ще не перевірено."
       },
       "P04-025": {
         "relation": "NAME_ALIAS_LIVE_TEXT",
@@ -873,8 +873,8 @@
         "code_anchors": [
           {
             "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.jsx",
-            "sha256": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
-            "line": 94,
+            "sha256": "96b0549cc21cc82f35e1648e16f4ee25cb88fd8d9333c1ad6a38b16c9b306955",
+            "line": 149,
             "token": "'P04.SENDER_LIVE_LINES'"
           }
         ],
@@ -914,6 +914,57 @@
         "finding_ua": "Службові ID та межі залишаються тільки в операторському UI."
       }
     },
-    "limitations_ua": "Зіставлення виконано за вихідним кодом GC27–GC31. Немає result.json, перевіреного design.ai, повторного відкриття у звіті чи візуальної атестації конкретного завдання. Наявність ролі в коді не доводить її існування у готовому AI."
+    "limitations_ua": "Зіставлення виконано за вихідним кодом GC27–GC31. Немає result.json, перевіреного design.ai, повторного відкриття у звіті чи візуальної атестації конкретного завдання. Наявність ролі в коді не доводить її існування у готовому AI.",
+    "source_pin_reconciliation_r003": {
+      "schema_version": "gdl_gc29_source_pin_reconciliation_r003_v0_1",
+      "purpose": "REFRESH_CURRENT_SOURCE_ANCHORS_PRESERVE_HISTORICAL_R009_AUDIT",
+      "source_revision": "GC29_P04_NATIVE_FIT_PILOT_R003",
+      "source_sha256_before": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
+      "source_sha256_after": "96b0549cc21cc82f35e1648e16f4ee25cb88fd8d9333c1ad6a38b16c9b306955",
+      "r009_audit_head_preserved": "912b05c",
+      "r009_audit_archive_sha256_preserved": "a41e14743b320f12eebc10b1b4668597ecfaa477755ca8b4da16b9de07cc7765",
+      "rebound_anchors": [
+        {
+          "element_id": "P01-030",
+          "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.jsx",
+          "token": "'P01.OCCASION_TEXT_LIVE'",
+          "historical_sha256": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
+          "historical_line": 66,
+          "current_sha256": "96b0549cc21cc82f35e1648e16f4ee25cb88fd8d9333c1ad6a38b16c9b306955",
+          "current_line": 75
+        },
+        {
+          "element_id": "P03-030",
+          "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.jsx",
+          "token": "'P03-030.CLIP_SHAPE'",
+          "historical_sha256": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
+          "historical_line": 56,
+          "current_sha256": "96b0549cc21cc82f35e1648e16f4ee25cb88fd8d9333c1ad6a38b16c9b306955",
+          "current_line": 65
+        },
+        {
+          "element_id": "P04-020",
+          "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.jsx",
+          "token": "'P04.GREETING_LIVE_AREA_TEXT'",
+          "historical_sha256": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
+          "historical_line": 76,
+          "current_sha256": "96b0549cc21cc82f35e1648e16f4ee25cb88fd8d9333c1ad6a38b16c9b306955",
+          "current_line": 110
+        },
+        {
+          "element_id": "P04-025",
+          "path": "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.jsx",
+          "token": "'P04.SENDER_LIVE_LINES'",
+          "historical_sha256": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
+          "historical_line": 94,
+          "current_sha256": "96b0549cc21cc82f35e1648e16f4ee25cb88fd8d9333c1ad6a38b16c9b306955",
+          "current_line": 149
+        }
+      ],
+      "runtime_ai_attested": false,
+      "native_p04_fitted_in_illustrator": false,
+      "production_ready": false,
+      "approval_granted": false
+    }
   }
 }

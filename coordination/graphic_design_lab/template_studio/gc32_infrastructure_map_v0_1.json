@@ -287,14 +287,17 @@
     "gc32_prepress_ssh_scan": "23_ITEMS_CAPTURE_REVIEW_PUBLISH_PASS_2026_10_27_BOUNDED_SCOPE",
     "gc32_sources_checkpoint": "e76a286_NON_RELEASE; b79a659_MAKE_TARGETS_NON_RELEASE",
     "ts_r008_element_passports": "20_OF_20_SOURCE_BOUNDED_REFERENCE_ONLY_NATIVE_BINDING_NOT_ATTESTED",
-    "ts_r009_source_crosswalk": "20_OF_20_SOURCE_AUDIT_ONLY; GC27_GC29_BRANCHES_DISTINCT; NO_RESULT_JSON_NO_NATIVE_AI_ATTESTATION",
-    "gc30_illustrator": "NOT_LAUNCHED_NATIVE_OUT_ABSENT_AT_2026_10_27_CHECK",
+    "ts_r009_source_crosswalk": "20_OF_20_SOURCE_AUDIT_ONLY; GC27_GC29_BRANCHES_DISTINCT; GC29_R003_REPIN_4_SOURCE_ANCHORS_WITH_HISTORY; NO_NATIVE_AI_ATTESTATION",
+    "gc30_illustrator": "DEG_MANUAL_NATIVE_FIRST_RUN_2026_10_28_BLOCKED_REVIEW_REQUIRED_GC29_GREETING_OVERFLOW; UNSAVED_ILLUSTRATOR_DOCUMENT; NO_AI_PDF_PNG_OUTPUT; HISTORICAL_ATTEMPT_PRESERVED",
     "gc30_multi_worker_route": "PLANNED_NOT_IMPLEMENTED",
     "gc30_on_demand_bootstrap": "PLANNED_NOT_IMPLEMENTED",
     "gc30_delivery": "R002B_SHA256_VERIFIED_ONE_TICKET_SFTP",
-    "gc30_server_authority": "SOURCE_CODE_AND_ASSIGNMENT_S01; SMB_CLIENT_FOLDER_OPERATOR_ENTRY"
+    "gc30_server_authority": "SOURCE_CODE_AND_ASSIGNMENT_S01; SMB_CLIENT_FOLDER_OPERATOR_ENTRY",
+    "gc29_p04_fit_r003": "SOURCE_PATCH_APPLIED_LOCALLY_ONLY; JSX_SHA256_96b0549cc21cc82f35e1648e16f4ee25cb88fd8d9333c1ad6a38b16c9b306955; NO_WINDOWS_EXECUTION; NO_NEW_DEG_ATTEMPT; PRODUCTION_NOT_AUTHORIZED",
+    "gc29_r003_crosswalk_r001": "FOUR_JSX_SOURCE_PINS_REBOUND_WITH_R009_HISTORY_PRESERVED; REGISTRY_SHA256_4dbd15881f3af7dd9d5f0b0c24e1e8af3346dbda4f2544759f8889fb5580a75e; 493_PASS_11_SKIPPED_4_SUBTESTS_BEFORE_DOCUMENTATION_MAP_SYNC",
+    "gc32_documentation_sync_r001": "GDL_MAP_SYNCHRONIZATION_PREPARED; VALIDATION_AWAITING_S01_RECHECK; NO_PUBLICATION_NO_COMMIT"
   },
-  "provenance": "2026-10-27 owner architecture decision: s01 canonical code, client SMB operator ingress, regenerable assigned Windows workers. r002C staged DEG pilot 16 files/12 assets, native out absent at check; planned multi-worker and bootstrap not yet implemented.",
+  "provenance": "2026-10-27 owner architecture decision: s01 canonical code, client SMB operator ingress, regenerable assigned Windows workers. r002C staged DEG pilot 16 files/12 assets, native out absent at check; planned multi-worker and bootstrap not yet implemented. 2026-10-28: DEG native Illustrator first trial returned BLOCKED_REVIEW_REQUIRED without saved AI. GC29 P04 r003 server source and TS r009 crosswalk repin installed; source tests pass, no Windows rerun. Map changes record these development states only; owner-approved pilot rules and non-authorizing publication gates remain unchanged.",
   "atlas_purpose": {
     "concept": "Концептуальна карта — що повинно існувати і навіщо",
     "actual": "Побачені на s01 метадані клієнтської папки + опційний самозвіт Windows",
