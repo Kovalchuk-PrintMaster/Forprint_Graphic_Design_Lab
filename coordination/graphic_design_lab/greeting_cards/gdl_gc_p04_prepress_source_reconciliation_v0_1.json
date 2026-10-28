@@ -1,0 +1,211 @@
+{
+  "schema_version": "gdl_gc_p04_prepress_source_reconciliation_v0_1",
+  "status": "PILOT_OWNER_RULES_CONFIRMED_SOURCE_PARITY_NOT_YET_IMPLEMENTED",
+  "owner_direction_date": "2026-10-28",
+  "owner_confirmed_pilot_rules": {
+    "no_customer_text_rewrite": true,
+    "greeting_bbox_fixed_mm": [
+      32.0,
+      32.0,
+      182.0,
+      212.0
+    ],
+    "greeting_bbox_is_physical_pdf_coords": true,
+    "auto_adjust_font_size": true,
+    "auto_adjust_leading": true,
+    "no_enlargement_of_greeting_box": true,
+    "preserve_editable_native_area_text": true,
+    "p04_current_visual_composition": "PILOT_ACCEPTABLE_FOR_CONTINUATION_NOT_CUSTOMER_APPROVAL",
+    "nonfatal_layout_review": "CONTINUE_TO_SAVED_REVIEW_ARTIFACT_WITH_DIAGNOSTIC_WHEN_TECHNICALLY_POSSIBLE",
+    "fatal_technical_errors": "MUST_NOT_BE_RELABELED_SUCCESS",
+    "signature_and_sender_geometry": "REUSE_PREPRESS_VERIFIED_VARIANT_SOURCES_NO_GUESSING",
+    "no_auto_approval": true
+  },
+  "source_snapshot": {
+    "repo": "forprint_prepress_hub",
+    "git_head": "b26cce19f4700cadaf34323e4c2e2909bcf5fcd8",
+    "audit_archive_sha256": "31856da56b97e38da1ccdeb822798b0f04c2a02815e325fd4b90619b6347f6df",
+    "file_count": 11,
+    "source_file_sha256": {
+      "app/graphic_design_lab/greeting_card_builder_renderer.py": "54fe79f387e04fb4205388a697fcf1744407e0489904a8ea082aa1c5c15f1852",
+      "scripts/graphic_design_lab/greeting_cards/builder.py": "bc2e4146488d7441a2ae9dd15556c1b51487e3f0e3d7b40b65ed8aed64cd957c",
+      "coordination/graphic_design_lab/directions/greeting_cards/geometry_zones_v0_1.yaml": "871ac1d91e117dfefd074f4d73b78369165c7899e13db90b21f96aab00ca800f",
+      "coordination/graphic_design_lab/directions/greeting_cards/page4_canonical_repair_profile_v0_1.yaml": "ded49cc466a152d246851bebf78a6067422c434dfb4e359a828c35058dbfdc02",
+      "coordination/graphic_design_lab/directions/greeting_cards/signature_registry_v0_1.yaml": "d6e5acf5ce0154f32f236f2ca8c98e00e078217c4589d564ead1e38b6ffff577",
+      "coordination/graphic_design_lab/directions/greeting_cards/deterministic_builder_v0_1.yaml": "74006ffde51b93bd6796d40a68f990f5120d6f5f07687f3fe721eedfaa5aa319",
+      "tests/graphic_design_lab/test_gdl_gc15b_bounded_greeting_fit_v0_4.py": "6ea055fbde97155b2186d979d34c7bed31ec83ac1cd8d340792804d9be1327ff",
+      "tests/graphic_design_lab/test_greeting_card_page4_canonical_repair_v0_1.py": "303c0531f6d52406f73c0688ad8e0f1554ca273631e9e45ed934eca772fd5ef5",
+      "tests/graphic_design_lab/test_greeting_card_geometry_zones_v0_1.py": "769e0f9cb2e0a30dc3a1a99cd5e7bc2d1c66b75bf39fe17dd5c865ca6cdb5ca7",
+      "tests/graphic_design_lab/test_greeting_card_reserved_zone_v0_1.py": "d38165d5dd36209f1fce777eacad6ce26ee64697fbeba3c6d06e10d80560ea1c",
+      "tests/graphic_design_lab/test_greeting_card_illustrator_typography_v0_1.py": "31cbbf518cf0b6d76eb9677c5efe49f3d39b4ef6faccabfed6c7bb63ecb067ba"
+    },
+    "limitations": [
+      "NO_LIVE_PREPRESS_RUNTIME_TEST_IN_THIS_AUDIT",
+      "sender_zone_planner_v0_1 and canonical_sender_blocks_v0_1 not included",
+      "render report and private canonical sources not included",
+      "historical deterministic_builder_v0_1.yaml is stale relative to renderer"
+    ]
+  },
+  "source_profile_verified": {
+    "physical_pdf_page_mm": [
+      214.0,
+      301.0
+    ],
+    "trim_mm": [
+      210.0,
+      297.0
+    ],
+    "bleed_mm": 2.0,
+    "greeting_bbox_pdf_mm": [
+      32.0,
+      32.0,
+      182.0,
+      212.0
+    ],
+    "greeting_bbox_trim_mm": [
+      30.0,
+      30.0,
+      180.0,
+      210.0
+    ],
+    "font": "ZapfChanceryC",
+    "preferred_font_size_mm": 7.0,
+    "preferred_leading_mm": 8.0,
+    "renderer_fallback_tiers_pt": [
+      19.84251968503937,
+      18.5,
+      17.0,
+      16.5,
+      16.0
+    ],
+    "current_minimum_pt": 16.0,
+    "current_minimum_is_final_owner_approval": false,
+    "fit_method": "SCRATCH_PYMUPDF_INSERT_TEXTBOX_FIRST_FITTING_TIER",
+    "effective_bottom_reserve_visual_lines": 2,
+    "vertical_center_method": "ADJUST_EFFECTIVE_TEXT_RECTANGLE_BY_HALF_UNUSED_HEIGHT",
+    "source_blank_rows": "COMPACTS_REPEATED_EMPTY_LINES_NO_WORD_REWRITES",
+    "watermark_opacity": 0.25,
+    "watermark_geometry": "EXACT_SOURCE_REFERENCE_BBOX",
+    "sender": {
+      "GRIGO": {
+        "text_x_pdf_mm": [
+          31.0,
+          101.0
+        ],
+        "start_y_pdf_mm": 222.0,
+        "graphic": "EXACT_SOURCE_VERIFIED_VECTOR_GEOMETRY"
+      },
+      "HERASYMENKO": {
+        "text_x_pdf_mm": [
+          31.0,
+          101.0
+        ],
+        "start_y_pdf_mm": 224.5,
+        "graphic": "EXACT_SOURCE_IMAGE_BBOX_RGBA_SOFT_MASK",
+        "signature_bbox_pdf_mm": [
+          82.877,
+          214.875,
+          128.258,
+          274.141
+        ]
+      },
+      "DUAL_GRIGO_HERASYMENKO": {
+        "start_y_pdf_mm": 213.965,
+        "status": "RUNTIME_DISABLED_SOURCE_CANDIDATE_ONLY"
+      }
+    },
+    "source_text_roles": [
+      "closing_phrase",
+      "sender_name",
+      "sender_role_in_original_relative_order"
+    ]
+  },
+  "native_gc29_source_observed": {
+    "source_audit": "TS_R009_SOURCE_AUDIT_2026-10-27",
+    "source_sha256": {
+      "jsx_template": "6370e060d40f4df19c6ed1770c41587228ea5dbc4693a59d05fce1d7432e619a",
+      "scene_compiler": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42"
+    },
+    "greeting_box_mm": [
+      32.0,
+      32.0,
+      182.0,
+      212.0
+    ],
+    "hardcoded_font_pt": 19.84251968503937,
+    "hardcoded_leading_mm": 8.0,
+    "rejects_with": "GC29_GREETING_OVERFLOW_REVIEW_REQUIRED",
+    "unsafe_heuristic": "t.lines.length * 8mm < 164mm",
+    "sender_pointtext_baselines_pdf_mm": [
+      227.0,
+      235.0,
+      243.0,
+      251.0
+    ],
+    "sender_variant_geometry_binding": false,
+    "failed_run": "gdl_gc_deg_20261011__34b9b61741d5ca",
+    "failed_run_result": "BLOCKED_REVIEW_REQUIRED",
+    "failed_run_artifacts": [
+      "result.json"
+    ],
+    "saved_ai_verified": false
+  },
+  "source_conflicts_to_reconcile": [
+    {
+      "id": "P04-PARITY-001",
+      "issue": "legacy deterministic_builder_v0_1.yaml tiers 22.5/20/17 vs active renderer 19.84/18.5/17/16.5/16",
+      "interpretation": "ACTIVE_RENDERER_AND_PAGE4_PROFILE_FOR_REFERENCE; do not overwrite old contract without owner review"
+    },
+    {
+      "id": "P04-PARITY-002",
+      "issue": "GC29 fixed 20 row heuristic rejects native scene before save, while Prepress renderer uses bounded actual textbox trial",
+      "interpretation": "REPLACE_NATIVE_HEURISTIC_WITH_MEASURED_LAYOUT_THEN_SAVE_REVIEW_EVIDENCE"
+    },
+    {
+      "id": "P04-PARITY-003",
+      "issue": "GC29 baselines 227/235/243/251 do not follow signature-variant profile: GRIGO y=222, HERASYMENKO y=224.5",
+      "interpretation": "PORT_VARIANT_AWARE_SOURCE_GEOMETRY; verify source_sender_rows and typography planner first"
+    },
+    {
+      "id": "P04-PARITY-004",
+      "issue": "Prepress source removes repeated blank lines, while owner requests unmodified text",
+      "interpretation": "KEEP_EXACT_WORDS; establish whitespace normalization rules from accepted Intake before changing native text"
+    },
+    {
+      "id": "P04-PARITY-005",
+      "issue": "DIFFERENT coordinate systems physical PDF vs native artboards",
+      "interpretation": "MAP_EXPLICITLY; no naive reuse of trim coordinates"
+    },
+    {
+      "id": "P04-PARITY-006",
+      "issue": "source sender planner and canonical private PDFs absent from supplied audit",
+      "interpretation": "DO_NOT_CLAIM_FINAL_SIGNATURE_LAYOUT_PARITY"
+    }
+  ],
+  "next_implementation_scope": {
+    "repo": "forprint_graphic_design_lab",
+    "change_gc29_on_separate_approved_work_front": true,
+    "new_attempt_id_required": true,
+    "do_not_reuse_failed_stage_out": true,
+    "no_runtime_execution_authorized": true,
+    "acceptance": [
+      "source and worker input SHA provenance",
+      "one live editable AreaText with no text loss",
+      "fixed P04 bbox and bounded font/leading",
+      "canonical variant-specific sender/signature geometry",
+      "save and close native AI then reopen",
+      "PDF/4 PNG/result.json produced or diagnostic evidence retained",
+      "return to SMB output in separate workflow",
+      "human visual review; no production approval"
+    ]
+  },
+  "authority": {
+    "patch_existing_gdl_runtime": false,
+    "modify_prepress_hub": false,
+    "dispatch": false,
+    "illustrator_launch": false,
+    "clean_windows_stage": false,
+    "publish_customer_output": false,
+    "production_approval": false
+  }
+}

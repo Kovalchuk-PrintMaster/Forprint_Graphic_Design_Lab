@@ -671,22 +671,24 @@
           {
             "id": "GC-REV-008",
             "block_id": "P04.GREETING_TEXT",
-            "state": "OPEN_FOR_OWNER_REVIEW",
+            "state": "OWNER_DIRECTION_TO_FORMALIZE",
             "observed": "898 символів, 9 вихідних абзаців; текст видно на артборді, але скрипт повернув GC29_GREETING_OVERFLOW_REVIEW_REQUIRED.",
             "question_to_owner": "Які мають бути межі текстового блоку, мінімально прийнятний шрифт, міжряддя та правила розміщення? Чи допустимо кілька колонок?",
-            "working_proposal": "Не вводити довільних обмежень на 20 рядків. Визначити критерії за видимою областю і реальними bounds, зберігати повний текст та редагованість.",
-            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
-            "runtime_authority": false
+            "working_proposal": "Власник для пілота погодив повний незмінений текст, фіксований bbox 150×180 мм, автоадаптацію кегля/міжряддя та продовження до збереженого результату для review. Повернутися до перевірених `_fit_greeting` і профілів Prepress Hub; поріг 20 рядків не нормативний. Мінімальний кегль і точний fit native ще потребують перевірки.",
+            "evidence_boundary": "OWNER_EXPLICIT_FEEDBACK_2026-10-28+PREPRESS_SOURCE_SHA256",
+            "runtime_authority": false,
+            "pilot_owner_decision_id": "P04-PILOT-FIT-20261028"
           },
           {
             "id": "GC-REV-009",
             "block_id": "P04.SIGNATURE",
-            "state": "OPEN_FOR_OWNER_REVIEW",
+            "state": "OWNER_DIRECTION_TO_FORMALIZE",
             "observed": "На скриншоті підпис розміщений внизу над орнаментом/watermark; видимий окремий об’єкт.",
             "question_to_owner": "Чи подобається позиція/розмір підпису, відступ від тексту, співвідношення з watermark?",
-            "working_proposal": "Залишити як питання на візуальне погодження, не переміщувати без твого рішення.",
-            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
-            "runtime_authority": false
+            "working_proposal": "Поточна композиція P04 прийнятна для подальшого пілота. Не вигадувати розміри/позиції підписантів чи графічних підписів; використовувати source-pinned варіанти Prepress Hub: GRIGO y=222, HERASYMENKO y=224.5 у physical PDF mm; DUAL runtime disabled. Native паритет ще не підтверджено.",
+            "evidence_boundary": "OWNER_EXPLICIT_FEEDBACK_2026-10-28+PREPRESS_SOURCE_SHA256",
+            "runtime_authority": false,
+            "pilot_owner_decision_id": "P04-PILOT-SIGN-20261028"
           }
         ]
       },
@@ -761,6 +763,14 @@
       "automatic_cleanup": false,
       "automatic_smb_mutation": false,
       "automatic_canonical_rule_change": false
+    },
+    "p04_prepress_source_reconciliation": {
+      "schema_version": "gdl_gc_p04_prepress_source_reconciliation_v0_1",
+      "path": "coordination/graphic_design_lab/greeting_cards/gdl_gc_p04_prepress_source_reconciliation_v0_1.json",
+      "state": "PILOT_OWNER_RULES_CONFIRMED_SOURCE_PARITY_NOT_YET_IMPLEMENTED",
+      "source_prepress_head": "b26cce19f4700cadaf34323e4c2e2909bcf5fcd8",
+      "rule_status": "OWNER_RULES_PILOT_ONLY_NO_RUNTIME_AUTHORITY",
+      "native_fix_status": "NOT_IMPLEMENTED_NO_RETRY"
     }
   }
 }
