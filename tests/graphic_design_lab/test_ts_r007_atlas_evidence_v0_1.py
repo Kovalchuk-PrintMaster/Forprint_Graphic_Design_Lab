@@ -60,7 +60,24 @@ def test_stable_definition_vs_fresh_snapshot_id():
 
 def test_ui_is_single_atlas_and_offline():
     h=HTML.read_text('utf8')
-    assert "[['process','Конвеєр і контроль'],['atlas-concept','Еталонне дерево'],['atlas-actual','Фактичне дерево']]" in h
+    # r007 preserves a single Atlas and offline UI; later tabs are additive.
+    # Validate the navigation registry, not an immutable literal list of all tabs.
+    nav = re.search(
+        r"(\[\['process','Конвеєр і контроль'\](?:,\['[^']+','[^']+'\])+\])\.forEach\(\(\[id,label\]\)",
+        h,
+    )
+    assert nav, "Navigation tabs registry missing or malformed"
+    tabs = re.findall(r"\['([^']+)','([^']+)'\]", nav.group(1))
+    ids = [tab_id for tab_id, _ in tabs]
+    assert len(ids) == len(set(ids)), "Duplicate navigation tab id"
+    assert tabs[0] == ('process', 'Конвеєр і контроль')
+    for tab in (
+        ('atlas-concept', 'Еталонне дерево'),
+        ('atlas-actual', 'Фактичне дерево'),
+    ):
+        assert tabs.count(tab) == 1, tab
+    assert ids.index('atlas-concept') < ids.index('atlas-actual')
+    assert "id.startsWith('atlas-')?renderAtlas()" in h
     assert "[['windows','PREPRESS · Windows']" not in h
     assert 'snap.scan_truncated' in h and 'snap.scan_scope' in h
     assert 'SSH-самозвіт PREPRESS' in h

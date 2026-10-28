@@ -11,7 +11,7 @@ header{max-width:1580px;margin:0 auto;padding:25px 22px 11px}h1{font-size:27px;m
 .controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:10px}.choices{padding:5px 0 10px;border-bottom:1px solid var(--line);margin-bottom:10px}.choicegroup{margin-bottom:6px}.choicegroup strong{font-size:12px;color:var(--muted);display:inline-block;min-width:124px}.choice{padding:6px 10px;margin:3px 4px 3px 0;font-size:12px}.choice[aria-pressed=true]{color:white;background:var(--blue);border-color:var(--blue)}.utility{font-size:12px;padding:7px 10px}.viewport{background:#e8ecf0;border:1px solid var(--line);padding:8px;display:flex;justify-content:center;align-items:flex-start}.artboard{width:100%;max-width:530px;aspect-ratio:214/301;position:relative;background:#f6f0e4;box-shadow:0 2px 14px #101e2822;overflow:hidden}.artboard img{width:100%;height:100%;object-fit:fill;display:block}.marks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.marks rect{vector-effect:non-scaling-stroke;fill:#f7931e0b;stroke:#ff6a2b;stroke-width:1.5;stroke-dasharray:4 3}.marks rect.selected{stroke:#0966e4;stroke-width:2.5;fill:#3385ef10}.marks text{paint-order:stroke;stroke:white;stroke-width:1.2;fill:#081d39;font-size:5px;font-weight:800}.legend{margin:10px 0 0;color:#485a70;font-size:12px}
 .item{display:block;border:1px solid var(--line);width:100%;background:white;border-radius:8px;text-align:left;padding:9px 12px;margin:6px 0;cursor:pointer;color:var(--ink)}.item.active{background:#fff5ee;border-color:var(--orange)}.item-title{font-weight:700;font-size:13px}.metadata{font-size:11px;color:var(--muted)}.item-meta{padding-top:4px;line-height:1.46}.pill{display:inline-block;background:#edf2f8;color:#37506f;border-radius:4px;padding:1px 5px;font-size:11px}.danger{color:#a54914}details{border-top:1px solid var(--line);padding:12px 0 1px}summary{font-weight:700;cursor:pointer}.kv{display:grid;grid-template-columns:135px minmax(0,1fr);gap:6px 12px;margin:10px 0;font-size:12px}.kv span:nth-child(odd){color:var(--muted)}.editgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.editgrid label{font-size:11px}.editgrid input{display:block;max-width:100%;width:100%;padding:6px;border-radius:6px;border:1px solid #b9c8dc;font-size:13px}.action{margin:8px 6px 8px 0;background:#205b91;color:white;border-color:#205b91}.action.secondary{color:#205b91;background:white}.action:disabled{opacity:.5;cursor:not-allowed}.status{color:var(--muted);font-size:12px}.readonly{background:#f4f6fa;padding:10px;border:1px solid var(--line);border-radius:8px;font:12px/1.5 ui-monospace,Consolas,monospace;white-space:pre-wrap;word-break:break-all;max-height:260px;overflow:auto}.subheading{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.6px}.footer{margin-top:15px;font-size:12px;color:var(--muted)}@media(max-width:860px){.main{grid-template-columns:1fr}header,.shell{padding-left:12px;padding-right:12px}h1{font-size:22px}}@media print{.panel:nth-child(2),.tabs,.controls,.choices{display:none}body{background:white}}
 
-#atlas-shell[hidden],#infra-shell[hidden],.main[hidden]{display:none!important}
+#atlas-shell[hidden],#infra-shell[hidden],#review-shell[hidden],.main[hidden]{display:none!important}
 .infra-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .infra-pre{background:#f5f7fa;border:1px solid #dce3ed;border-radius:8px;padding:15px;white-space:pre-wrap;word-break:break-word;font:12px/1.65 ui-monospace,Consolas,monospace}
 .infra-step{padding:12px;border:1px solid #d8e2ee;border-radius:8px;margin:8px 0}
@@ -101,6 +101,20 @@ header{max-width:1580px;margin:0 auto;padding:25px 22px 11px}h1{font-size:27px;m
 .exec-boundaries{columns:2;column-gap:28px;font-size:11px;color:#4e6078;padding-left:19px}
 .exec-boundaries li{break-inside:avoid;margin:0 0 5px}
 @media(max-width:850px){.exec-owners{grid-template-columns:1fr}.exec-boundaries{columns:1}.exec-node{max-width:none}.exec-arrow{flex-basis:100%;transform:rotate(90deg);font-size:14px}}
+
+/* GC operator approval register: questions grouped by functional scope; draft answers never authorize changes. */
+.review-top{display:flex;justify-content:space-between;gap:12px;align-items:start;flex-wrap:wrap}
+.review-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;align-items:start}
+.review-group{background:#fff;border:1px solid #d7e1ed;border-radius:14px;padding:13px}
+.review-group>summary{font-size:15px;padding:5px 2px 12px}
+.review-issue{border-top:1px solid #e0e8f0;padding:13px 2px 12px}
+.review-meta{font:11px/1.5 ui-monospace,Consolas,monospace;color:#6b7d90;overflow-wrap:anywhere}
+.review-ask{font-weight:650;color:#1f507f;margin:7px 0}
+.review-proposal{background:#f3f6fa;border-radius:8px;padding:10px 12px;font-size:12px}
+.review-note{display:block;width:100%;min-height:70px;resize:vertical;font:inherit;font-size:12px;padding:9px;border:1px solid #c8d6e6;border-radius:8px;margin-top:7px}
+.review-tag{font:600 10px/1.5 system-ui,sans-serif;background:#e8eef7;color:#294d77;border-radius:6px;padding:3px 7px;display:inline-block}
+.review-summary{font-size:12px;color:#50637a;margin:9px 0 16px}
+@media(max-width:920px){.review-grid{grid-template-columns:1fr}}
 </style></head>
 <body>
 <header><h1>ForPrint Template Studio <span class="muted">· повний паспорт листівки</span></h1>
@@ -132,6 +146,13 @@ header{max-width:1580px;margin:0 auto;padding:25px 22px 11px}h1{font-size:27px;m
 <section class="panel"><div class="subheading">ForPrint · єдине джерело опису інфраструктури</div><h2 id="infra-title">Структура</h2><p class="muted" id="infra-description"></p><pre class="infra-pre" id="infra-tree"></pre></section>
 <section class="panel"><h2>Фактичний стан і правила</h2><div id="infra-flags"></div><div id="infra-steps"></div><p class="footer">Паспорт не дає дозволу на запуск, друк або публікацію. Дані актуальні станом на останнє перевірене оновлення порталу.</p></section>
 </div></div>
+<div id="review-shell" class="shell" hidden>
+<section class="panel" aria-label="Груповані питання на погодження">
+<div class="review-top"><div><div class="subheading">GC · спільний операторський review</div><h2>Питання на погодження · паспорт листівки</h2><p class="muted">Технічні спостереження + твої вимоги + погоджені правила. Тут жодних автоматичних дозволів на друк, зміну конструктора чи очищення Worker.</p></div>
+<div><button type="button" class="utility" id="review-copy">Копіювати чернетку</button> <button type="button" class="utility" id="review-download">Зберегти JSON</button></div></div>
+<div class="notice">Усі відповіді на цій сторінці — лише чернетка оператора до передачі в чат/на review. Вони не зберігаються в SMB і не стають canonical-рішеннями самі собою.</div>
+<div id="review-summary" class="review-summary"></div><div id="review-questions" class="review-grid"></div><p id="review-feedback" class="status" aria-live="polite"></p>
+</section></div>
 <div id="atlas-shell" class="shell" hidden><div class="atlas-layout">
 <section class="panel"><div class="subheading">GC32 · відновлюваний довідник каталогів</div><h2 id="atlas-title"></h2>
 <p class="muted" id="atlas-description"></p>
@@ -149,7 +170,7 @@ const MODEL = /*__TS_FULL_MODEL__*/;
 const IMAGES = /*__TS_FULL_IMAGES__*/;
 const BUILD = /*__TS_FULL_BUILD__*/;
 let page=0, selected=null, guides=true, proposals=[],infraTab=null, atlasTarget='client',atlasQuery='',atlasSelectedPath=null;
-let executionRoute='ready';
+let executionRoute='ready', reviewNotes={};
 const choices={}; Object.keys(MODEL.variant_groups).forEach(k=>choices[k]=MODEL.variant_groups[k].default);
 const $=id=>document.getElementById(id); const E=(tag,cl,text)=>{const n=document.createElement(tag);if(cl)n.className=cl;if(text!==undefined)n.textContent=text;return n;};
 const curr=()=>MODEL.pages[page];
@@ -161,7 +182,8 @@ const bbox=el=>{if(!el)return null;
  if(front && el.id==='P01-030')return front.occasion_bbox_mm;
  }
  return el.bbox_mm;};
-function init(){const p=$('pages');MODEL.pages.forEach((x,i)=>{const b=E('button','tab',x.id+' · '+x.title_ua);b.type='button';b.onclick=()=>{page=i;infraTab=null;selected=null;render();};p.appendChild(b)});[['process','Конвеєр і контроль'],['atlas-concept','Еталонне дерево'],['atlas-actual','Фактичне дерево']].forEach(([id,label])=>{const b=E('button','tab',label);b.type='button';b.onclick=()=>{infraTab=id;atlasSelectedPath=null;(id.startsWith('atlas-')?renderAtlas():renderInfrastructure());};p.appendChild(b)});$('guides').onclick=()=>{guides=!guides;render()};$('reset').onclick=()=>{selected=null;proposals=[];Object.keys(MODEL.variant_groups).forEach(k=>choices[k]=MODEL.variant_groups[k].default);render()};$('copy').onclick=copyProposal;$('download').onclick=downloadProposal;
+function init(){const p=$('pages');MODEL.pages.forEach((x,i)=>{const b=E('button','tab',x.id+' · '+x.title_ua);b.type='button';b.onclick=()=>{page=i;infraTab=null;selected=null;render();};p.appendChild(b)});[['process','Конвеєр і контроль'],['review','Питання на погодження'],['atlas-concept','Еталонне дерево'],['atlas-actual','Фактичне дерево']].forEach(([id,label])=>{const b=E('button','tab',label);b.type='button';b.onclick=()=>{infraTab=id;atlasSelectedPath=null;(id.startsWith('atlas-')?renderAtlas():(id==='review'?renderReview():renderInfrastructure()));};p.appendChild(b)});$('guides').onclick=()=>{guides=!guides;render()};$('reset').onclick=()=>{selected=null;proposals=[];Object.keys(MODEL.variant_groups).forEach(k=>choices[k]=MODEL.variant_groups[k].default);render()};$('copy').onclick=copyProposal;$('download').onclick=downloadProposal;
+$('review-copy').onclick=copyReviewNotes;$('review-download').onclick=downloadReviewNotes;
 $('exec-ready').onclick=()=>{executionRoute='ready';renderExecutionModel()};
 $('exec-bootstrap').onclick=()=>{executionRoute='bootstrap';renderExecutionModel()};
 $('atlas-client').onclick=()=>{atlasTarget='client';atlasSelectedPath=null;renderAtlas()};
@@ -170,7 +192,7 @@ $('atlas-search').oninput=v=>{atlasQuery=v.target.value;renderAtlasTree()};
 $('atlas-open-all').onclick=()=>document.querySelectorAll('#atlas-tree details').forEach(x=>x.open=true);
 $('atlas-close-all').onclick=()=>document.querySelectorAll('#atlas-tree details').forEach(x=>x.open=false);
 render()}
-function render(){document.querySelector('.main').hidden=false;$('infra-shell').hidden=true;$('atlas-shell').hidden=true;infraTab=null;const p=curr();[...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===page)));$('panel-title').textContent=p.id+' · '+p.title_ua+' · елементи й послідовність';$('guides').textContent=guides?'Приховати межі':'Показати межі';
+function render(){document.querySelector('.main').hidden=false;$('infra-shell').hidden=true;$('atlas-shell').hidden=true;$('review-shell').hidden=true;infraTab=null;const p=curr();[...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===page)));$('panel-title').textContent=p.id+' · '+p.title_ua+' · елементи й послідовність';$('guides').textContent=guides?'Приховати межі':'Показати межі';
  const ca=$('choice-area');ca.replaceChildren();if(!p.variant_groups.length)ca.appendChild(E('span','status','Зафіксована сторінка · без перемикачів'));
  p.variant_groups.forEach(id=>{let g=MODEL.variant_groups[id],group=E('div','choicegroup');group.appendChild(E('strong','',g.label_ua));g.values.forEach(v=>{const b=E('button','choice',v.label_ua);b.setAttribute('aria-pressed',String(choices[id]===v.id));b.title=v.id+' · '+v.availability;b.onclick=()=>{choices[id]=v.id;selected=null;render()};group.appendChild(b)});ca.appendChild(group)});
  $('preview').src=IMAGES[p.id];const combo=p.variant_groups.map(g=>MODEL.variant_groups[g].values.find(v=>v.id===choices[g])).filter(Boolean);
@@ -209,7 +231,7 @@ function renderExecutionModel(){
 }
 
 function renderInfrastructure(){
- document.querySelector('.main').hidden=true;$('infra-shell').hidden=false;$('atlas-shell').hidden=true;
+ document.querySelector('.main').hidden=true;$('infra-shell').hidden=false;$('atlas-shell').hidden=true;$('review-shell').hidden=true;
  [...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===4)));
  renderExecutionModel();
  const steps=INFRA.workflow,coverage=INFRA.audit||{warnings:[]};
@@ -224,9 +246,33 @@ function renderInfrastructure(){
  arr.forEach(x=>{const d=E('div','infra-step');d.appendChild(E('strong','',x.id+' · '+x.title));d.appendChild(E('div','',x.detail));d.appendChild(E('div','infra-tag',x.authority));list.appendChild(d)});
 }
 
+function reviewDraft(){
+ const data=INFRA.approval_register||{};
+ return {schema_version:'forprint_gdl_gc_operator_review_draft_v0_1',register_version:data.version||'unknown',source_schema:data.schema_version||'unknown',pilot_ticket:(data.pilot||{}).ticket||null,operator_answers:Object.keys(reviewNotes).filter(k=>reviewNotes[k].trim()).sort().map(id=>({question_id:id,note:reviewNotes[id].trim(),approved:false})),authority:'DRAFT_FOR_OWNER_REVIEW_ONLY',automatic_approval:false,automatic_runtime_write:false};
+}
+function copyReviewNotes(){const payload=JSON.stringify(reviewDraft(),null,2);const done=()=>{$('review-feedback').textContent='Чернетку скопійовано. Для погодження передай JSON помічниці.';};
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(payload).then(done).catch(()=>{$('review-feedback').textContent='Копіювання недоступне. Використай «Зберегти JSON».';});
+ else $('review-feedback').textContent='Копіювання недоступне. Використай «Зберегти JSON».';
+}
+function downloadReviewNotes(){const blob=new Blob([JSON.stringify(reviewDraft(),null,2)+'\n'],{type:'application/json'});const a=E('a');const url=URL.createObjectURL(blob);a.href=url;a.download='gdl_gc_operator_review_draft.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function renderReview(){
+ document.querySelector('.main').hidden=true;$('infra-shell').hidden=true;$('atlas-shell').hidden=true;$('review-shell').hidden=false;
+ [...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===5)));
+ const register=INFRA.approval_register||{};const groups=register.groups||[];
+ const total=groups.reduce((n,g)=>n+(g.questions||[]).length,0);
+ $('review-summary').textContent='Реєстр '+(register.version||'—')+' · '+groups.length+' тематичних груп · '+total+' питань · '+(register.status||'NON_AUTHORIZING')+' · '+(register.as_of||'')+'. Погоджені рішення вносяться тільки після окремого review.';
+ const list=$('review-questions');list.replaceChildren();
+ groups.forEach(g=>{const wrap=E('details','review-group');wrap.open=true;wrap.appendChild(E('summary','',g.title_ua));
+ (g.questions||[]).forEach(q=>{const card=E('div','review-issue');card.appendChild(E('div','review-meta',q.id+' · '+q.block_id));card.appendChild(E('span','review-tag',q.state));
+ card.appendChild(E('p','',q.observed));card.appendChild(E('div','review-ask','Питання: '+q.question_to_owner));
+ card.appendChild(E('div','review-proposal','Робоча пропозиція (не затверджено): '+q.working_proposal));
+ const label=E('label','status','Твій коментар до '+q.id+' · чернетка без запису на SMB');label.htmlFor='review-note-'+q.id;card.appendChild(label);
+ const input=E('textarea','review-note');input.id='review-note-'+q.id;input.value=reviewNotes[q.id]||'';input.placeholder='Напиши, як саме повинен працювати цей блок…';input.oninput=()=>{reviewNotes[q.id]=input.value};card.appendChild(input);wrap.appendChild(card);});list.appendChild(wrap);});
+}
+
 function renderAtlas(){
- document.querySelector('.main').hidden=true;$('infra-shell').hidden=true;$('atlas-shell').hidden=false;
- [...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===({'atlas-concept':5,'atlas-actual':6}[infraTab]))));
+ document.querySelector('.main').hidden=true;$('infra-shell').hidden=true;$('atlas-shell').hidden=false;$('review-shell').hidden=true;
+ [...$('pages').children].forEach((el,i)=>el.setAttribute('aria-selected',String(i===({'atlas-concept':6,'atlas-actual':7}[infraTab]))));
  const actual=infraTab==='atlas-actual',A=INFRA.atlas||{};
  $('atlas-title').textContent=actual?'Фактичне дерево · останній знімок':'Еталонне дерево · призначення кожної гілки';
  $('atlas-description').textContent=actual?'Реальне читання s01; для PREPRESS — окремий локальний знімок, якщо його вже передано.':'Натисни папку або файл: праворуч відкриється паспорт призначення й відновлення. Це контракт, не твердження про наявність.';

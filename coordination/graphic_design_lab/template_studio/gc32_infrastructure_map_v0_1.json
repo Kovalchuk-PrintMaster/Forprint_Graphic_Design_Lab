@@ -547,5 +547,220 @@
       "automatic_production_approval": false,
       "automatic_client_publication": false
     }
+  },
+  "approval_register": {
+    "schema_version": "forprint_gdl_gc_operator_review_register_v0_1",
+    "version": "0.1",
+    "as_of": "2026-10-28",
+    "title_ua": "Питання на погодження · паспорт листівки",
+    "status": "OWNER_REVIEW_IN_PROGRESS_NON_AUTHORIZING",
+    "normative_rule": "ONLY_EXPLICIT_OWNER_AGREEMENTS_BECOME_CANONICAL_CONSTRUCTOR_RULES",
+    "source_of_truth": "s01/ForPrint_Graphic_Design_Lab",
+    "operator_entry": "client_SMB/_forprint_automation",
+    "note_export": "LOCAL_DRAFT_JSON_NO_SMB_WRITE_NO_APPROVAL",
+    "pilot": {
+      "ticket": "gdl_gc_deg_20261011__34b9b61741d5ca",
+      "observed_state": "BLOCKED_REVIEW_REQUIRED",
+      "observed_error": "GC29_GREETING_OVERFLOW_REVIEW_REQUIRED",
+      "artboards_visible_in_screenshot": 4,
+      "illustrator_document_label": "Untitled-1*",
+      "saved_ai_verified": false,
+      "result_json_only": true,
+      "no_production_authority": true
+    },
+    "naming_working_proposal": {
+      "input_basename_source": "OPERATOR_CHOSEN_SOURCE_ZIP_STEM",
+      "suggested_max_stem_chars": 16,
+      "format": "{zip_stem}_YYMMDD-HHMMSS",
+      "example": "DEG_261028-104512",
+      "clock": "Europe/Kyiv with full offset stored in receipt, not in dirname",
+      "collision_policy": "SERVER_ATOMIC_CREATE_NO_OVERWRITE_THEN_APPEND_-02_-03",
+      "ledger_requirement": "NO_SEPARATE_RUN_LEDGER_REQUIRED_FOR_NAME_RESERVATION",
+      "status": "PROPOSAL_NOT_IMPLEMENTED"
+    },
+    "groups": [
+      {
+        "id": "lifecycle",
+        "title_ua": "01 · Illustrator, збереження та завершення",
+        "theme": "ARTIFACT_LIFECYCLE",
+        "questions": [
+          {
+            "id": "GC-REV-001",
+            "block_id": "NATIVE.DOCUMENT_SAVE_CLOSE",
+            "state": "OPEN_FOR_OWNER_REVIEW",
+            "observed": "На скриншоті 4 артборди в Untitled-1*, AI не збережено; result.json має BLOCKED_REVIEW_REQUIRED.",
+            "question_to_owner": "Які умови мають бути виконані, щоб вважати AI завершеним, збереженим і закритим? Чи закривати документ при помилці?",
+            "working_proposal": "Зберегти AI у власному каталозі результату, перевірити файл і reopen, коректно закрити лише після контрольного збереження; при блокері зберегти evidence, без автоматичного приймання.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          },
+          {
+            "id": "GC-REV-002",
+            "block_id": "OUTPUT.RETURN_SMB",
+            "state": "OWNER_DIRECTION_TO_FORMALIZE",
+            "observed": "Поки що output з PREPRESS на SMB не повертався.",
+            "question_to_owner": "Який остаточний склад папки клієнта output: AI, PDF, PNG, result.json, manifest, технічний звіт?",
+            "working_proposal": "Повернення цілісного каталогу результату в <client>/_forprint_automation/output, SHA256 і readback на s01 до будь-якого очищення.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          },
+          {
+            "id": "GC-REV-003",
+            "block_id": "WORKER.CLEANUP",
+            "state": "OWNER_DIRECTION_TO_FORMALIZE",
+            "observed": "Пілотний stage наразі існує на D:-корені.",
+            "question_to_owner": "Чи очищати після лише верифікованого повернення, чи після окремого операторського приймання? Що залишати при BLOCKED?",
+            "working_proposal": "Майбутнє правило: очистити лише після повного hash-verified return + доказового receipt і явної політики cleanup; поки DELETE_FORBIDDEN.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          },
+          {
+            "id": "GC-REV-004",
+            "block_id": "WORKER.OPTIONAL_PERSISTENCE",
+            "state": "FUTURE_DECISION",
+            "observed": "Ти допускаєш потребу залишати локальні файли для подальшої корекції в майбутньому.",
+            "question_to_owner": "За якою подією або типом замовлення згодом дозволяти keep-local?",
+            "working_proposal": "Окрема майбутня політика KEEP_FOR_REWORK. У пілоті не змішувати її зі штатним очищенням.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          }
+        ]
+      },
+      {
+        "id": "naming",
+        "title_ua": "02 · Назви, версії та історія результатів",
+        "theme": "OUTPUT_IDENTITY",
+        "questions": [
+          {
+            "id": "GC-REV-005",
+            "block_id": "OUTPUT.NAMING",
+            "state": "OWNER_DIRECTION_TO_FORMALIZE",
+            "observed": "Ім’я поточного ticket службове й довге; локальний Worker після очищення не знає історії.",
+            "question_to_owner": "Підтверджуєш формат від короткої назви вихідного ZIP + YYMMDD-HHMMSS і максимум 16 символів для stem?",
+            "working_proposal": "Наприклад DEG_261028-104512. Ім’я створює s01, у receipt зберігати повний початковий ZIP, ticket, ISO timestamp.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          },
+          {
+            "id": "GC-REV-006",
+            "block_id": "OUTPUT.COLLISION",
+            "state": "OPEN_FOR_OWNER_REVIEW",
+            "observed": "Два результати можуть створитися в одну секунду, особливо при кількох Worker.",
+            "question_to_owner": "Чи приймаємо додатковий -02/-03 лише при колізії?",
+            "working_proposal": "Сервер атомарно резервує нове ім’я в SMB output без overwrite; не покладається на локальний індекс Worker.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          },
+          {
+            "id": "GC-REV-007",
+            "block_id": "OUTPUT.HISTORY",
+            "state": "FUTURE_DECISION",
+            "observed": "Окремого повного журналу виконань наразі не хочеш.",
+            "question_to_owner": "Коли вводити журнал версій/історію правок та зберігання невдалих результатів?",
+            "working_proposal": "На теперішньому етапі назви каталогів і receipt для ідентифікації; ledger як окреме майбутнє рішення.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          }
+        ]
+      },
+      {
+        "id": "p04",
+        "title_ua": "03 · P04 · текст привітання й підпис",
+        "theme": "CARD_P04",
+        "questions": [
+          {
+            "id": "GC-REV-008",
+            "block_id": "P04.GREETING_TEXT",
+            "state": "OPEN_FOR_OWNER_REVIEW",
+            "observed": "898 символів, 9 вихідних абзаців; текст видно на артборді, але скрипт повернув GC29_GREETING_OVERFLOW_REVIEW_REQUIRED.",
+            "question_to_owner": "Які мають бути межі текстового блоку, мінімально прийнятний шрифт, міжряддя та правила розміщення? Чи допустимо кілька колонок?",
+            "working_proposal": "Не вводити довільних обмежень на 20 рядків. Визначити критерії за видимою областю і реальними bounds, зберігати повний текст та редагованість.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          },
+          {
+            "id": "GC-REV-009",
+            "block_id": "P04.SIGNATURE",
+            "state": "OPEN_FOR_OWNER_REVIEW",
+            "observed": "На скриншоті підпис розміщений внизу над орнаментом/watermark; видимий окремий об’єкт.",
+            "question_to_owner": "Чи подобається позиція/розмір підпису, відступ від тексту, співвідношення з watermark?",
+            "working_proposal": "Залишити як питання на візуальне погодження, не переміщувати без твого рішення.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          }
+        ]
+      },
+      {
+        "id": "p03",
+        "title_ua": "04 · P03 · фото, рамка та маска",
+        "theme": "CARD_P03",
+        "questions": [
+          {
+            "id": "GC-REV-010",
+            "block_id": "P03.PHOTO_CONTENT",
+            "state": "OPEN_FOR_OWNER_REVIEW",
+            "observed": "На скриншоті видно червоні троянди всередині декоративної рамки; надано оригінал flower_photo.png.",
+            "question_to_owner": "Яким має бути кадрування: видима верхня частина фото, масштаб троянд, безпечні межі орнаменту?",
+            "working_proposal": "Зберегти початкове фото, підбирати crop/fit за затвердженим правилом, без зміни композиції навмання.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          },
+          {
+            "id": "GC-REV-011",
+            "block_id": "P03.PHOTO_CLIP_PATH",
+            "state": "OPEN_FOR_OWNER_REVIEW",
+            "observed": "compound_path(2).pdf — векторний декоративний контур; точний спосіб використання як clip не підтверджений.",
+            "question_to_owner": "Цей PDF має служити фігурною маскою фото чи лише окремим декоративним контуром? Чи допустимий прямокутний clipping?",
+            "working_proposal": "До рішення — VECTOR_CONTOUR_UNPROVEN, без підвищення паспорта до VERIFIED.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          }
+        ]
+      },
+      {
+        "id": "evidence",
+        "title_ua": "05 · Докази та зворотний зв’язок",
+        "theme": "REVIEW_EVIDENCE",
+        "questions": [
+          {
+            "id": "GC-REV-012",
+            "block_id": "NATIVE.OVERFLOW_DIAGNOSTICS",
+            "state": "OPEN_FOR_OWNER_REVIEW",
+            "observed": "result.json не записав фактичну кількість Illustrator-рядків; повідомив лише код помилки.",
+            "question_to_owner": "Які показники має записувати Worker для пояснення помилок компонування без втрати тексту?",
+            "working_proposal": "Додати розміри тексту, lines/fit diagnostics, font resolved, overflow state та source integrity, не друкувати приватний текст у лог.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          },
+          {
+            "id": "GC-REV-013",
+            "block_id": "NATIVE.SCRIPT_VERSION",
+            "state": "OPEN_FOR_OWNER_REVIEW",
+            "observed": "Запущений JSX SHA256 438f407b…; останність серед усіх версій GC29 не доведена.",
+            "question_to_owner": "Чи прив’язувати native result до Git commit, canonical source hash, generator version і ticket?",
+            "working_proposal": "Серверна атестація версії скрипту в receipt; не називати конкретний скрипт «останнім» без source inventory.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          },
+          {
+            "id": "GC-REV-014",
+            "block_id": "CARD.PASSPORT_ACCEPTANCE",
+            "state": "OPEN_FOR_OWNER_REVIEW",
+            "observed": "У HTML є функціональні паспорти 20 елементів, але візуальне приймання першого пілота ще не виконано.",
+            "question_to_owner": "Як вважатимемо блок погодженим: твій опис, еталон, тест і візуальний review?",
+            "working_proposal": "Зберігати окремо OBSERVED, OPERATOR_EXPECTED, APPROVED_RULE, TEST_EVIDENCE; ніякого автоапруву з HTML.",
+            "evidence_boundary": "OPERATOR_FEEDBACK_2026-10-28",
+            "runtime_authority": false
+          }
+        ]
+      }
+    ],
+    "authority": {
+      "automatic_approval": false,
+      "automatic_native_launch": false,
+      "automatic_cleanup": false,
+      "automatic_smb_mutation": false,
+      "automatic_canonical_rule_change": false
+    }
   }
 }
