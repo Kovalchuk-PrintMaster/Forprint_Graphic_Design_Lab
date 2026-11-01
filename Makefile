@@ -232,3 +232,51 @@ gc32-ssh-scanner-check:
 gc32-ssh-scanner-install:
 	@test -n "$(GC32_CLIENT)" -a "$(CONFIRM_INSTALL)" = "YES" || (echo "GC32_CLIENT=... CONFIRM_INSTALL=YES required"; exit 2)
 	$(PYTHON) -B scripts/graphic_design_lab/greeting_cards/gc32_ssh_inventory_lifecycle_v0_1.py --mode scanner-install --client-name "$(GC32_CLIENT)" --confirm-install
+
+# GC47AI Illustrator-first operator launcher r001 (additive, non-release).
+GC47AI_CLI := scripts/graphic_design_lab/greeting_cards/gc47ai_illustrator_first_launcher_r001.py
+GC47AI_PY := .venv_gdl/bin/python
+.PHONY: gdl-card-launcher gdl-card-launcher-test gdl-card-launcher-check gdl-card-launcher-list gdl-card-launcher-inspect gdl-card-launcher-routes
+gdl-card-launcher:
+	$(GC47AI_PY) -B $(GC47AI_CLI) --mode interactive
+gdl-card-launcher-test:
+	$(GC47AI_PY) -B tests/graphic_design_lab/test_gc47ai_illustrator_first_launcher_r001.py
+gdl-card-launcher-check:
+	$(GC47AI_PY) -B $(GC47AI_CLI) --mode check
+gdl-card-launcher-list:
+	$(GC47AI_PY) -B $(GC47AI_CLI) --mode list
+gdl-card-launcher-inspect:
+	@test -n "$(CLIENT_NAME)" || (echo "CLIENT_NAME required"; exit 2)
+	$(GC47AI_PY) -B $(GC47AI_CLI) --mode inspect --client-name "$(CLIENT_NAME)"
+gdl-card-launcher-routes:
+	$(GC47AI_PY) -B $(GC47AI_CLI) --mode routes
+# GC47AI_END
+
+# GC47AJ: client-local entrypoint; operator logic GDL-owned; review only.
+GC47AJ_PY := .venv_gdl/bin/python
+GC47AJ_UI := scripts/graphic_design_lab/greeting_cards/gc47aj_client_operator_r001.py
+GC47AJ_DEPLOY := scripts/graphic_design_lab/greeting_cards/gc47aj_client_entry_deploy_r001.py
+.PHONY: gdl-client-launcher-test gdl-client-launcher-check gdl-client-launcher-install
+
+gdl-client-launcher-test:
+	$(GC47AJ_PY) -B tests/graphic_design_lab/test_gc47aj_client_operator_r001.py
+
+gdl-client-launcher-check:
+	@test -n "$(CLIENT_NAME)" || (echo "CLIENT_NAME=... required"; exit 2)
+	$(GC47AJ_PY) -B $(GC47AJ_DEPLOY) --mode check --client-name "$(CLIENT_NAME)"
+
+gdl-client-launcher-install:
+	@test -n "$(CLIENT_NAME)" -a "$(CONFIRM_INSTALL)" = YES || (echo "CLIENT_NAME=... CONFIRM_INSTALL=YES required"; exit 2)
+	$(GC47AJ_PY) -B $(GC47AJ_DEPLOY) --mode install --client-name "$(CLIENT_NAME)" --confirm-install
+# GC47AJ_END
+
+# GC47AN: scoped acceptance/commit gate; never renders or approves production.
+GC47AN_CLI := scripts/graphic_design_lab/greeting_cards/gc47an_launcher_checkpoint_r001.py
+.PHONY: gdl-launcher-acceptance gdl-launcher-acceptance-test gdl-launcher-git-plan
+gdl-launcher-acceptance:
+	.venv_gdl/bin/python -B $(GC47AN_CLI) --mode audit --client-name "$(CLIENT_NAME)" --job "$(JOB)" --attempt "$(ATTEMPT)"
+gdl-launcher-acceptance-test:
+	.venv_gdl/bin/python -B tests/graphic_design_lab/test_gc47an_launcher_checkpoint_r001.py
+gdl-launcher-git-plan:
+	.venv_gdl/bin/python -B $(GC47AN_CLI) --mode plan --client-name "$(CLIENT_NAME)" --job "$(JOB)" --attempt "$(ATTEMPT)"
+# GC47AN_END
