@@ -1,0 +1,83 @@
+{
+  "accepted_zip_sha256": "90efe86afb294ddf130bc9a09affe0f99780ab5abeb0f15be316b005f4c60064",
+  "candidate_baseline_profile_sha256": "ca398e5cf4c7c9966ccd052b816b16bb00ef5dfe2a946175cc8534480c2e579a",
+  "client_files_modified": false,
+  "compiled_jsx_sha256": "1a966915bcaedcff451d659ede87ebcfbbe43e71a2495883441097357fd2f721",
+  "dual_runtime_enabled": false,
+  "effective_proposal_sha256": "ca398e5cf4c7c9966ccd052b816b16bb00ef5dfe2a946175cc8534480c2e579a",
+  "generated_signature_assets": {
+    "p04_grigo_signature.png": "18886d1fd17f1a490ce61d4db9a625fdd70c18e302ff062c322619ebecbf5d5f"
+  },
+  "job_id": "gdl_gc_zap_20261011",
+  "known_remaining_gates": [
+    "VERSIONED_NATIVE_EXECUTION_NOT_AUTHORIZED",
+    "NATIVE_VISUAL_EQUIVALENCE_NOT_VERIFIED",
+    "PRODUCTION_APPROVAL_NOT_GRANTED"
+  ],
+  "native_attempt_created": false,
+  "pages": 4,
+  "production_ready": false,
+  "proposed_fields": [],
+  "render": {
+    "P01": {
+      "baselines_mm": [
+        222,
+        243
+      ],
+      "font_pt": 52
+    },
+    "P02": {
+      "locked": true
+    },
+    "P03": {
+      "frame_bbox_mm": [
+        5.5,
+        6.9265,
+        208.5,
+        294.0733
+      ],
+      "photo_sha256": "8d909fd3edb629e2ee2ac2fe4ee83726ba144f63b8e9f48945d963743d9cb637"
+    },
+    "P04": {
+      "greeting_box_mm": [
+        32,
+        32,
+        182,
+        212
+      ],
+      "live_row_count": 4,
+      "sender_baselines_mm": [
+        227,
+        235,
+        243,
+        251
+      ],
+      "sender_font_pt_by_row": [
+        12,
+        15,
+        12,
+        12
+      ],
+      "sender_left_mm": 32
+    }
+  },
+  "runtime_activation": false,
+  "schema_version": "gdl_gc47aq_shadow_binding_r001",
+  "source_sha256": {
+    "coordination/graphic_design_lab/template_studio/ts_full_registry_v0_1.json": "ee4c8b09245e66baf34a2975e71b3902d26a1f318901ec06bc47cbbc0bb2447e",
+    "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_gc47af_passport_runtime_r001.jsx": "ffa5a4dfeb27382be47529619d3962900b59fe6c8b8d456192beb07a0ed3ae17",
+    "scripts/graphic_design_lab/greeting_cards/gc29_native_four_page_v0_1.py": "c891a34d0ff46029f53f29348b006f90a4c78b0372970ef989e971aff44bbd42",
+    "scripts/graphic_design_lab/greeting_cards/gc47af_passport_scene_binding_r001.py": "3e13ef9a11db5b587052271930069852a6c24baa80d0d5f3c326bb3aed402203",
+    "scripts/graphic_design_lab/greeting_cards/gc47t_client_windows_bridge_r001.py": "c99fde8a5f5805da57b5cca037cda17a34dea002a076042279bd274c4848ef46",
+    "scripts/graphic_design_lab/greeting_cards/gc47y_review_amendment_r001.py": "30d4da860d94a6d3f8b634b56a1bb96b678923d37e300535635cc3c11d516312"
+  },
+  "status": "PASS_REAL_ACCEPTED_INPUT_SHADOW_ONLY",
+  "template_jsx_sha256": "a9c0692849aa5c850993d0f943031c59559c923fd64ac257f6b1c18d972fd63a",
+  "variant": {
+    "family": "STANDARD",
+    "image_mode": "DEFAULT_ASSET",
+    "signature": "GRIGO"
+  },
+  "visual_approved": false,
+  "windows_contacted": false
+}

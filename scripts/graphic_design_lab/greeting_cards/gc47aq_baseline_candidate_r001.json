@@ -1,0 +1,110 @@
+{
+  "P03_FRAME_bbox_mm": [
+    5.5,
+    6.9265,
+    208.5,
+    294.0733
+  ],
+  "authority": {
+    "auto_retry": false,
+    "client_publication_allowed": false,
+    "dual_runtime_enabled": false,
+    "native_execution_allowed": false,
+    "production_ready": false,
+    "runtime_activation": false,
+    "visual_approved": false
+  },
+  "original_profile_sha256": "e44846754ed4bdbf45408f7565ab422002ab48964492b13cd6c4957a730d4393",
+  "requested_changes": {},
+  "schema_version": "gdl_gc47ap_parametric_candidate_r001",
+  "source_profile": {
+    "authority": {
+      "auto_runtime_retry": false,
+      "dual_runtime_enabled": false,
+      "no_client_publication": true,
+      "production_ready": false,
+      "visual_approved": false
+    },
+    "compatibility": {
+      "gc47y_zap_only": true,
+      "generic_font_fit_verified": false,
+      "operator_approved_configuration_changes": false,
+      "source_asset_sha_verified": true
+    },
+    "history": "GC47AE_BASELINE_NON_AUTHORITATIVE_ONLY_NO_DESIGN_CHANGE",
+    "job_id": "gdl_gc_zap_20261011",
+    "profile": {
+      "front": "STANDARD",
+      "input_image_mode": "DEFAULT_ASSET",
+      "signature": "GRIGO"
+    },
+    "render": {
+      "P01": {
+        "baselines_mm": [
+          222,
+          243
+        ],
+        "font_name": "MonotypeCorsiva",
+        "font_pt": 52,
+        "horizontal_anchor_mm": 107,
+        "native_id_prefix": "P01-030.LINE_",
+        "passport_id": "P01-030"
+      },
+      "P02": {
+        "locked": true,
+        "passport_id": "P02-010"
+      },
+      "P03": {
+        "clip_segments": 878,
+        "compound_path_pdf_sha256": "d55aa31d5212250bb413b527b62af16f559e0bae0bbf5635ac1358b1d2a5c86f",
+        "image_mode": "DEFAULT_ASSET",
+        "passport_id": "P03-030",
+        "photo_sha256": "8d909fd3edb629e2ee2ac2fe4ee83726ba144f63b8e9f48945d963743d9cb637",
+        "resource_replacement_allowed": false
+      },
+      "P04": {
+        "greeting": {
+          "box_mm": [
+            32,
+            32,
+            182,
+            212
+          ],
+          "fit_behavior": "FIXED_18_5_PT_PILOT_CHECK_NOT_GENERAL_SHRINK_TO_FIT",
+          "font_name": "ZapfChanceryC",
+          "font_pt": 18.5,
+          "native_id": "P04-030.GREETING_SOURCE",
+          "passport_id": "P04-020"
+        },
+        "sender": {
+          "baselines_mm": [
+            227,
+            235,
+            243,
+            251
+          ],
+          "canonical_six_rows_not_substituted": true,
+          "font_name": "ZapfChanceryC",
+          "font_pt_by_row": [
+            12,
+            15,
+            12,
+            12
+          ],
+          "left_mm": 32,
+          "native_id_prefix": "P04-060.SENDER_LINE_",
+          "passport_id": "P04-025",
+          "row_count": 4
+        },
+        "signature": {
+          "asset_role": "P04.SIGNATURE",
+          "passport_id": "P04-030"
+        }
+      }
+    },
+    "schema_version": "gdl_gc47af_passport_render_profile_r001",
+    "source_baseline_attempt": "p20261030165430-a7f8dedf",
+    "status": "PASSIVE_LAB_RENDER_PROFILE_NOT_APPROVED"
+  },
+  "source_profile_schema": "gdl_gc47af_passport_render_profile_r001"
+}
