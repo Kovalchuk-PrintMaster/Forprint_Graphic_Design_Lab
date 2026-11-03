@@ -1,0 +1,112 @@
+{
+  "accepted_zip": {
+    "automatic_native_run": false,
+    "bundle_hash_algorithm": "sha256(json.dumps(bundle_with_empty_provenance_bundle_sha256,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode('utf8'))",
+    "name": "gdl_intake_handoff.zip",
+    "optional_files": [
+      "intake_evidence/",
+      "assets/"
+    ],
+    "production_ready": false,
+    "required_bundle_schema": "gdl_greeting_card_accepted_constructor_bundle_v0_1",
+    "required_files": [
+      "accepted_constructor_bundle.yaml",
+      "artifact_manifest.yaml",
+      "handoff_manifest.json"
+    ],
+    "review_only": true,
+    "review_state": "PASS_WITH_REAL_REVIEW_ID_AND_SOURCE_EVIDENCE",
+    "schema_version": "gdl_intake_builder_handoff_v0_1"
+  },
+  "governance": {
+    "machine_review_cannot_invent_operator_pass": true,
+    "native_dispatch_phase_1": false,
+    "no_auto_retries": true,
+    "no_customer_send": true,
+    "no_make_launcher_change_phase_1": true,
+    "no_production": true,
+    "runtime_dependency_on_tmp": false,
+    "tmp_only_for_staging": true
+  },
+  "image_policy": {
+    "allowed_modes": [
+      "PORTRAIT",
+      "DEFAULT_ASSET"
+    ],
+    "creator_handoff_channel": "EXTERNAL_OPERATOR_TRANSFER_UNLESS_VERIFIED_DIRECT_CHANNEL",
+    "creator_may_not_edit": [
+      "template",
+      "layout",
+      "text",
+      "signature",
+      "logo",
+      "sender",
+      "production_flags"
+    ],
+    "creator_only_when_needed": true,
+    "default_asset_id": "flowers.default.v1",
+    "default_asset_input_rule": "INTAKE_EMITS_ONLY_ASSET_ID_AND_PINNED_SHA_NO_CUSTOMER_FLOWERS_BINARY",
+    "default_asset_resource_id": "asset.flowers.default.v1",
+    "default_asset_sha256": "d9113f8d6f9627f9b106f5550e6187aaa562139fef6122e4834e7d4f2f3bbd67",
+    "legacy_jpeg": "READ_ONLY_LEGACY_REVIEW_NOT_AUTO_PROMOTED",
+    "new_portrait_output_format": "PNG_RGBA_WITH_REAL_ALPHA",
+    "new_portrait_required": [
+      "identity_preserved",
+      "natural_photo_correction",
+      "no_cut_off_head",
+      "transparent_background",
+      "source_and_result_sha256",
+      "real_intake_review_pass"
+    ]
+  },
+  "input_policy": {
+    "accept_one_or_multiple_files_or_archives": true,
+    "ambiguous_bindings": "BLOCK_RELEVANT_JOB_NO_SILENT_GUESS",
+    "image_assignment_from_filename_similarity": "PROPOSED_ONLY_UNTIL_DETERMINISTIC_EVIDENCE_OR_OPERATOR_CONFIRMATION",
+    "jobs_minimum": 1,
+    "manual_renaming_required": false,
+    "multiple_jobs_supported": true,
+    "preserve_exact_customer_text": true,
+    "shared_substring_match": "PROPOSED_ONLY",
+    "source_sha256_required": true
+  },
+  "owner": "ForPrint Illustrator Studio",
+  "pipeline_states": [
+    "RAW_RECEIVED",
+    "INTAKE_NEEDS_CLARIFICATION",
+    "CREATOR_HANDOFF_READY",
+    "CREATOR_CORRECTION_REQUIRED",
+    "INTAKE_REVIEW_READY",
+    "FINAL_HANDOFF_READY",
+    "STAGING_BLOCKED",
+    "ZIP_REJECTED",
+    "STUDIO_PREFLIGHT_PASS",
+    "STUDIO_NATIVE_REVIEW_READY"
+  ],
+  "routing": {
+    "auto_scan_input_does_not_launch": true,
+    "client_input_scan": "READ_ONLY_CLIENT_NAME_TO_SMB_INPUT_NO_NATIVE",
+    "creator": "CREATOR_ONLY",
+    "handoff": "STUDIO_READ_ONLY_VALIDATE_THEN_PHASE_2_NATIVE_GATE",
+    "raw": "INTAKE_ONLY",
+    "staging": "INTAKE_RESOLVE_BLOCKERS"
+  },
+  "schema_version": "forprint_illustrator_studio_intake_interface_v1",
+  "single_source_of_truth": {
+    "accepted_bundle": "gdl_intake_handoff.zip",
+    "design": "coordination/graphic_design_lab/greeting_cards/illustrator_studio/design_config_v1.json",
+    "intake_prompt": "coordination/graphic_design_lab/greeting_cards/illustrator_studio/intake/INTAKE_OPERATOR_PROMPT_UA_v1.md",
+    "renderer": "scripts/graphic_design_lab/greeting_cards/illustrator_studio_renderer_v1.jsx",
+    "technical_passport": "coordination/graphic_design_lab/greeting_cards/illustrator_studio/technical_passport_v1.json"
+  },
+  "status": "PHASE_1_CONTRACT_AND_READ_ONLY_AUDIT_ACTIVE_PHASE_2_RUNTIME_NOT_WIRED",
+  "studio_runtime_bridge": {
+    "current_studio_pinned_four_jobs": true,
+    "current_studio_sha_pinned_handoff": true,
+    "fail_closed": true,
+    "phase_1": "READ_ONLY_AUDIT_CLASSIFICATION_AND_PASSPORT",
+    "phase_2": "GENERALIZED_JOB_IDS_SHARED_RESOURCE_BINDING_AND_ATOMIC_INPUT_ACCEPTANCE",
+    "phase_2_status": "NOT_IMPLEMENTED"
+  },
+  "version": "1.0.0"
+}

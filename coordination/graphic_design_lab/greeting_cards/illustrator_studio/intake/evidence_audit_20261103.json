@@ -1,0 +1,81 @@
+{
+  "schema_version": "forprint_studio_intake_evidence_audit_v1",
+  "generated_from_uploaded_samples": true,
+  "rows": [
+    {
+      "blockers": [],
+      "checks": [
+        "ZIP_CRC_PASS",
+        "HANDOFF_ENVELOPE_HASHES_PASS",
+        "CANONICAL_BUNDLE_HASH_PASS",
+        "ARTIFACT_BYTES_SHA_PASS",
+        "REVIEW_FIELDS_PRESENT_NOT_INDEPENDENTLY_ATTESTED",
+        "ALL_JOBS_SEMANTIC_SHAPE_PASS"
+      ],
+      "file": "gdl_flowers_reviewed_08a42021b6a897e3.zip",
+      "job_ids": [
+        "gdl_gc_zap_20261011",
+        "gdl_gc_apa_20261011",
+        "gdl_gc_deg_20261011",
+        "gdl_gc_bas_20261011"
+      ],
+      "native_dispatch": false,
+      "production_ready": false,
+      "schema_version": "forprint_illustrator_studio_intake_audit_v1",
+      "sha256": "90efe86afb294ddf130bc9a09affe0f99780ab5abeb0f15be316b005f4c60064",
+      "status": "HANDOFF_STRUCTURAL_PASS_STUDIO_BINDING_REQUIRED",
+      "studio_pin_match": true,
+      "warnings": [
+        "MANIFEST_REVIEW_SELF_DECLARATION_NOT_OPERATOR_ATTESTATION",
+        "PHASE2_DYNAMIC_STUDIO_INTAKE_NOT_WIRED"
+      ]
+    },
+    {
+      "blockers": [],
+      "checks": [
+        "ZIP_CRC_PASS",
+        "HANDOFF_ENVELOPE_HASHES_PASS",
+        "CANONICAL_BUNDLE_HASH_PASS",
+        "ARTIFACT_BYTES_SHA_PASS",
+        "REVIEW_FIELDS_PRESENT_NOT_INDEPENDENTLY_ATTESTED",
+        "ALL_JOBS_SEMANTIC_SHAPE_PASS"
+      ],
+      "file": "gdl_intake_handoff.zip",
+      "job_ids": [
+        "gdl_gc_zap_20261011",
+        "gdl_gc_apa_20261011"
+      ],
+      "native_dispatch": false,
+      "production_ready": false,
+      "schema_version": "forprint_illustrator_studio_intake_audit_v1",
+      "sha256": "6c26a8a8138cb406b09e87fced86d59ec774619ac672c2d6609fb77c14c8d3c0",
+      "status": "HANDOFF_LEGACY_PORTRAIT_REVIEW_REQUIRED",
+      "warnings": [
+        "PORTRAIT_REQUIRE_NEW_RGBA_REVIEW:gdl_gc_zap_20261011,gdl_gc_apa_20261011",
+        "MANIFEST_REVIEW_SELF_DECLARATION_NOT_OPERATOR_ATTESTATION",
+        "PHASE2_DYNAMIC_STUDIO_INTAKE_NOT_WIRED"
+      ]
+    },
+    {
+      "blockers": [
+        "DEFAULT_ASSET_BUILDER_RUNTIME_UNSUPPORTED",
+        "OPERATOR_REVIEWED_NORMALIZED_BATCH_PASS_MISSING",
+        "FRONT_VISIBLE_TITLE_REQUIRES_REVIEW",
+        "RECIPIENT_BRANDING_OVERLAY_UNSUPPORTED",
+        "ACCEPTED_VISUAL_EVIDENCE_ROUTE_NOT_MATERIALIZED"
+      ],
+      "checks": [
+        "STAGING_MARKERS_PRESENT"
+      ],
+      "file": "gdl_intake_blocked_packet_flowers_20261014.zip",
+      "job_ids": [],
+      "native_dispatch": false,
+      "production_ready": false,
+      "schema_version": "forprint_illustrator_studio_intake_audit_v1",
+      "sha256": "08a42021b6a897e388310e3066cba190300c766019656f423a76d650a9abcacd",
+      "status": "STAGING_BLOCKED_NOT_HANDOFF",
+      "warnings": []
+    }
+  ],
+  "provenance_note": "Source ZIP bytes checked locally; no server input folder or native launch audited; review attestations in package are data not independent authority."
+}

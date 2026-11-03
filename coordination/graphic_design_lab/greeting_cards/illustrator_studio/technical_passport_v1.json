@@ -12,6 +12,84 @@
     "tmp_only_disposable": true,
     "visual_approved": false
   },
+  "intake_dynamic_native_lab": {
+    "accepted_job_ids": "ANY_VALID_VERIFIED_HANDOFF_JOB_ID",
+    "automatic_queue": false,
+    "automatic_retry": false,
+    "design_config_ref": "coordination/graphic_design_lab/greeting_cards/illustrator_studio/design_config_v1.json",
+    "human_lab_launch_confirmation_required": true,
+    "independent_operator_review": "NOT_ESTABLISHED_BY_HANDOFF",
+    "materializer_ref": "scripts/graphic_design_lab/greeting_cards/illustrator_studio_intake_dynamic_preflight_v1.py",
+    "native_attempts_per_operator_confirmation": 1,
+    "native_image_modes": [
+      "DEFAULT_ASSET"
+    ],
+    "native_visual_approval": false,
+    "operator_cli_ref": "scripts/graphic_design_lab/greeting_cards/illustrator_studio_intake_dynamic_native_v1.py",
+    "phase": "PHASE_2C_DEFAULT_ASSET_EXPLICIT_SINGLE_USE_LAB_NATIVE",
+    "portrait_native": "BLOCKED_TRANSPORT_BOUNDARY",
+    "production_ready": false,
+    "renderer_ref": "scripts/graphic_design_lab/greeting_cards/illustrator_studio_renderer_v1.jsx",
+    "schema_version": "forprint_studio_intake_dynamic_native_lab_v1",
+    "single_use_claim_before_attempt": true,
+    "tmp_runtime_dependency": false,
+    "transport_ref": "scripts/graphic_design_lab/greeting_cards/gc47t_client_windows_bridge_r001.py"
+  },
+  "intake_dynamic_source_shadow": {
+    "accepted_new_job_ids": "SHADOW_COMPILATION_ONLY",
+    "design_config_ref": "coordination/graphic_design_lab/greeting_cards/illustrator_studio/design_config_v1.json",
+    "independent_operator_review": "NOT_ATTESTED_BY_ZIP",
+    "input_contract_ref": "coordination/graphic_design_lab/greeting_cards/illustrator_studio/intake/intake_interface_contract_v1.json",
+    "launcher_menu_action": "6",
+    "module_ref": "scripts/graphic_design_lab/greeting_cards/illustrator_studio_intake_dynamic_preflight_v1.py",
+    "native_attempt_authority": false,
+    "new_portrait_visual_layout_approved": false,
+    "no_automatic_queue": true,
+    "no_tmp_runtime_dependency": true,
+    "operator_cli": "gdl-studio-intake-shadow-check",
+    "phase": "PHASE_2B_SOURCE_BOUND_SHADOW_NO_NATIVE",
+    "portrait_alpha_guard": true,
+    "production_ready": false,
+    "readback_ephemeral_only": true,
+    "renderer_ref": "scripts/graphic_design_lab/greeting_cards/illustrator_studio_renderer_v1.jsx",
+    "schema_version": "forprint_studio_intake_dynamic_source_shadow_v1"
+  },
+  "intake_instruction_generator": {
+    "catalog_ref": "coordination/graphic_design_lab/greeting_cards/illustrator_studio/intake/intake_instruction_catalog_v1.json",
+    "cli_ref": "scripts/graphic_design_lab/greeting_cards/illustrator_studio_intake_instruction_v1.py",
+    "client_output_dir": "existing client/Intake Instruction or _forprint_automation/intake_instruction",
+    "launcher_menu_generate_and_audit": true,
+    "machine_contract_ref": "coordination/graphic_design_lab/greeting_cards/illustrator_studio/intake/intake_interface_contract_v1.json",
+    "native_authority": false,
+    "native_bridge_new_job_ids": "PHASE_2B_NOT_IMPLEMENTED",
+    "no_customer_data_in_git": true,
+    "no_tmp_runtime_dependency": true,
+    "package_immutable_sha": true,
+    "phase": "PHASE_2A_VERIFIED_SOURCE_PINNED_EXPORT",
+    "production_ready": false,
+    "prompt_ref": "coordination/graphic_design_lab/greeting_cards/illustrator_studio/intake/INTAKE_OPERATOR_PROMPT_UA_v1.md",
+    "schema_version": "forprint_studio_intake_instruction_generator_v1",
+    "versioned_recipe_required": true
+  },
+  "intake_interface": {
+    "audit_ref": "scripts/graphic_design_lab/greeting_cards/illustrator_studio_intake_audit_v1.py",
+    "contract_ref": "coordination/graphic_design_lab/greeting_cards/illustrator_studio/intake/intake_interface_contract_v1.json",
+    "evidence": {
+      "blocked_staging_sha": "08a42021b6a897e388310e3066cba190300c766019656f423a76d650a9abcacd",
+      "flowers_handoff_sha": "90efe86afb294ddf130bc9a09affe0f99780ab5abeb0f15be316b005f4c60064",
+      "portrait_handoff_sha": "6c26a8a8138cb406b09e87fced86d59ec774619ac672c2d6609fb77c14c8d3c0",
+      "scope": "LOCAL_BYTES_VERIFIED_NO_RUNTIME_PROMOTION"
+    },
+    "instruction_export": "PHASE_2A_LAUNCHER_MAKE_VERIFIED_SOURCE_PINNED",
+    "phase_1": "IMPLEMENTED_READ_ONLY_AUDIT_AND_PROMPT",
+    "phase_2": "OPEN_PHASE_2B_NATIVE_DYNAMIC_LOADER",
+    "phase_2b_shadow": "SOURCE_BOUND_DYNAMIC_SCENE_PREPARED_NO_NATIVE",
+    "phase_2c_native": "DYNAMIC_DEFAULT_ASSET_LAB_PILOT_AVAILABLE_SINGLE_USE_NOT_YET_NATIVE_PROVEN",
+    "production_ready": false,
+    "prompt_ref": "coordination/graphic_design_lab/greeting_cards/illustrator_studio/intake/INTAKE_OPERATOR_PROMPT_UA_v1.md",
+    "schema_version": "forprint_illustrator_studio_intake_interface_v1",
+    "studio_native_dispatch_enabled_for_new_zip": false
+  },
   "issues": [
     {
       "category": "SSH / Транспорт",
@@ -221,10 +299,16 @@
       "category": "Architecture / intake",
       "cause": "GC47BM/GC47BC accept current four jobs with frozen source hashes; new orders require a separate intake contract.",
       "id": "STUDIO-INTAKE-004",
-      "resolution": "Extend intake adapter to accept new job IDs with validated archive, without modifying renderer or design config.",
+      "intake_contract_ref": "coordination/graphic_design_lab/greeting_cards/illustrator_studio/intake/intake_interface_contract_v1.json",
+      "intake_phase_1": "IMPLEMENTED_READ_ONLY",
+      "intake_phase_2": "PHASE_2A_INSTRUCTION_EXPORT_DONE_PHASE_2B_NATIVE_OPEN",
+      "intake_phase_2b": "SHADOW_SCENE_ONLY_NEW_ZIP_NATIVE_NOT_WIRED",
+      "intake_phase_2c": "LAB_NATIVE_BRIDGE_INSTALLED_PENDING_FIRST_DYNAMIC_ATTEMPT_AND_PORTRAIT_SUPPORT",
+      "progress_monitor": "PHASE2D_8_STAGE_CONSOLE_AND_READONLY_BATCH_STATUS_LAB_ONLY",
+      "resolution": "Phase 2A: server-issued canonical versioned Intake instruction package, private client folder, Make/Launcher menu and read-only input scan. Phase 2B: explicit reviewed ZIP -> dynamic job adapter -> one canonical Studio renderer and guarded native attempt.",
       "status": "OPEN_GENERALIZATION",
       "title": "Four accepted profiles pinned in historical source adapter",
-      "verification": "No arbitrary future job source support claimed for v1."
+      "verification": "Phase2C installs guarded single-use DEFAULT_ASSET-only dynamic native path. Must verify first new dynamic attempt and source-bound publication. Portrait transport and independent intake review not certified. No production."
     },
     {
       "category": "Operations",
@@ -296,5 +380,22 @@
     "renderer": "scripts/graphic_design_lab/greeting_cards/illustrator_studio_renderer_v1.jsx"
   },
   "status": "CANONICAL_STUDIO_V1_NATIVE_VERIFIED_LAB_VISUAL_ISSUES_OPEN",
+  "studio_progress_monitor_v1": {
+    "automatic_queue": false,
+    "automatic_retry": false,
+    "batch_status": "READ_ONLY",
+    "heartbeat": "EACH_EXISTING_WINDOWS_POLL_NO_NEW_POLL",
+    "milestones": 8,
+    "native_attempts_started_by_monitor": 0,
+    "native_visual_approval": false,
+    "phase": "PHASE_2D_OPERATOR_PROGRESS_AND_READONLY_BATCH_STATUS",
+    "presentation_ref": "scripts/graphic_design_lab/greeting_cards/illustrator_studio_progress_v1.py",
+    "producer_ref": "scripts/graphic_design_lab/greeting_cards/illustrator_studio_intake_dynamic_native_v1.py",
+    "production_ready": false,
+    "ready_gate": "GC47S_NATIVE_FILE_VERIFICATION_PLUS_SHA256_LINEAGE",
+    "schema_version": "forprint_illustrator_studio_progress_monitor_v1",
+    "source_mode": "NATIVE_RECEIPTS_AND_VERIFIED_CLIENT_OUTPUT_ONLY",
+    "tmp_runtime_dependency": false
+  },
   "title": "ForPrint Illustrator Studio — технічний паспорт і єдиний реєстр проблем"
 }

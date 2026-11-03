@@ -315,3 +315,95 @@ gdl-studio-passport:
 gdl-studio-passport-export:
 	$(GDL_STUDIO_PY) -B $(GDL_STUDIO_CLI) --mode passport-export
 # FORPRINT_ILLUSTRATOR_STUDIO_V1_END
+
+# FORPRINT_STUDIO_INTAKE_V1_BEGIN
+# Phase 1: read-only archive classification. NEVER starts native Illustrator.
+GDL_STUDIO_INTAKE_AUDIT := scripts/graphic_design_lab/greeting_cards/illustrator_studio_intake_audit_v1.py
+.PHONY: gdl-studio-intake-test gdl-studio-intake-audit gdl-studio-intake-scan gdl-studio-intake-client-scan
+
+gdl-studio-intake-test:
+	.venv_gdl/bin/python -B tests/graphic_design_lab/test_illustrator_studio_intake_audit_v1.py
+
+gdl-studio-intake-audit:
+	@test -n "$(INTAKE_ZIP)" || (echo "INTAKE_ZIP=... required"; exit 2)
+	.venv_gdl/bin/python -B $(GDL_STUDIO_INTAKE_AUDIT) --file "$(INTAKE_ZIP)"
+
+gdl-studio-intake-scan:
+	@test -n "$(INTAKE_DIR)" || (echo "INTAKE_DIR=... required"; exit 2)
+	.venv_gdl/bin/python -B $(GDL_STUDIO_INTAKE_AUDIT) --input-dir "$(INTAKE_DIR)"
+
+gdl-studio-intake-client-scan:
+	@test -n "$(CLIENT_NAME)" || (echo "CLIENT_NAME=... required"; exit 2)
+	.venv_gdl/bin/python -B $(GDL_STUDIO_INTAKE_AUDIT) --client-name "$(CLIENT_NAME)"
+# FORPRINT_STUDIO_INTAKE_V1_END
+
+# FORPRINT_STUDIO_INTAKE_INSTRUCTION_V1_BEGIN
+# One versioned recipe; private client output; no Illustrator and no new-job launch.
+GDL_STUDIO_INTAKE_INSTRUCTION := scripts/graphic_design_lab/greeting_cards/illustrator_studio_intake_instruction_v1.py
+.PHONY: gdl-studio-intake-instruction-test gdl-studio-intake-instruction-check gdl-studio-intake-instruction-list gdl-studio-intake-instruction-generate gdl-studio-intake-instruction-verify
+
+gdl-studio-intake-instruction-test:
+	.venv_gdl/bin/python -B tests/graphic_design_lab/test_illustrator_studio_intake_instruction_v1.py
+
+gdl-studio-intake-instruction-check:
+	.venv_gdl/bin/python -B $(GDL_STUDIO_INTAKE_INSTRUCTION) --mode check
+
+gdl-studio-intake-instruction-list:
+	.venv_gdl/bin/python -B $(GDL_STUDIO_INTAKE_INSTRUCTION) --mode list
+
+gdl-studio-intake-instruction-generate:
+	@test -n "$(CLIENT_NAME)" || (echo "CLIENT_NAME required"; exit 2)
+	.venv_gdl/bin/python -B $(GDL_STUDIO_INTAKE_INSTRUCTION) --mode generate --client-name "$(CLIENT_NAME)" $(if $(RECIPE),--recipe "$(RECIPE)",)
+
+gdl-studio-intake-instruction-verify:
+	@test -n "$(CLIENT_NAME)" || (echo "CLIENT_NAME required"; exit 2)
+	.venv_gdl/bin/python -B $(GDL_STUDIO_INTAKE_INSTRUCTION) --mode verify-client --client-name "$(CLIENT_NAME)"
+# FORPRINT_STUDIO_INTAKE_INSTRUCTION_V1_END
+
+# FORPRINT_STUDIO_DYNAMIC_SOURCE_SHADOW_V1_BEGIN
+# Explicit ZIP selection; source-bound 4-page scene shadow; no native attempt.
+GDL_STUDIO_DYNAMIC_SHADOW := scripts/graphic_design_lab/greeting_cards/illustrator_studio_intake_dynamic_preflight_v1.py
+.PHONY: gdl-studio-intake-shadow-test gdl-studio-intake-shadow-check
+gdl-studio-intake-shadow-test:
+	.venv_gdl/bin/python -B tests/graphic_design_lab/test_illustrator_studio_intake_dynamic_preflight_v1.py
+gdl-studio-intake-shadow-check:
+	@test -n "$(CLIENT_NAME)" -a -n "$(ZIP_NAME)" || (echo "CLIENT_NAME and ZIP_NAME required"; exit 2)
+	.venv_gdl/bin/python -B $(GDL_STUDIO_DYNAMIC_SHADOW) --client-name "$(CLIENT_NAME)" --zip-name "$(ZIP_NAME)"
+# FORPRINT_STUDIO_DYNAMIC_SOURCE_SHADOW_V1_END
+
+# FORPRINT_STUDIO_DYNAMIC_NATIVE_LAB_V1_BEGIN
+GDL_STUDIO_DYNAMIC_NATIVE := scripts/graphic_design_lab/greeting_cards/illustrator_studio_intake_dynamic_native_v1.py
+.PHONY: gdl-studio-intake-native-test gdl-studio-intake-native-plan gdl-studio-intake-native-pilot gdl-studio-intake-native-claim-status gdl-studio-intake-native-status gdl-studio-intake-native-collect
+gdl-studio-intake-native-test:
+	.venv_gdl/bin/python -B tests/graphic_design_lab/test_illustrator_studio_intake_dynamic_native_v1.py
+
+gdl-studio-intake-native-plan:
+	@test -n "$(CLIENT_NAME)" -a -n "$(ZIP_NAME)" -a -n "$(JOB_ID)" || (echo "CLIENT_NAME ZIP_NAME JOB_ID required"; exit 2)
+	.venv_gdl/bin/python -B $(GDL_STUDIO_DYNAMIC_NATIVE) --mode plan --client-name "$(CLIENT_NAME)" --zip-name "$(ZIP_NAME)" --job-id "$(JOB_ID)"
+
+gdl-studio-intake-native-pilot:
+	@test -n "$(CLIENT_NAME)" -a -n "$(ZIP_NAME)" -a -n "$(JOB_ID)" || (echo "CLIENT_NAME ZIP_NAME JOB_ID required"; exit 2)
+	.venv_gdl/bin/python -B $(GDL_STUDIO_DYNAMIC_NATIVE) --mode pilot --client-name "$(CLIENT_NAME)" --zip-name "$(ZIP_NAME)" --job-id "$(JOB_ID)"
+
+gdl-studio-intake-native-claim-status:
+	@test -n "$(CLIENT_NAME)" -a -n "$(ZIP_NAME)" -a -n "$(JOB_ID)" || (echo "CLIENT_NAME ZIP_NAME JOB_ID required"; exit 2)
+	.venv_gdl/bin/python -B $(GDL_STUDIO_DYNAMIC_NATIVE) --mode claim-status --client-name "$(CLIENT_NAME)" --zip-name "$(ZIP_NAME)" --job-id "$(JOB_ID)"
+
+gdl-studio-intake-native-status:
+	@test -n "$(CLIENT_NAME)" -a -n "$(ZIP_NAME)" -a -n "$(JOB_ID)" -a -n "$(ATTEMPT_ID)" || (echo "CLIENT_NAME ZIP_NAME JOB_ID ATTEMPT_ID required"; exit 2)
+	.venv_gdl/bin/python -B $(GDL_STUDIO_DYNAMIC_NATIVE) --mode status --client-name "$(CLIENT_NAME)" --zip-name "$(ZIP_NAME)" --job-id "$(JOB_ID)" --attempt-id "$(ATTEMPT_ID)"
+
+gdl-studio-intake-native-collect:
+	@test -n "$(CLIENT_NAME)" -a -n "$(ZIP_NAME)" -a -n "$(JOB_ID)" -a -n "$(ATTEMPT_ID)" || (echo "CLIENT_NAME ZIP_NAME JOB_ID ATTEMPT_ID required"; exit 2)
+	.venv_gdl/bin/python -B $(GDL_STUDIO_DYNAMIC_NATIVE) --mode collect --client-name "$(CLIENT_NAME)" --zip-name "$(ZIP_NAME)" --job-id "$(JOB_ID)" --attempt-id "$(ATTEMPT_ID)"
+# FORPRINT_STUDIO_DYNAMIC_NATIVE_LAB_V1_END
+
+# FORPRINT_STUDIO_PROGRESS_V1_BEGIN
+.PHONY: gdl-studio-progress-test gdl-studio-intake-batch-status
+gdl-studio-progress-test:
+	.venv_gdl/bin/python -B tests/graphic_design_lab/test_illustrator_studio_progress_v1.py
+
+gdl-studio-intake-batch-status:
+	@test -n "$(CLIENT_NAME)" -a -n "$(ZIP_NAME)" || (echo "CLIENT_NAME ZIP_NAME required"; exit 2)
+	.venv_gdl/bin/python -B scripts/graphic_design_lab/greeting_cards/illustrator_studio_intake_dynamic_native_v1.py --mode batch-status --client-name "$(CLIENT_NAME)" --zip-name "$(ZIP_NAME)"
+# FORPRINT_STUDIO_PROGRESS_V1_END

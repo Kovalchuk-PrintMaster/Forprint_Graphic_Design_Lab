@@ -9,6 +9,7 @@ transformers are involved in native JSX generation. LAB ONLY, fail closed.
 from __future__ import annotations
 import argparse, base64, hashlib, importlib.util, json, os, re, stat, sys, tempfile, time
 from pathlib import Path
+import subprocess
 
 ROOT=Path(__file__).resolve().parents[3]
 SRC=ROOT/'scripts/graphic_design_lab/greeting_cards'
@@ -286,11 +287,68 @@ def interactive(client):
         print('\n1. Джерела / план (без Illustrator)')
         print('2. Створити листівку (один native-запуск)')
         print('3. Технічний паспорт')
+        # STUDIO_INTAKE_INSTRUCTION_MENU_V1_BEGIN
+        print('4. Згенерувати ZIP-інструкцію для Intake (без Illustrator)')
+        print('5. Перевірити ZIP у клієнтському input (без Illustrator)')
+        # STUDIO_INTAKE_INSTRUCTION_MENU_V1_END
+        # STUDIO_DYNAMIC_SOURCE_SHADOW_MENU_V1_BEGIN
+        print('6. Попередня перевірка нового Intake ZIP (один JSX, без Illustrator)')
+        # STUDIO_DYNAMIC_SOURCE_SHADOW_MENU_V1_END
+        # STUDIO_DYNAMIC_NATIVE_LAB_MENU_V1_BEGIN
+        print('7. Один лабораторний native-запуск нового Intake ZIP (тільки DEFAULT_ASSET)')
+        # STUDIO_DYNAMIC_NATIVE_LAB_MENU_V1_END
+        # STUDIO_PROGRESS_MENU_V1_BEGIN
+        print('8. Прогрес усіх листівок у Intake ZIP (без Illustrator)')
+        # STUDIO_PROGRESS_MENU_V1_END
         print('0. Вийти')
         choice=input('Дія: ').strip()
+        # STUDIO_DYNAMIC_SOURCE_SHADOW_ACTIONS_V1_BEGIN
+        if choice=='6':
+            file_name=input('Точна назва Handoff ZIP з клієнтської папки input: ').strip()
+            if not file_name:print('Скасовано.');continue
+            code=subprocess.run([sys.executable,'-B',str(SRC/'illustrator_studio_intake_dynamic_preflight_v1.py'),
+                                 '--client-name',client,'--zip-name',file_name],check=False).returncode
+            if code:print('Новий пакет потребує доопрацювання / перевірки; код:',code)
+            continue
+        # STUDIO_DYNAMIC_SOURCE_SHADOW_ACTIONS_V1_END
+        # STUDIO_DYNAMIC_NATIVE_LAB_ACTIONS_V1_BEGIN
+        if choice=='7':
+            z=input('Назва прийнятого Handoff ZIP у input: ').strip()
+            j=input('Точний job_id з Handoff: ').strip()
+            if not z or not j:print('Скасовано.');continue
+            args=[sys.executable,'-B',str(SRC/'illustrator_studio_intake_dynamic_native_v1.py'),
+                  '--client-name',client,'--zip-name',z,'--job-id',j]
+            code=subprocess.run([*args,'--mode','plan'],check=False).returncode
+            if code:print('Native-пілот заблокований; перевір план.');continue
+            print('Виконається одна native-спроба після окремого точного підтвердження.')
+            code=subprocess.run([*args,'--mode','pilot'],check=False).returncode
+            if code:print('Пілот не завершено; не повторюй команду. Перевір claim/status. Код:',code)
+            continue
+        # STUDIO_DYNAMIC_NATIVE_LAB_ACTIONS_V1_END
+        # STUDIO_PROGRESS_ACTIONS_V1_BEGIN
+        if choice=='8':
+            z=input('Назва прийнятого Handoff ZIP у input: ').strip()
+            if not z:print('Скасовано.');continue
+            argv=[sys.executable,'-B',str(SRC/'illustrator_studio_intake_dynamic_native_v1.py'),
+                  '--mode','batch-status','--client-name',client,'--zip-name',z]
+            subprocess.run(argv,check=False)
+            continue
+        # STUDIO_PROGRESS_ACTIONS_V1_END
         if choice=='0':return 0
         if choice=='1':inspect(client,False);continue
         if choice=='3':passport_summary();continue
+        # STUDIO_INTAKE_INSTRUCTION_ACTIONS_V1_BEGIN
+        if choice=='4':
+            code=subprocess.run([sys.executable,'-B',str(SRC/'illustrator_studio_intake_instruction_v1.py'),
+                                 '--mode','generate','--client-name',client],check=False).returncode
+            if code:print('Генерацію заблоковано; причина в журналі вище. Код:',code)
+            continue
+        if choice=='5':
+            code=subprocess.run([sys.executable,'-B',str(SRC/'illustrator_studio_intake_audit_v1.py'),
+                                 '--client-name',client],check=False).returncode
+            if code:print('Аудит не завершено; причина в журналі вище. Код:',code)
+            continue
+        # STUDIO_INTAKE_INSTRUCTION_ACTIONS_V1_END
         if choice!='2':print('Невідома дія');continue
         for i,j in enumerate(JOBS,1):print(str(i)+'. '+j)
         num=input('Номер профілю, або 0: ').strip()

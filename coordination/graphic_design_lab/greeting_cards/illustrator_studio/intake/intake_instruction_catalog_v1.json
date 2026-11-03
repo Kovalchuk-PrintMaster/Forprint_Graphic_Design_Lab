@@ -1,0 +1,81 @@
+{
+  "client_package_dir": "_forprint_automation/intake_instruction",
+  "native_dispatch": false,
+  "production_ready": false,
+  "recipes": [
+    {
+      "content": [
+        {
+          "package_path": "00_START_HERE_UA.md",
+          "sha256": "81db9a029b7ac9fbc2ca50c5ff26c43b6f8e49a21387078b7d8746baea25e0d3",
+          "source": "00_START_HERE_UA.md"
+        },
+        {
+          "package_path": "INTAKE_OPERATOR_PROMPT_UA_v1.md",
+          "sha256": "cb06f2dccbf8116f0d4d505e22f99ec12e8d6cc2fc0c54c13225d948df2edac9",
+          "source": "INTAKE_OPERATOR_PROMPT_UA_v1.md"
+        },
+        {
+          "package_path": "reference_contracts/accepted_constructor_bundle_contract_v0_1.yaml",
+          "sha256": "be4a2f1a9c16c59c0dda14c012503aee4b1af86225c8535b90143ac7fc6571d8",
+          "source": "reference_contracts/accepted_constructor_bundle_contract_v0_1.yaml"
+        },
+        {
+          "package_path": "reference_contracts/builder_v1_input_extension_contract_v0_1.yaml",
+          "sha256": "4bb63a05cc503e8b5d75f7cfe16bd4177abcb8f5dc179f1493fe47f4018d98d6",
+          "source": "reference_contracts/builder_v1_input_extension_contract_v0_1.yaml"
+        },
+        {
+          "package_path": "reference_contracts/creator_correction_contract_v0_1.yaml",
+          "sha256": "b8b1fecc638994ac759cfd52f1e5516cc9d80e9dd5cbf90cceb68e6a96748c14",
+          "source": "reference_contracts/creator_correction_contract_v0_1.yaml"
+        },
+        {
+          "package_path": "reference_contracts/creator_portrait_task_contract_v0_1.yaml",
+          "sha256": "15bea92f77bae6b0d0f8d40c1be0c59ca03200bc23ed40ea30202da953a7f5ed",
+          "source": "reference_contracts/creator_portrait_task_contract_v0_1.yaml"
+        },
+        {
+          "package_path": "reference_contracts/creator_review_contract_v0_1.yaml",
+          "sha256": "9f1556b5afb6a192b60b0524cd123767e01880d38a3551419fa43732b6f4a407",
+          "source": "reference_contracts/creator_review_contract_v0_1.yaml"
+        },
+        {
+          "package_path": "reference_contracts/intake_handoff_transport_contract_v0_1.yaml",
+          "sha256": "78c5a4d1286e04f29b741bf6f4fcb18e9dd63f909e0d21f3657be837561a8414",
+          "source": "reference_contracts/intake_handoff_transport_contract_v0_1.yaml"
+        },
+        {
+          "package_path": "intake_interface_contract_v1.json",
+          "sha256": "ddf5a1effc1246f2bf214ec3bf9848fe76eb0e54152eb04155c043c68b53a5c7",
+          "source": "intake_interface_contract_v1.json"
+        },
+        {
+          "package_path": "reference_contracts/intake_package_contract_v0_2.yaml",
+          "sha256": "e8dcb888ed2627f3d28834eebdb8368daae6e762af1d5529e05757142be337de",
+          "source": "reference_contracts/intake_package_contract_v0_2.yaml"
+        },
+        {
+          "package_path": "reference_contracts/normalized_batch_contract_v0_1.yaml",
+          "sha256": "0ed9405117813f6c93a087b14110413993cdc00d676402f1dcc56871e838c176",
+          "source": "reference_contracts/normalized_batch_contract_v0_1.yaml"
+        },
+        {
+          "package_path": "reference_contracts/private_resource_manifest_contract_v0_1.yaml",
+          "sha256": "ffe4587d2bba65af2a0b9e93217aec1984c1b9d5465d55ecc499b005c4ea4301",
+          "source": "reference_contracts/private_resource_manifest_contract_v0_1.yaml"
+        },
+        {
+          "package_path": "reference_contracts/signature_variant_catalog_v0_1.yaml",
+          "sha256": "a95ed2fad8a573e3e1631088a15656fb96f2021e3da9e08fff2414a69c0712be",
+          "source": "reference_contracts/signature_variant_catalog_v0_1.yaml"
+        }
+      ],
+      "recipe_id": "greeting_card",
+      "status": "ACTIVE",
+      "version": "1.0.0"
+    }
+  ],
+  "rule": "VERSION_AND_SHA_PINNED_IMMUTABLE_RECIPE_ONLY_ONE_ACTIVE",
+  "schema_version": "forprint_studio_intake_instruction_catalog_v1"
+}

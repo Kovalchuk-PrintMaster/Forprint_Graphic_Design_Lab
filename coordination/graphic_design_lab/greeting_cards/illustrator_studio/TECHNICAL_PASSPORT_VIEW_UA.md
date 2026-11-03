@@ -109,8 +109,8 @@
 
 - Статус: `OPEN_GENERALIZATION`
 - Причина: GC47BM/GC47BC accept current four jobs with frozen source hashes; new orders require a separate intake contract.
-- Рішення: Extend intake adapter to accept new job IDs with validated archive, without modifying renderer or design config.
-- Перевірка: No arbitrary future job source support claimed for v1.
+- Рішення: Phase 2A: server-issued canonical versioned Intake instruction package, private client folder, Make/Launcher menu and read-only input scan. Phase 2B: explicit reviewed ZIP -> dynamic job adapter -> one canonical Studio renderer and guarded native attempt.
+- Перевірка: Phase2C installs guarded single-use DEFAULT_ASSET-only dynamic native path. Must verify first new dynamic attempt and source-bound publication. Portrait transport and independent intake review not certified. No production.
 
 ### STUDIO-RESTORE-005 — Clean restore / independent deployment not verified
 
