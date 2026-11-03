@@ -1,0 +1,96 @@
+{
+  "schema_version": "forprint_illustrator_studio_design_v1",
+  "renderer": "ILLUSTRATOR_NATIVE_ONE_RENDERER_ALL_PROFILES",
+  "design_family": "GREETING_CARD_4P",
+  "page_mm": [
+    214,
+    301
+  ],
+  "gap_mm": 18,
+  "shared_design_release_id": "efa4ab376797978c52835f5e14e228789c0951763cf2ac72462c670fd82eec83",
+  "allowed_profiles": [
+    "gdl_gc_zap_20261011",
+    "gdl_gc_apa_20261011",
+    "gdl_gc_deg_20261011",
+    "gdl_gc_bas_20261011"
+  ],
+  "p01": {
+    "title_font": "MonotypeCorsiva",
+    "title_font_pt": 52,
+    "title_color_hex": 6306067
+  },
+  "p03": {
+    "photo_clip_mm": [
+      11,
+      20.854,
+      203,
+      280.1457
+    ],
+    "frame_asset_policy": "SHARED_RELEASE_FIXED_ROLE_P03_FRAME",
+    "note": "LEGACY_FRAME_VISUAL_ISSUE_OPEN"
+  },
+  "p04": {
+    "font_name": "ZapfChanceryC",
+    "text_color_hex": 1446414,
+    "text_box_mm": [
+      32,
+      32,
+      150,
+      180
+    ],
+    "short_tiers_pt": [
+      18.5,
+      17,
+      16,
+      15,
+      14.5,
+      14,
+      13.5,
+      13,
+      12.5
+    ],
+    "long_tiers_pt": [
+      16,
+      15,
+      14.5,
+      14,
+      13.5,
+      13,
+      12.5
+    ],
+    "long_text_threshold": 760,
+    "max_chars": 1100,
+    "leading_ratio": 1.1428571428571428,
+    "spare_lines": 2,
+    "height_margin_mm": 0.5
+  },
+  "sender": {
+    "left_x_mm": 32,
+    "baselines_mm": [
+      227,
+      235,
+      243,
+      251
+    ],
+    "font_sizes_pt": [
+      12,
+      15,
+      12,
+      12
+    ],
+    "text_color_hex": 1446414,
+    "note": "CURRENT_NATIVE_LAYOUT_SENDER_AND_SIGNATURE_OVERLAP_OPEN"
+  },
+  "signature": {
+    "placement": "SOURCE_BOUND_SCENE_BBOX",
+    "note": "NEEDS_SEPARATE_SENDER_COLLISION_GUARD"
+  },
+  "policy": {
+    "production_ready": false,
+    "visual_approved": false,
+    "automatic_retry": false,
+    "automatic_queue": false,
+    "native_backend": "GC47T_VERIFIED_TRANSPORT",
+    "tmp_runtime_dependency": false
+  }
+}

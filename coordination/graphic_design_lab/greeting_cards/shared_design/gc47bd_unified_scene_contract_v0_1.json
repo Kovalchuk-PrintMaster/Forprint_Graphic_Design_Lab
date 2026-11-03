@@ -1,0 +1,72 @@
+{
+  "common_roles": {
+    "P01.FRAME": "p01_frame.png",
+    "P01.PAPER": "p01_paper.png",
+    "P01.SENDER_LOGO": "p01_logo.png",
+    "P02.LOCKED_BASE": "p02_locked.png",
+    "P02.WATERMARK": "p02_watermark.png",
+    "P03.FLOWERS": "p03_flowers.png",
+    "P03.FRAME": "p03_frame.png",
+    "P03.PAPER": "p03_paper.png",
+    "P04.FRAME": "p04_frame.png",
+    "P04.PAPER": "p04_paper.png",
+    "P04.WATERMARK": "p04_watermark.png"
+  },
+  "front_logo_bboxes_mm": {
+    "RECIPIENT_BRANDING_OVERLAY": [
+      69,
+      39,
+      145,
+      115
+    ],
+    "STANDARD": [
+      64.5,
+      59.5,
+      149.5,
+      144.5
+    ]
+  },
+  "future_variants_blocked": [
+    "JUBILEE",
+    "PORTRAIT",
+    "BILINGUAL_OCCASION",
+    "DUAL_GRIGO_HERASYMENKO"
+  ],
+  "governance": {
+    "activation_requires_visual_parity": true,
+    "historical_attempts_pin_release_id": true,
+    "new_jobs_resolve_explicit_active_release": true,
+    "no_automated_native_or_queue": true,
+    "no_clients_as_canonical_asset_authority": true,
+    "no_implicit_release_change": true,
+    "shared_assets_editable_only_via_new_immutable_release": true
+  },
+  "page_mm": [
+    214,
+    301
+  ],
+  "physical_pages": 4,
+  "production_ready": false,
+  "recipient_brand_bbox_mm": [
+    26,
+    134,
+    188,
+    191
+  ],
+  "runtime_activation": false,
+  "schema": "gdl_gc47bd_unified_scene_contract_v0_1",
+  "signature_sources": {
+    "GRIGO": "p04_grigo_signature.svg",
+    "HERASYMENKO": "p04_herasymenko_signature.png"
+  },
+  "variable_fields": [
+    "P01.occasion_kind",
+    "P01.occasion_text",
+    "P01.recipient_logo_optional",
+    "P01.sender_logo_placement_by_family",
+    "P03.photo_or_default_image",
+    "P04.greeting_text",
+    "P04.sender_lines",
+    "P04.signature_variant"
+  ]
+}

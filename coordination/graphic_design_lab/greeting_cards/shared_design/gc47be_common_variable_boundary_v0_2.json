@@ -1,0 +1,17 @@
+{
+  "schema": "gdl_gc47be_common_variable_boundary_v0_2",
+  "status": "CANDIDATE_NON_ACTIVE",
+  "physical_pages": 4,
+  "page_mm": [214, 301],
+  "fixed_roles": ["P01.PAPER", "P01.FRAME", "P01.SENDER_LOGO", "P02.LOCKED_BASE", "P02.WATERMARK", "P03.PAPER", "P03.FRAME", "P04.PAPER", "P04.WATERMARK", "P04.FRAME"],
+  "variable_slots": ["P01.OCCASION_TEXT", "P01.RECIPIENT_BRANDING", "P03.FLOWERS", "P04.GREETING", "P04.SENDER_LINES", "P04.SIGNATURE"],
+  "photo_role": "P03.FLOWERS",
+  "photo_default_asset": "p03_flowers.png",
+  "signature_variants": ["GRIGO", "HERASYMENKO"],
+  "front_logo_modes": ["STANDARD", "RECIPIENT_BRANDING_OVERLAY"],
+  "photo_source_policy": "VERIFIED_DEFAULT_OR_JOB_BOUND_SHA256_OVERRIDE",
+  "history_policy": "RELEASE_ID_AND_VARIABLE_SOURCE_SHA_PER_ATTEMPT",
+  "native_activation": false,
+  "queue_activation": false,
+  "production_ready": false
+}

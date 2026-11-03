@@ -280,3 +280,38 @@ gdl-launcher-acceptance-test:
 gdl-launcher-git-plan:
 	.venv_gdl/bin/python -B $(GC47AN_CLI) --mode plan --client-name "$(CLIENT_NAME)" --job "$(JOB)" --attempt "$(ATTEMPT)"
 # GC47AN_END
+
+# FORPRINT_ILLUSTRATOR_STUDIO_V1_BEGIN
+# One canonical Illustrator renderer, one design config, one passport.
+GDL_STUDIO_CLI := scripts/graphic_design_lab/greeting_cards/illustrator_studio_cli_v1.py
+GDL_STUDIO_PY := .venv_gdl/bin/python
+.PHONY: gdl-studio-check gdl-studio-test gdl-studio-plan gdl-studio-inspect gdl-studio-launch gdl-studio-status gdl-studio-passport gdl-studio-passport-export
+
+gdl-studio-check:
+	$(GDL_STUDIO_PY) -B $(GDL_STUDIO_CLI) --mode check
+
+gdl-studio-test:
+	$(GDL_STUDIO_PY) -B tests/graphic_design_lab/test_illustrator_studio_v1.py
+
+gdl-studio-plan:
+	@test -n "$(CLIENT_NAME)" || (echo "CLIENT_NAME required"; exit 2)
+	$(GDL_STUDIO_PY) -B $(GDL_STUDIO_CLI) --mode plan --client-name "$(CLIENT_NAME)"
+
+gdl-studio-inspect:
+	@test -n "$(CLIENT_NAME)" || (echo "CLIENT_NAME required"; exit 2)
+	$(GDL_STUDIO_PY) -B $(GDL_STUDIO_CLI) --mode inspect --client-name "$(CLIENT_NAME)"
+
+gdl-studio-launch:
+	@test -n "$(CLIENT_NAME)" -a -n "$(JOB)" -a "$(CONFIRM_NATIVE)" = YES || (echo "CLIENT_NAME JOB CONFIRM_NATIVE=YES required"; exit 2)
+	$(GDL_STUDIO_PY) -B $(GDL_STUDIO_CLI) --mode pilot --client-name "$(CLIENT_NAME)" --job-id "$(JOB)" --confirm-native-once --confirmation "ILLUSTRATOR_STUDIO_SINGLE_NATIVE $(JOB)"
+
+gdl-studio-status:
+	@test -n "$(CLIENT_NAME)" -a -n "$(JOB)" -a -n "$(ATTEMPT)" || (echo "CLIENT_NAME JOB ATTEMPT required"; exit 2)
+	$(GDL_STUDIO_PY) -B $(GDL_STUDIO_CLI) --mode status --client-name "$(CLIENT_NAME)" --job-id "$(JOB)" --attempt-id "$(ATTEMPT)"
+
+gdl-studio-passport:
+	$(GDL_STUDIO_PY) -B $(GDL_STUDIO_CLI) --mode passport
+
+gdl-studio-passport-export:
+	$(GDL_STUDIO_PY) -B $(GDL_STUDIO_CLI) --mode passport-export
+# FORPRINT_ILLUSTRATOR_STUDIO_V1_END
